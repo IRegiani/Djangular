@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+//import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-
-// import { AlertService, AuthenticationService } from '@/_services';
+//import { first } from 'rxjs/operators';
+//import {  AuthenticationService } from '@/_services';
 
 @Component({
   selector: 'app-login-page',
@@ -37,32 +36,25 @@ export class LoginPageComponent implements OnInit {
         // });
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = " ";
+        //this.returnUrl = " ";
     }
 
     // convenience getter for easy access to form fields
     // get f() { return this.loginForm.controls; }
 
-    onSubmit() {
-       // this.submitted = true;
-
-        // stop here if form is invalid
-        // if (this.loginForm.invalid) {
-        //    return;
-        // }
-
+    onclickLogin() {
         this.loading = true;
-        /*
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
-                */
+        console.log('Fazer login!!');
+        //validar campos
+        // - se existe senha
+        // - se existe usuário
+        //conectar ao service
+        // autenticar
+        // se sucesso, /router para home
+        // se falha, exibir erro [erro de usuário/senha]
+    }
+
+    onclickForgot() {
+        console.log("Esqueci a senha!");
     }
 }
