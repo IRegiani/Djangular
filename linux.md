@@ -1,3 +1,0 @@
-git add .
-oia
-testando
