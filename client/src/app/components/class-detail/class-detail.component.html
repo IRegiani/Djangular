@@ -1,0 +1,24 @@
+<header>
+  <h2>Turmas</h2>
+
+  <h3> <button (click)="goBack()">Voltar</button>
+    Lista de Presença</h3>
+
+</header>
+
+<body>
+  <ul>
+    <li *ngFor="let aluno of presente">
+      <div class="card">
+        <div class="header">
+          <h4><b> {{aluno.nome| uppercase}}</b></h4>
+        </div>
+        <div>
+          <b>Presença: </b>
+          <span [hidden]=aluno.presente [ngStyle]="{'color': 'red'}">Faltou</span>
+          <span [hidden]=!aluno.presente [ngStyle]="{'color': 'green'}">Presente</span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</body>

@@ -1,0 +1,41 @@
+<header>
+  <h3>Menu</h3>
+</header>
+
+<body>
+  <ng-template [ngIf]="admin" [ngIfElse]="blockstudent">
+      <ul>
+        <li>
+          <a routerLink="/teacher">
+            <button>Chamada</button>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/turma">
+            <button>Turmas</button>
+          </a>
+        </li>
+      </ul>
+    </ng-template>
+    <ng-template #blockstudent>
+      <ul>
+        <li>
+          <a routerLink="/chamada">
+            <button>Chamada</button>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/history">
+            <button>Histórico</button>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/calendar">
+            <button>
+              Calendário
+            </button>
+          </a>
+        </li>
+      </ul>
+    </ng-template>
+</body>

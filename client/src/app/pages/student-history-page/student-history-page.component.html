@@ -1,0 +1,24 @@
+<header>
+  <h2> Histórico </h2>
+  <ul>
+    <li>
+      <h4>  <a routerLink="/home/false"><button>Voltar</button></a> 
+        Faltas de {{user.nome}}</h4>
+    </li>
+  </ul>
+</header>
+
+<body>
+  <ul>
+    <li *ngFor="let c of cursoFalta">
+      <a routerLink='/detailFalta/{{c.id}}'>
+        <button>
+          <span class=s1>{{c.nomeCurso}} </span>
+          <div class="right">
+            Faltas: {{c.falta}}/{{c.totalFalta}}
+          </div>
+        </button>
+      </a>
+    </li>
+  </ul>
+</body>

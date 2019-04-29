@@ -1,0 +1,25 @@
+<header>
+  <h2> Calendário </h2>
+  <h4><a routerLink="/home/false"><button>Voltar</button></a>
+    Próximas Aulas
+  </h4>
+  <span class="data">{{myDate | date}}</span>
+</header>
+
+<body>
+
+  <ul>
+    <li *ngFor="let event of cursoCalendario">
+      <div class="card">
+        <div class="header">
+          <span><b>{{event.nomeCurso}}</b></span>
+          <span class="data">{{event.data|date}}</span>
+        </div>
+        <div>
+          <b>Horário: </b>
+          <span [ngStyle]="{'color': 'green'}">{{event.inicio}} - {{event.fim}}</span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</body>

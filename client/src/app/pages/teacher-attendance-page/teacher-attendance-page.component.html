@@ -1,0 +1,29 @@
+<header>
+  <h2> Chamada </h2>
+  <h4> <a routerLink="/home/true"><button>Voltar</button></a>
+    {{presencaCurso.nomeCurso}} </h4>
+  <span class="data">{{myDate | date}}</span>
+  <span class="hora">{{presencaCurso.inicio}} - {{presencaCurso.fim}}</span>
+</header>
+
+<body>
+  <form class="form-inline md-form form-sm active-cyan-2">
+    <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search" mdbInput>
+    <i class="fas fa-search" aria-hidden="true"></i>
+    <button class="buttonSearch">Buscar</button>
+  </form>
+
+  <ul>
+    <li *ngFor="let aluno of alunos">
+      <div class="card">
+        <div class="header">
+          <span><b>{{aluno.nome}}</b></span>
+        </div>
+        <div class="body">
+          <button class="presente" [ngStyle]="{'color': 'green'}">Presente</button>
+          <button class="ausente" [ngStyle]="{'color': 'red'}">Ausente</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</body>

@@ -1,0 +1,29 @@
+<header>
+  <h2>{{nomeCurso}}</h2>
+  
+  <h3> <button (click)="goBack()">Voltar</button> 
+    Faltas: {{userFalta.length}}/10</h3>
+  
+</header>
+
+<body>
+  <ul>
+    <li *ngFor="let u of userFalta">
+      <div class="card">
+        <div class="header">
+          <h3><b>Dia: </b>{{u.data| date}}</h3>
+        </div>
+        <div>
+          <b>1º Chamada: </b>
+          <span [hidden]=u.aula1 [ngStyle]="{'color': 'red'}">Faltou</span>
+          <span [hidden]=!u.aula1 [ngStyle]="{'color': 'green'}">Presente</span>
+        </div>
+        <div>
+          <b>2º Chamada: </b>
+          <span [hidden]=u.aula2 [ngStyle]="{'color': 'red'}">Faltou</span>
+          <span [hidden]=!u.aula2 [ngStyle]="{'color': 'green'}">Presente</span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</body>
