@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-teacher-attendance-page',
   templateUrl: './teacher-attendance-page.component.html',
-  styleUrls: ['./teacher-attendance-page.component.scss']
+  styleUrls: ['./teacher-attendance-page.component.css']
 })
 export class TeacherAttendancePageComponent implements OnInit {
 

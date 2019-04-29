@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-student-history',
-  templateUrl: './student-history.component.html',
-  styleUrls: ['./student-history.component.scss']
+  templateUrl: './student-history-page.component.html',
+  styleUrls: ['./student-history-page.component.css']
 })
 export class StudentHistoryComponent implements OnInit {
 

@@ -3,30 +3,31 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CalendarPageComponent } from './calendar-page/calendar-page.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { RegisterPageComponent } from './register-page/register-page.component';
-import { ClassDetailComponent } from './class-detail/class-detail.component';
-import { HistoryDetailComponent } from './history-detail/history-detail.component';
-import { HomePageComponent } from './home-page/home-page.component';
-import { StudentAttendancePageComponent } from './student-attendance-page/student-attendance-page.component';
-import { StudentHistoryPageComponent } from './student-history-page/student-history-page.component';
-import { TeacherAttendancePageComponent } from './teacher-attendance-page/teacher-attendance-page.component';
-import { ManageClassesPageComponent } from './manage-classes-page/manage-classes-page.component';
+import { Routes, RouterModule } from '@angular/router';
+import { LoginPage } from './pages/login-page/login-page.component';
+import { HistoryDetailComponent } from './components/history-detail/history-detail.component';
+import { StudentHistoryComponent } from './pages/student-history-page/student-history-page.component';
+import { CalendarComponent } from './pages/calendar-page/calendar-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { StudentAttendancePageComponent } from './pages/student-attendance-page/student-attendance-page.component';
+import { TeacherAttendancePageComponent } from './pages/teacher-attendance-page/teacher-attendance-page.component';
+import { ManageClassesComponent } from './pages/manage-classes-page/manage-classes-page.component';
+import { ClassDetailComponent } from './components/class-detail/class-detail.component';
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarPageComponent,
-    LoginPageComponent,
+    CalendarComponent,
+    LoginPage,
     RegisterPageComponent,
     ClassDetailComponent,
     HistoryDetailComponent,
     HomePageComponent,
     StudentAttendancePageComponent,
-    StudentHistoryPageComponent,
+    StudentHistoryComponent,
     TeacherAttendancePageComponent,
-    ManageClassesPageComponent
+    ManageClassesComponent
   ],
   imports: [
     BrowserModule,

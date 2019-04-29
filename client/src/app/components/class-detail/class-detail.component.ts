@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-class-detail',
   templateUrl: './class-detail.component.html',
-  styleUrls: ['./class-detail.component.sass']
+  styleUrls: ['./class-detail.component.css']
 })
 export class ClassDetailComponent implements OnInit {
   /** DATABASE */

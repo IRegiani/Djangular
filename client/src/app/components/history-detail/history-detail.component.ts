@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-history-detail',
   templateUrl: './history-detail.component.html',
-  styleUrls: ['./history-detail.component.sass']
+  styleUrls: ['./history-detail.component.css']
 })
 export class HistoryDetailComponent implements OnInit {
   /**DATABASE */

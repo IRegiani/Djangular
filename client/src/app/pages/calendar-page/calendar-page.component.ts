@@ -1,25 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
-@Component({
-  selector: 'app-calendar-page',
-  templateUrl: './calendar-page.component.html',
-  styleUrls: ['./calendar-page.component.css']
-})
-export class CalendarPageComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
-import { Component, OnInit } from '@angular/core';
 import { element } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']
+  templateUrl: './calendar-page.component.html',
+  styleUrls: ['./calendar-page.component.css']
 })
 export class CalendarComponent implements OnInit {
   /** DATABASE */

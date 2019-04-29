@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-manage-classes',
-  templateUrl: './manage-classes.component.html',
-  styleUrls: ['./manage-classes.component.scss']
+  templateUrl: './manage-classes-page.component.html',
+  styleUrls: ['./manage-classes-page.component.css']
 })
 export class ManageClassesComponent implements OnInit {
   /** DATABASE */
