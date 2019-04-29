@@ -14,7 +14,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home/:adm',
     pathMatch: 'full',
   },
   { path: 'login', component: LoginPage },

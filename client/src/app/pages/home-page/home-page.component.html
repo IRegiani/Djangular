@@ -1,41 +1,39 @@
-<header>
-  <h3>Menu</h3>
-</header>
+<html>
+
+<div class="logo" id="logo">
+  <img src='../../../assets/imgs/logo.png'>
+</div>
 
 <body>
   <ng-template [ngIf]="admin" [ngIfElse]="blockstudent">
-      <ul>
-        <li>
-          <a routerLink="/teacher">
-            <button>Chamada</button>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/turma">
-            <button>Turmas</button>
-          </a>
-        </li>
-      </ul>
-    </ng-template>
-    <ng-template #blockstudent>
-      <ul>
-        <li>
-          <a routerLink="/chamada">
-            <button>Chamada</button>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/history">
-            <button>Histórico</button>
-          </a>
-        </li>
-        <li>
-          <a routerLink="/calendar">
-            <button>
-              Calendário
-            </button>
-          </a>
-        </li>
-      </ul>
-    </ng-template>
+      <a routerLink="/teacher">
+        <div class="cha" id="cha">
+          <button type="button" class="btn btn-primary">Chamada</button>
+        </div>
+      </a>
+      <a routerLink="/turma">
+        <div class="tur" id="tur">
+          <button type="button" class="btn btn-primary">Chamada</button>
+        </div>
+      </a>
+  </ng-template>
+  <ng-template #blockstudent>
+      <a routerLink="/chamada">
+        <div class="cha" id="cha">
+          <button type="button" class="btn btn-primary">Chamada</button>
+        </div>
+      </a>
+      <a routerLink="/history">
+        <div class="hist" id="hist">
+          <button type="button" class="btn btn-primary">Historico</button>
+        </div>
+      </a>
+      <a routerLink="/calendar">
+        <div class="cale" id="cale">
+          <button type="button" class="btn btn-primary">Calendario</button>
+        </div>
+      </a>
+  </ng-template>
 </body>
+
+</html>

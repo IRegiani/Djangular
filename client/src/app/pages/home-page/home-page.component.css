@@ -1,4 +1,40 @@
-header {
+#logo {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* html {
+  background-color: lightskyblue;
+} */
+
+img {
+  width: 80%;
+  max-width: 400px;
+}
+
+#cha {
+  text-align: center;
+  padding: 30px;
+  margin-top: 50px;
+}
+
+#hist {
+  text-align: center;
+  padding: 30px;
+}
+
+#cale {
+  padding: 30px;
+  text-align: center;
+}
+
+.btn {
+  font-size: 30px;
+  width: 60%;
+  max-width: 70%;
+}
+
+/* header {
     h3 {
       text-align: center;
       margin: 0;
@@ -35,4 +71,4 @@ header {
       }
     }
   }
-  
+   */
