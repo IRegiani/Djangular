@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-student-history',
@@ -22,14 +23,18 @@ export class StudentHistoryComponent implements OnInit {
 
   /** LOCAL STORE */
   user = { id: "user123abc", nome: "Steve Magal", email: "magal@explosivo.com.br" };
+  nome = "TESTE";
 
 
-  constructor() { }
+  constructor(private location: Location) { }
 
   ngOnInit() {
     
   }
 
+  goBack(): void {
+    this.location.back();
+  }
   
 
 

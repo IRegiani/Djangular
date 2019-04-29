@@ -1,9 +1,10 @@
+
 <header>
   <h2> Histórico </h2>
   <ul>
     <li>
-      <h4>  <a routerLink="/home/false"><button>Voltar</button></a> 
-        Faltas de {{user.nome}}</h4>
+      <h3>  <button (click)="goBack()">Voltar</button> 
+        Faltas de {{user.nome}}</h3>
     </li>
   </ul>
 </header>
@@ -12,12 +13,32 @@
   <ul>
     <li *ngFor="let c of cursoFalta">
       <a routerLink='/detailFalta/{{c.id}}'>
-        <button>
-          <span class=s1>{{c.nomeCurso}} </span>
+        <div class="card">
+          <span class=s1> <b> {{c.nomeCurso}} </b> </span>
+          <!-- <h4><b> {{c.nomeCurso}} </b>{{u.data| date}}</h4> -->
+          <div>
+              <b>Faltas: </b>
+              <span [ngStyle]="{'color': 'red'}">{{c.falta}}/{{c.totalFalta}}</span>
+          </div>
+          <!-- <div class="right">
+            Faltas: {{c.falta}}/{{c.totalFalta}}
+          </div> -->
+
+          <!-- <div class="header">
+            <h4><b> {{c.nomeCurso}} </b>{{u.data| date}}</h4>
+          </div>
+          <div>
+            <b>Faltas: </b>
+            <span [ngStyle]="{'color': 'red'}">{{c.falta}}/{{c.totalFalta}}</span>
+          </div> -->
+        </div>
+
+        <!-- <button> -->
+          <!-- <span class=s1>{{c.nomeCurso}} </span>
           <div class="right">
             Faltas: {{c.falta}}/{{c.totalFalta}}
-          </div>
-        </button>
+          </div> -->
+        <!-- </button> -->
       </a>
     </li>
   </ul>
