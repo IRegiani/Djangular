@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ServiceService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-manage-classes',
@@ -29,7 +30,7 @@ export class ManageClassesComponent implements OnInit {
 
   listaCurso: Array<any> = [];
 
-  constructor() { }
+  constructor(private service: ServiceService) { }
 
   ngOnInit() {
     this.getData();
@@ -43,6 +44,10 @@ export class ManageClassesComponent implements OnInit {
         }
       });
     });
+  }
+
+  getCursos(): void{
+    this.service.getCursos().subscribe(cursos => this.listaCurso = cursos);
   }
 
 }
