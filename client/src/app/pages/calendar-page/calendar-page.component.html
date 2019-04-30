@@ -1,10 +1,30 @@
+
 <header>
-  <h2> Calendário </h2>
-  <h4><a routerLink="/home/false"><button>Voltar</button></a>
-    Próximas Aulas
-  </h4>
-  <span class="data">{{myDate | date}}</span>
-</header>
+    <h2> Calendário </h2>
+    <ul>
+      <li>
+        <h3>  <button (click)="goBack()">Voltar</button> 
+          Próximos Eventos</h3>
+          <span class="data">{{myDate | date}}</span>
+      </li>
+    </ul>
+  </header>
+  
+  <!-- <body>
+    <ul>
+      <li *ngFor="let c of cursoFalta">
+        <a routerLink='/detailFalta/{{c.id}}'>
+          <div class="card">
+            <span class=s1> <b> {{c.nomeCurso}} </b> </span>
+            <div>
+                <b>Faltas: </b>
+                <span [ngStyle]="{'color': 'red'}">{{c.falta}}/{{c.totalFalta}}</span>
+            </div>
+            </div>
+        </a>
+      </li>
+    </ul>
+  </body> -->
 
 <body>
 
@@ -13,7 +33,7 @@
       <div class="card">
         <div class="header">
           <span><b>{{event.nomeCurso}}</b></span>
-          <span class="data">{{event.data|date}}</span>
+          <span class="data"> {{event.data|date}}</span>
         </div>
         <div>
           <b>Horário: </b>
