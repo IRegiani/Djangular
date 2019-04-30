@@ -1,4 +1,39 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ServiceService {
+
+  // http options used for making API calls
+  private httpOptions: any;
+
+  private url = 'http://localhost:8000';
+
+  constructor(private http: HttpClient) {
+    this.httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+  }
+
+  getCursos(): Observable<any>{
+    return this.http.get(`${this.url}/serve/cursos`);
+  }
+
+}
+
+
+
+
+
+
+/*
+
+
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -38,4 +73,4 @@ export class AuthServiceService {
     return 'Admin';
   }
 
-}
+} */

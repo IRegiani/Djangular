@@ -1,38 +1,36 @@
-header {
-    h3 {
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      display: block;
-      color: #ffffff;
-      background-color: rgb(57, 86, 148);
-  
-    }
-  }
-  
-  body {
-    ul {
-  
-      margin: 0 auto;
-      padding: 0;
-      padding: 1em 5px 0 5px;
-      border-left: none;
-      border-right: none;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-  
-      li{
-          font-size: 2rem;
-      }
-  
-      button {
-        border: 1px solid #CCC;
-        box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.5);
-        margin-bottom: 1em;
-        width: 100%;
-        box-sizing: border-box;
-        cursor: pointer;
-        border-radius: 1em;
-      }
-    }
-  }
-  
+#logo {
+  text-align: center;
+  margin-top: 50px;
+}
+
+img {
+  width: 80%;
+  max-width: 400px;
+}
+
+#cha {
+  text-align: center;
+  padding: 30px;
+  margin-top: 50px;
+}
+
+#tur{
+  text-align: center;
+  padding: 30px;
+}
+
+#hist {
+  text-align: center;
+  padding: 30px;
+}
+
+#cale {
+  padding: 30px;
+  text-align: center;
+}
+
+.btn {
+  font-size: 30px;
+  width: 60%;
+  max-width: 70%;
+}
