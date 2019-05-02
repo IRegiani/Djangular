@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceService} from '../../services/auth.service';
+import { AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-manage-classes',
@@ -30,12 +30,14 @@ export class ManageClassesComponent implements OnInit {
 
   listaCurso: Array<any> = [];
 
-  constructor(private service: ServiceService) { }
+  constructor(private service: AuthService) { }
 
   ngOnInit() {
-    this.getData();
+    // this.getData();
+    this.getCursos();
   }
 
+  // STATIC TEST
   getData(): void{
     this.curso.forEach(element1 => {
       this.registro.forEach(element2 => {
@@ -46,8 +48,10 @@ export class ManageClassesComponent implements OnInit {
     });
   }
 
+  // Calls service to get "cursos"
   getCursos(): void{
-    this.service.getCursos().subscribe(cursos => this.listaCurso = cursos);
+    this.service.getCursos().subscribe(cursos =>
+       this.listaCurso = cursos);
   }
 
 }
