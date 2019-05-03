@@ -14,7 +14,24 @@
   </form>
 
   <ul>
-    <li *ngFor="let aula of aulasToday">
+    <li *ngFor="let aula of class_student; let i = index">
+        <expandable-list>
+            <expandable-list-item>
+              <span title>Aula {{i + 1}}</span>
+              <span secondary>{{aula[0].Assunto}}</span>
+              <!-- <li *ngFor="let aluno of turmasToday[i].Alunos"> -->
+                  <li *ngFor="let aluno of turmasToday[i].Alunos">
+                  <span><b>{{aluno}}</b></span>
+                  <button class="presente" [ngStyle]="{'color': 'green'}">Presente</button>
+                  <button class="ausente" [ngStyle]="{'color': 'red'}">Ausente</button>
+              </li>
+            </expandable-list-item>
+          </expandable-list>
+
+    </li>
+
+
+    <!-- <li *ngFor="let aula of aulasToday">
       <div class="card">
         <div class="header">
           <span><b>{{aula.Assunto}}</b></span>
@@ -24,6 +41,6 @@
           <button class="ausente" [ngStyle]="{'color': 'red'}">Ausente</button>
         </div>
       </div>
-    </li>
+    </li> -->
   </ul>
 </body>

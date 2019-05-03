@@ -48,6 +48,7 @@ export class TeacherAttendancePageComponent implements OnInit {
   listaAulas: Array<any> = [];
   aulasToday: Array<any> = [];
   turmasToday: Array<any> = [];
+  class_student: [any, Array<any>][] = [];
 
   constructor(private service: AuthService) {
 
@@ -133,6 +134,13 @@ export class TeacherAttendancePageComponent implements OnInit {
               }
             }
             console.log(JSON.stringify(this.turmasToday));
+
+            // Finally, add both values to the tuple
+            for (let aula of this.aulasToday){
+              var i = this.aulasToday.indexOf(aula);
+              this.class_student.push([aula, this.turmasToday[i]])
+            }
+            console.log(this.class_student);
           }
            );
       }
