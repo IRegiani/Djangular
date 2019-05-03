@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService} from '../../services/auth.service';
 import { IdSelectorService} from '../../services/id-selector.service';
-import { prepareProfile } from 'selenium-webdriver/firefox';
 
 @Component({
   selector: 'app-attendance-list',
@@ -24,17 +23,19 @@ export class AttendanceListComponent implements OnInit {
   }
 
   // --GENERAL METHODS--
-  updateStudentAttendance(studentId){
-    if (this.presenca[studentId] < 2) {
-      this.presenca[studentId] += 1;
+  updateStudentAttendance(studentId, pos){
+    if (this.presenca[pos] < 2) {
+      this.presenca[pos] += 1;
+
+
     } else {
       // Printar na tela que ele jah estah com presenca
     }
   }
 
-  cancelStudentAttendance(studentId){
-    if (this.presenca[studentId] > 0) {
-      this.presenca[studentId] -= 1;
+  cancelStudentAttendance(studentId, pos){
+    if (this.presenca[pos] > 0) {
+      this.presenca[pos] -= 1;
     } else {
       // Printar na tela que ele jah NAO estah com presenca
     }
@@ -49,7 +50,7 @@ export class AttendanceListComponent implements OnInit {
       (error) => {console.log("ERROR! --getAllAlunosDaAula")}, // error
       () => { // Once completed
         for (let alunosAula of auxLista){
-          if (alunosAula.Aulas.indexOf(aulaId) > -1){
+          if (alunosAula.Aulas == aulaId){
             auxAlunos.push(alunosAula.Pessoas);
             this.presenca.push(alunosAula.Contador);
             }

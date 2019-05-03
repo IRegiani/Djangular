@@ -70,26 +70,8 @@ export class AuthService {
   getAllAlunos(): Observable<any>{
     return this.http.get(`${this.url}/serve/pessoas`);
   }
+
+  postCurrentAttendance(){
+    
+  }
 } 
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class ServiceService {
-
-//   // http options used for making API calls
-//   private httpOptions: any;
-
-//   private url = 'http://localhost:8000';
-
-//   constructor(private http: HttpClient) {
-//     this.httpOptions = {
-//       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-//     };
-//   }
-
-//   getCursos(): Observable<any>{
-//     return this.http.get(`${this.url}/serve/cursos`);
-//   }
-
-// }

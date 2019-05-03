@@ -15,7 +15,7 @@ class Pessoa(models.Model):
     Email = models.CharField(max_length=50)
     Phone = models.CharField(max_length=14)
     Password = models.CharField(max_length=50)
-    UserType = models.IntegerField()
+    UserType = models.IntegerField(default=0)
     StartDate = models.DateField()
     EndDate = models.DateField()
     Ativo = models.BooleanField(default=False)
@@ -23,10 +23,10 @@ class Pessoa(models.Model):
         return "Pessoa: {}".format(self.Name)
 
 class Aula(models.Model):
-    Data = models.DateField()
     Assunto = models.TextField()
+    Data = models.DateField()
     def __str__(self):
-        return "Aula: {}".format(self.Data)
+        return "Aula: {}".format(self.Assunto)
 
 class Curso(models.Model):
     Name = models.CharField(max_length=50)
@@ -68,8 +68,8 @@ class ColaboradorTurma(models.Model):
 
 
 class PessoaAula(models.Model):
-    Contador = models.IntegerField()
+    Contador = models.IntegerField(default=0)
     Pessoas = models.ForeignKey(Pessoa, on_delete=models.CASCADE)
-    Aulas = models.ManyToManyField(Aula)
+    Aulas = models.ForeignKey(Aula, on_delete=models.CASCADE)
     def __str__(self):
         return "Pessoa {} na aula {} com presença {}".format(self.Pessoas, self.Aulas, self.Contador)
