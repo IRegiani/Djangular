@@ -14,10 +14,10 @@
   </form>
 
   <ul>
-    <li *ngFor="let aluno of alunos">
+    <li *ngFor="let aula of aulasToday">
       <div class="card">
         <div class="header">
-          <span><b>{{aluno.nome}}</b></span>
+          <span><b>{{aula.Assunto}}</b></span>
         </div>
         <div class="body">
           <button class="presente" [ngStyle]="{'color': 'green'}">Presente</button>

@@ -51,6 +51,17 @@ export class AuthService {
     return this.http.get(`${this.url}/serve/cursos`);
   }
 
+  getTurmasDoColaborador(): Observable<any>{
+    return this.http.get(`${this.url}/serve/ct`);
+  }
+
+  getAllTurmas(): Observable<any>{
+    return this.http.get(`${this.url}/serve/turmas`);
+  }
+  
+  getAllAulas(): Observable<any>{
+    return this.http.get(`${this.url}/serve/aulas`);
+  }
 } 
 
 // @Injectable({
