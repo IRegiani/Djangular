@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService} from '../../services/auth.service';
-
+import  { ActivatedRoute, Router } from '@angular/router'
+import { IdSelectorService} from '../../services/id-selector.service';
 
 
 @Component({
@@ -10,47 +11,20 @@ import { AuthService} from '../../services/auth.service';
 })
 export class TeacherAttendancePageComponent implements OnInit {
 
-  /** DATABASE */
-  calendario = [
-    { id: "ca1", data: "2019-04-15", inicio: "20:00", fim: "22:30" },
-    { id: "ca2", data: "2019-04-18", inicio: "20:00", fim: "22:30" },
-    { id: "cgd", data: "2019-04-19", inicio: "20:00", fim: "22:30" },
-
-  ]
-
-  curso = [
-    { id: "ca1", nomeCurso: "1º Ciclo" },
-    { id: "ca2", nomeCurso: "Os Mensageiros" },
-    { id: "csm", nomeCurso: "GM" },
-    { id: "cgd", nomeCurso: "Evangelização" }
-  ]
-
-  alunos = [
-    { id: 1, nome: 'Ogari ' },
-    { id: 2, nome: 'Rafael' },
-    { id: 3, nome: 'Iago' },
-    { id: 4, nome: 'Vinicius' },
-    { id: 5, nome: 'Steve' },
-    { id: 6, nome: 'João' },
-    { id: 7, nome: 'Matheus' },
-    { id: 8, nome: 'Pedro' },
-    { id: 9, nome: 'Luke' },
-    { id: 10, nome: 'Dr. Who' }
-  ]
-
-  /** RESULTADO DA PESQUISA */
-  presencaCurso =
-    { id: "ca1", nomeCurso: "1º Ciclo", data: "2019-04-15", inicio: "20:00", fim: "22:30" };
-
 
   fixedParameter = 6 // Rodrigo's num
   listaTurmas: Array<any> = [];
   listaAulas: Array<any> = [];
   aulasToday: Array<any> = [];
   turmasToday: Array<any> = [];
-  class_student: [any, Array<any>][] = [];
+  // class_student: [any, any, Array<any>][] = [];
+  class_student:  Array<any>[] = [];
+  alunos_aula:  Array<any>[] = [];
 
-  constructor(private service: AuthService) {
+  constructor(private service: AuthService, 
+              private _route: ActivatedRoute,
+              private _router: Router,
+              private shared: IdSelectorService) {
 
   }
 
@@ -58,6 +32,15 @@ export class TeacherAttendancePageComponent implements OnInit {
     this.getTurmas(this.fixedParameter);
   }
 
+
+  // --GENERAL METHODS--
+  goToAttendance(aulaId: Number){
+    this.shared.setData(aulaId);
+
+    this._router.navigate(['attendanceList']);
+  }
+
+  // --SERVICE METHODS--
   // Calls service to get "cursos"
   getTurmas(universalProfId: Number): void{
     var auxLista : Array<any> = [];
@@ -94,7 +77,7 @@ export class TeacherAttendancePageComponent implements OnInit {
       }
        );
   }
-  
+
   getAulasToday(aulasIds : Array<any>){
     var auxLista : Array<any> = [];
 
@@ -135,11 +118,18 @@ export class TeacherAttendancePageComponent implements OnInit {
             }
             console.log(JSON.stringify(this.turmasToday));
 
+
+
+
+
             // Finally, add both values to the tuple
             for (let aula of this.aulasToday){
               var i = this.aulasToday.indexOf(aula);
-              this.class_student.push([aula, this.turmasToday[i]])
+              // this.class_student.push([aula, this.turmasToday[i], this.turmasToday[i].Alunos])
+              this.class_student.push(aula)
+
             }
+            
             console.log(this.class_student);
           }
            );

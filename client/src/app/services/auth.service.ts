@@ -62,6 +62,14 @@ export class AuthService {
   getAllAulas(): Observable<any>{
     return this.http.get(`${this.url}/serve/aulas`);
   }
+
+  getAllAlunosDaAula(): Observable<any>{
+    return this.http.get(`${this.url}/serve/pa`);
+  }
+
+  getAllAlunos(): Observable<any>{
+    return this.http.get(`${this.url}/serve/pessoas`);
+  }
 } 
 
 // @Injectable({

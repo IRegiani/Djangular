@@ -10,6 +10,7 @@ import { TeacherAttendancePageComponent } from './pages/teacher-attendance-page/
 import { ManageClassesComponent } from './pages/manage-classes-page/manage-classes-page.component';
 import { ClassDetailComponent } from './components/class-detail/class-detail.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { AttendanceListComponent } from './pages/attendance-list/attendance-list.component';
 
 const routes: Routes = [
   {
@@ -26,7 +27,8 @@ const routes: Routes = [
   { path: 'teacher', component: TeacherAttendancePageComponent },
   { path: 'turma', component: ManageClassesComponent },
   { path: 'detailClasse/:id', component: ClassDetailComponent },
-  { path: 'register', component: RegisterPageComponent }
+  { path: 'register', component: RegisterPageComponent },
+  { path: 'attendanceList', component: AttendanceListComponent }
 
 ];
 

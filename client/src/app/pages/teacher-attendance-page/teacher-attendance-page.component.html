@@ -1,9 +1,9 @@
 <header>
   <h2> Chamada </h2>
-  <h4> <a routerLink="/home/true"><button>Voltar</button></a>
-    {{presencaCurso.nomeCurso}} </h4>
-  <span class="data">{{myDate | date}}</span>
-  <span class="hora">{{presencaCurso.inicio}} - {{presencaCurso.fim}}</span>
+  <h4> <a routerLink="/home/true"><button>Voltar</button></a> </h4>
+    <!-- {{presencaCurso.nomeCurso}} </h4> -->
+  <!-- <span class="data">{{myDate | date}}</span>
+  <span class="hora">{{presencaCurso.inicio}} - {{presencaCurso.fim}}</span> -->
 </header>
 
 <body>
@@ -14,33 +14,22 @@
   </form>
 
   <ul>
-    <li *ngFor="let aula of class_student; let i = index">
+      <li *ngFor="let aula of class_student; let i = index">
         <expandable-list>
             <expandable-list-item>
-              <span title>Aula {{i + 1}}</span>
-              <span secondary>{{aula[0].Assunto}}</span>
+              <span title (click)="goToAttendance(aula.id)">Aula {{i + 1}}</span>
+              <span secondary>{{aula.Assunto}}</span>
               <!-- <li *ngFor="let aluno of turmasToday[i].Alunos"> -->
-                  <li *ngFor="let aluno of turmasToday[i].Alunos">
+                  <!-- <li *ngFor="let aluno of aluno[2]">
                   <span><b>{{aluno}}</b></span>
                   <button class="presente" [ngStyle]="{'color': 'green'}">Presente</button>
                   <button class="ausente" [ngStyle]="{'color': 'red'}">Ausente</button>
-              </li>
+              </li> -->
+
             </expandable-list-item>
           </expandable-list>
 
     </li>
 
-
-    <!-- <li *ngFor="let aula of aulasToday">
-      <div class="card">
-        <div class="header">
-          <span><b>{{aula.Assunto}}</b></span>
-        </div>
-        <div class="body">
-          <button class="presente" [ngStyle]="{'color': 'green'}">Presente</button>
-          <button class="ausente" [ngStyle]="{'color': 'red'}">Ausente</button>
-        </div>
-      </div>
-    </li> -->
   </ul>
 </body>

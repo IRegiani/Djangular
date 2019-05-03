@@ -16,6 +16,7 @@ import { ManageClassesComponent } from './pages/manage-classes-page/manage-class
 import { ClassDetailComponent } from './components/class-detail/class-detail.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { ExpandableListModule } from 'angular2-expandable-list';
+import { AttendanceListComponent } from './pages/attendance-list/attendance-list.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ExpandableListModule } from 'angular2-expandable-list';
     StudentAttendancePageComponent,
     StudentHistoryComponent,
     TeacherAttendancePageComponent,
-    ManageClassesComponent
+    ManageClassesComponent,
+    AttendanceListComponent
   ],
   imports: [
     BrowserModule,
