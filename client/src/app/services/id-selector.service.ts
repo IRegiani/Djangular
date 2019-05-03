@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class IdSelectorService {
-  public sharedId: Number;
+  public sharedId: number;
 
   constructor(){
     this.sharedId = 0;

@@ -10,9 +10,10 @@ import { prepareProfile } from 'selenium-webdriver/firefox';
 })
 export class AttendanceListComponent implements OnInit {
 
-  aulaId : Number;
-  presenca : Array<Number> = []; // <- Talvez mudar pra enum
+  aulaId : number;
+  presenca : Array<number> = []; // <- Talvez mudar pra enum
   alunos : Array<any> = [];
+  // Will probably have to make a Tuple here, of Aluno and Presenca
 
   constructor(private shared : IdSelectorService,
               private service : AuthService) { }
@@ -22,7 +23,24 @@ export class AttendanceListComponent implements OnInit {
     this.getAlunosFromAula(this.aulaId);
   }
 
+  // --GENERAL METHODS--
+  updateStudentAttendance(studentId){
+    if (this.presenca[studentId] < 2) {
+      this.presenca[studentId] += 1;
+    } else {
+      // Printar na tela que ele jah estah com presenca
+    }
+  }
 
+  cancelStudentAttendance(studentId){
+    if (this.presenca[studentId] > 0) {
+      this.presenca[studentId] -= 1;
+    } else {
+      // Printar na tela que ele jah NAO estah com presenca
+    }
+  }
+
+  // --SERVICE METHODS--
     getAlunosFromAula(aulaId : Number){
     var auxLista : Array<any> = [];
     var auxAlunos : Array<any> = [];
