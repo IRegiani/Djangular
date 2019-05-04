@@ -6,47 +6,21 @@ import { catchError, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ServiceService {
+export class AuthService {
 
-  // http options used for making API calls
+    // http options used for making API calls
   private httpOptions: any;
-
   private url = 'http://localhost:8000';
+  
+   User = {
+
+  };
 
   constructor(private http: HttpClient) {
     this.httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
   }
-
-  getCursos(): Observable<any>{
-    return this.http.get(`${this.url}/serve/cursos`);
-  }
-
-}
-
-
-
-
-
-
-/*
-
-
-import { Injectable } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthServiceService {
-  
-   User = {
-
-  };
-
-  constructor() {
-
-   }
 
   authenticateUser(login: string, password: string) {
     // conectar ao banco
@@ -73,4 +47,31 @@ export class AuthServiceService {
     return 'Admin';
   }
 
-} */
+  getCursos(): Observable<any>{
+    return this.http.get(`${this.url}/serve/cursos`);
+  }
+
+  getTurmasDoColaborador(): Observable<any>{
+    return this.http.get(`${this.url}/serve/ct`);
+  }
+
+  getAllTurmas(): Observable<any>{
+    return this.http.get(`${this.url}/serve/turmas`);
+  }
+  
+  getAllAulas(): Observable<any>{
+    return this.http.get(`${this.url}/serve/aulas`);
+  }
+
+  getAllAlunosDaAula(): Observable<any>{
+    return this.http.get(`${this.url}/serve/pa`);
+  }
+
+  getAllAlunos(): Observable<any>{
+    return this.http.get(`${this.url}/serve/pessoas`);
+  }
+
+  postCurrentAttendance(){
+    
+  }
+} 

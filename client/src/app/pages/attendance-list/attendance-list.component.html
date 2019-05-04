@@ -1,0 +1,37 @@
+<!-- <p>
+  {{aulaId}}
+</p> -->
+
+<header>
+    <h2> Lista de Preseça </h2>
+    <h4> <a routerLink="/teacher"><button>Voltar</button></a> </h4>
+  </header>
+  
+  <body>
+    <form class="form-inline md-form form-sm active-cyan-2">
+      <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search" aria-label="Search" mdbInput>
+      <i class="fas fa-search" aria-hidden="true"></i>
+      <button class="buttonSearch">Buscar</button>
+    </form>
+  
+    <ul>
+        <li *ngFor="let aluno of alunos; let i = index">
+          <!-- <expandable-list>
+              <expandable-list-item> -->
+                <span title>{{aluno.Name}}</span>
+                <!-- <span secondary>{{aluno.Email}}</span>
+                <span secondary>{{aluno.Phone}}</span> -->
+                <button class="presente" [ngStyle]="{'color': 'green'}" (click)="updateStudentAttendance(0, i)">Presente</button>
+                <button class="ausente" [ngStyle]="{'color': 'red'}" (click)="cancelStudentAttendance(0, i)">Cancelar</button>
+  
+              <!-- </expandable-list-item>
+            </expandable-list> -->
+
+            <div *ngIf="presenca[i] > 1; then thenBlock else elseBlock"></div>
+            <ng-template #thenBlock > <span [ngStyle]="{'color': 'green'}" > <b>{{presenca[i]}}/2 </b> </span> </ng-template>
+            <ng-template #elseBlock > <span [ngStyle]="{'color': 'red'}" > <b>{{presenca[i]}}/2 </b> </span> </ng-template>
+  
+      </li>
+  
+    </ul>
+  </body>
