@@ -21,8 +21,8 @@
                 <span title>{{aluno.Name}}</span>
                 <!-- <span secondary>{{aluno.Email}}</span>
                 <span secondary>{{aluno.Phone}}</span> -->
-                <button class="presente" [ngStyle]="{'color': 'green'}" (click)="updateStudentAttendance(i)">Presente</button>
-                <button class="ausente" [ngStyle]="{'color': 'red'}" (click)="cancelStudentAttendance(i)">Cancelar</button>
+                <button class="presente" [ngStyle]="{'color': 'green'}" (click)="updateStudentAttendance(0, i)">Presente</button>
+                <button class="ausente" [ngStyle]="{'color': 'red'}" (click)="cancelStudentAttendance(0, i)">Cancelar</button>
   
               <!-- </expandable-list-item>
             </expandable-list> -->

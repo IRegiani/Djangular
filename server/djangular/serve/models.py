@@ -22,12 +22,6 @@ class Pessoa(models.Model):
     def __str__(self):
         return "Pessoa: {}".format(self.Name)
 
-class Aula(models.Model):
-    Assunto = models.TextField()
-    Data = models.DateField()
-    def __str__(self):
-        return "Aula: {}".format(self.Assunto)
-
 class Curso(models.Model):
     Name = models.CharField(max_length=50)
     Description = models.TextField()
@@ -35,6 +29,13 @@ class Curso(models.Model):
     EndDate = models.DateField()
     def __str__(self):
         return "Curso: {}".format(self.Name)
+
+class Aula(models.Model):
+    Assunto = models.TextField()
+    Data = models.DateField()
+    Curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    def __str__(self):
+        return "Aula: {}".format(self.Assunto)
 
 class Turma(models.Model):
     Name = models.CharField(max_length=50)
