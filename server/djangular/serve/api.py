@@ -30,18 +30,23 @@ class TurmasDoAlunoAPI(ListAPIView):
 
 
 class FaltaAPI(ListAPIView):
-    serializer_class = AulaSerializer
+    serializer_class = PessoaAulaSerializer
 
     def get_queryset(self):
         idAluno = self.kwargs['idAluno']
-        queryPresenca = PessoaAula.objects.filter(Alunos=idAluno)
+        queryPresenca = PessoaAula.objects.filter(Pessoas_id=idAluno)
         idAula = self.kwargs['idAula']
-        queryRelations = queryPresenca.objects.filter(Aulas=idAula)
-        queryset = queryRelations.objects.filter(Contador_lte=2)
-        if queryset:
-            return True
-        else:
-            return False
+        queryRelations = queryPresenca.filter(Aulas=idAula)
+        queryset = queryRelations.filter(Contador__range=(0, 1))
+        # queryset = queryRelations
+        # if queryset:
+        #     # return True
+        #     return ((True,))
+        # else:
+        #     # return False
+        #     return ((False,))
+
+        return queryset
 
     
 class CursoAPI(ListAPIView):
