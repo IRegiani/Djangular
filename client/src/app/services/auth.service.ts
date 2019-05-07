@@ -72,6 +72,17 @@ export class AuthService {
   }
 
   postCurrentAttendance(){
-    
+
+  }
+
+  getTurmasAluno(id: number){
+    return this.http.get(`${this.url}/serve/turmasAluno/` + id);
+  }
+
+  getAulasTurma(id: number){
+    return this.http.get(`${this.url}/serve/aulasTurma/` + id);
+  }
+  getFalta(idAluno: number, idAula: number){
+    return this.http.get(`${this.url}/serve/faltasTurma/` + idAluno + `/` + idAula);
   }
 } 

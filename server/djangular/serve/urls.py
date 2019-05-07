@@ -1,9 +1,13 @@
 from django.conf.urls import url
-from .api import AdministradorAPI, PessoaAPI, CursoAPI, TurmaAPI, AulaAPI, PessoaAulaAPI, ColaboradorTurmaAPI
+from .api import AdministradorAPI, PessoaAPI, CursoAPI, TurmaAPI, AulaAPI, PessoaAulaAPI, ColaboradorTurmaAPI, AulasDaTurmaAPI, TurmasDoAlunoAPI, FaltaAPI
+
 
 urlpatterns = [
     url(r'^adm$', AdministradorAPI.as_view()),
     url(r'^pessoas$', PessoaAPI.as_view()),
+    url(r'^aulasTurma/(?P<id>.+)$', AulasDaTurmaAPI.as_view()),
+    url(r'^turmasAluno/(?P<id>.+)$', TurmasDoAlunoAPI.as_view()),
+    url(r'^presencaAula/(?P<idAluno>.+)/(?P<idAula>.+)$', FaltaAPI.as_view()),
     url(r'^cursos$', CursoAPI.as_view()),
     url(r'^turmas$', TurmaAPI.as_view()),
     url(r'^aulas$', AulaAPI.as_view()),
