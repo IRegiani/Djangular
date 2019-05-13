@@ -1,15 +1,14 @@
-
 <header>
   <h2> Histórico </h2>
   <ul>
     <li>
-      <h3>  <button (click)="goBack()">Voltar</button> 
+      <h3> <button (click)="goBack()">Voltar</button>
         Faltas de {{user.nome}}</h3>
     </li>
   </ul>
 </header>
 
-<body>
+<!-- <body>
   <ul>
     <li *ngFor="let c of cursoFalta">
       <a routerLink='/detailFalta/{{c.id}}'>
@@ -23,4 +22,46 @@
       </a>
     </li>
   </ul>
+</body> -->
+
+<!-- <body>
+  <ul>
+    <li *ngFor="let aulas of allAulas">
+      <div *ngIf="aulas != 0; then thenBlock else elseBlock"></div>
+      <ng-template #thenBlock>
+          <div class="card">
+              <span class=s1> <b> AULAS </b> </span>
+            </div>
+      </ng-template>
+      <ng-template #elseBlock>
+        <div class="card">
+          <span class=s1> <b> {{aulas}} </b> </span>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+</body> -->
+
+<body>
+  <div *ngIf="loaded; then thenBlock else elseBlock"></div>
+  <ng-template #thenBlock>
+      <li *ngFor="let aulas of allAulas">
+          <div *ngIf="aulas != 0; then thenB else elseB"></div>
+          <ng-template #thenB>
+              <li *ngFor="let aula of aulas">
+              <div class="card">
+                  <span class=s1> <b> {{aula.id}} </b> </span>
+                </div>
+          </ng-template>
+          <ng-template #elseB>
+            <div class="card">
+              <span class=s1> <b> --- </b> </span>
+            </div>
+          </ng-template>
+    </ng-template>
+    <ng-template #elseBlock>
+        <div class="card">
+          <span class=s1> <b> Carregando... </b> </span>
+        </div>
+      </ng-template>
 </body>

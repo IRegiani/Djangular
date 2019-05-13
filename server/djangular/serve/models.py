@@ -69,7 +69,7 @@ class ColaboradorTurma(models.Model):
 
 
 class PessoaAula(models.Model):
-    Contador = models.IntegerField(default=0)
+    Contador = models.IntegerField(default=-1)
     Pessoas = models.ForeignKey(Pessoa, on_delete=models.CASCADE)
     Aulas = models.ForeignKey(Aula, on_delete=models.CASCADE)
     def __str__(self):

@@ -63,6 +63,10 @@ export class AuthService {
     return this.http.get(`${this.url}/serve/aulas`);
   }
 
+  getAula(id: number): Observable<any>{
+    return this.http.get(`${this.url}/serve/aulas/` + id);
+  }
+
   getAllAlunosDaAula(): Observable<any>{
     return this.http.get(`${this.url}/serve/pa`);
   }
@@ -83,6 +87,6 @@ export class AuthService {
     return this.http.get(`${this.url}/serve/aulasTurma/` + id);
   }
   getFalta(idAluno: number, idAula: number){
-    return this.http.get(`${this.url}/serve/faltasTurma/` + idAluno + `/` + idAula);
+    return this.http.get(`${this.url}/serve/presencaAula/` + idAluno + `/` + idAula);
   }
 } 

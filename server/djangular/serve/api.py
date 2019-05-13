@@ -37,15 +37,8 @@ class FaltaAPI(ListAPIView):
         queryPresenca = PessoaAula.objects.filter(Pessoas_id=idAluno)
         idAula = self.kwargs['idAula']
         queryRelations = queryPresenca.filter(Aulas=idAula)
+        # This is filtering only the  values between 0 and 1 in the field "Contador", since 2 means the attendance was filled!
         queryset = queryRelations.filter(Contador__range=(0, 1))
-        # queryset = queryRelations
-        # if queryset:
-        #     # return True
-        #     return ((True,))
-        # else:
-        #     # return False
-        #     return ((False,))
-
         return queryset
 
     
@@ -57,9 +50,18 @@ class TurmaAPI(ListAPIView):
     queryset = Turma.objects.all()
     serializer_class = TurmaSerializer
     
+    
 class AulaAPI(ListAPIView):
     queryset = Aula.objects.all()
     serializer_class = AulaSerializer
+
+class AulaIdAPI(ListAPIView):
+    serializer_class = AulaSerializer
+
+    def get_queryset(self):
+        idAula = self.kwargs['id']
+        queryset = Aula.objects.filter(id=idAula)
+        return queryset
 
 class ColaboradorTurmaAPI(ListAPIView):
     queryset = ColaboradorTurma.objects.all()

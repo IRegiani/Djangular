@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthService} from '../../services/auth.service';
 import  { ActivatedRoute, Router } from '@angular/router'
 import { IdSelectorService} from '../../services/id-selector.service';
+import { Observable } from 'rxjs';
+import {ChangeDetectorRef} from '@angular/core'
 
 // interface AulasPerTurma{
 //   idTurma: number;
@@ -15,6 +17,7 @@ import { IdSelectorService} from '../../services/id-selector.service';
   styleUrls: ['./student-history-page.component.css']
 })
 
+@Injectable()
 export class StudentHistoryComponent implements OnInit {
 
   /** DATABASE */
@@ -40,8 +43,15 @@ export class StudentHistoryComponent implements OnInit {
   allAulas: Array<any> = [];
   absenceList : Array<any> = [];
   auxCount = 0;
+  absenceCounter: Array<number> = [];
+  dataLoaded: Promise<boolean>;
+  example;
+  auxAulas;
+  loaded = false;
 
-  constructor(private location: Location, private service: AuthService) { }
+  constructor(private location: Location, 
+              private service: AuthService, 
+              private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.getTurmasAluno(this.fakeId);
@@ -52,6 +62,44 @@ export class StudentHistoryComponent implements OnInit {
     this.location.back();
   }
   
+  separateAbsentAulas(lista){ // Very inefficient... But...
+    console.log("A");
+    var bool;
+    var i;
+    console.log(lista);
+    for (i = 0; i < lista.length; i++){
+     var aulas = lista[i];
+     console.log(aulas);
+      if (aulas != 0){
+        if (aulas.length > 0){ // Kind of redundant, but important...
+          for (let aula of aulas){
+            bool = false;
+            for (let absence of this.absenceList){
+              if (aula.id == absence.Aulas){
+                console.log(aula.id);
+                console.log(absence.Aulas);
+                bool = true;
+              }
+            }
+            if (!bool){ // The person was NOT absent in this Aula
+              // Deletes Aula where he was present
+                const index = aulas.indexOf(aula, 0);
+                if (index > -1) {
+                  console.log("ENTREI");
+                  lista[i].splice(index, 1);
+                  }
+          }
+        }
+      }
+    } 
+
+  }
+
+  this.allAulas.push(lista);
+  this.allAulas.push(0);
+  this.loaded = true;
+
+}
 
     // --SERVICE METHODS--
   // Calls service to get "cursos"
@@ -72,42 +120,69 @@ export class StudentHistoryComponent implements OnInit {
     var auxLista : any;
 
     this.service.getAulasTurma(id).subscribe(
-      (aulas) => {auxLista = aulas }, // on Success
+      (aulas) => {
+        auxLista = aulas 
+        // this.allAulas.push(aulas);
+        // this.allAulas.push(0);
+      }, // on Success
       (error) => {console.log("ERROR! --getAulasTurma")}, // error
       () => { // Once completed
-        this.allAulas.push(auxLista);
-        this.getAbsencePerAula(this.fakeId, this.allAulas);
-        this.allAulas.push(0);
-        console.log(JSON.stringify(this.allAulas));
+        // this.allAulas.push(auxLista);
+        console.log(JSON.stringify(auxLista));
+        // console.log(JSON.stringify(this.allAulas[0][0]));
+        // console.log(this.allAulas);
+        // this.test = false;
+        this.auxAulas = auxLista;
+        this.getAbsencePerAula(this.fakeId, auxLista);
+        // this.example = this.allAulas[0][0];
+        // console.log(JSON.stringify(this.example));
+
+        // this.separateAbsentAulas(auxLista);
+        // console.log(this.allAulas);
+
+        // this.allAulas.push(0);
+        // console.log(JSON.stringify(this.allAulas));
         // this.getAulas(this.listaTurmas);
+        console.log(this.absenceList);
+        console.log(this.absenceCounter);
+
+        this.ref.detectChanges();
+        this.dataLoaded = Promise.resolve(true);
       }
 
        );
+
+      console.log(JSON.stringify(this.allAulas));
   }
 
   getAbsencePerAula(idAluno: number, aulas: Array<any>){
-      var boolean;
-      var aux = this.allAulas;
+      var faltou;
+      // var auxAulas = aulas;
+      // var aux = this.allAulas;
     if (aulas.length > 0 ) {
-      var aula = this.allAulas.pop();
-      if (aula != 0) {
+      var aula = aulas.pop();
+      if (aula != 0) { // <= MAYBE WAS RENDERED UNNECESSARY
         this.service.getFalta(idAluno, aula.id).subscribe(
-          (t_f) => {boolean = t_f }, // on Success
+          (falta) => {faltou = falta }, // on Success
           (error) => {console.log("ERROR! --getFalta")}, // error
           () => { // Once completed
-            if (boolean) {
-              this.absenceList.push(aula);
+            if (faltou.length > 0) {
+              this.absenceList.push(faltou); // Can only be one
               this.auxCount += 1;
             } 
-            this.getAbsencePerAula(idAluno, this.allAulas);
+            this.getAbsencePerAula(idAluno, aulas);
             // this.getAulas(this.listaTurmas);
           }
           
           );
       }
     } else {
-      this.absenceList.push(this.auxCount);
+      // this.absenceList.push(0); // TEMPORARY COMMENTING
+      this.absenceCounter.push(this.auxCount);
       this.auxCount = 0;
+      // this.test = true;
+      this.loaded = false;
+      this.separateAbsentAulas(this.auxAulas);
     }
   }
 
