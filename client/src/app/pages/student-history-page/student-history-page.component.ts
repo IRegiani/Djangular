@@ -5,6 +5,8 @@ import  { ActivatedRoute, Router } from '@angular/router'
 import { IdSelectorService} from '../../services/id-selector.service';
 import { Observable } from 'rxjs';
 import {ChangeDetectorRef} from '@angular/core'
+import { delay } from 'q';
+import { del } from 'selenium-webdriver/http';
 
 // interface AulasPerTurma{
 //   idTurma: number;
@@ -41,13 +43,15 @@ export class StudentHistoryComponent implements OnInit {
   // turmasAluno: Array<any> = [];
   turmasAluno: any;
   allAulas: Array<any> = [];
-  absenceList : Array<any> = [];
+  absenceList : any;
   auxCount = 0;
   absenceCounter: Array<number> = [];
   dataLoaded: Promise<boolean>;
   example;
   auxAulas;
   loaded = false;
+  coursesIds : Array<any> = [];
+  coursesCounter: Array<any> = [];
 
   constructor(private location: Location, 
               private service: AuthService, 
@@ -62,44 +66,66 @@ export class StudentHistoryComponent implements OnInit {
     this.location.back();
   }
   
-  separateAbsentAulas(lista){ // Very inefficient... But...
-    console.log("A");
-    var bool;
-    var i;
-    console.log(lista);
-    for (i = 0; i < lista.length; i++){
-     var aulas = lista[i];
-     console.log(aulas);
-      if (aulas != 0){
-        if (aulas.length > 0){ // Kind of redundant, but important...
-          for (let aula of aulas){
-            bool = false;
-            for (let absence of this.absenceList){
-              if (aula.id == absence.Aulas){
-                console.log(aula.id);
-                console.log(absence.Aulas);
-                bool = true;
-              }
-            }
-            if (!bool){ // The person was NOT absent in this Aula
-              // Deletes Aula where he was present
-                const index = aulas.indexOf(aula, 0);
-                if (index > -1) {
-                  console.log("ENTREI");
-                  lista[i].splice(index, 1);
-                  }
-          }
+//   separateAbsentAulas(lista){ // Very inefficient... But...
+//     console.log("A");
+//     var bool;
+//     var i;
+//     console.log(lista);
+//     for (i = 0; i < lista.length; i++){
+//      var aulas = lista[i];
+//      console.log(aulas);
+//       if (aulas != 0){
+//         if (aulas.length > 0){ // Kind of redundant, but important...
+//           for (let aula of aulas){
+//             bool = false;
+//             for (let absence of this.absenceList){
+//               if (aula.id == absence.Aulas){
+//                 console.log(aula.id);
+//                 console.log(absence.Aulas);
+//                 bool = true;
+//               }
+//             }
+//             if (!bool){ // The person was NOT absent in this Aula
+//               // Deletes Aula where he was present
+//                 const index = aulas.indexOf(aula, 0);
+//                 if (index > -1) {
+//                   console.log("ENTREI");
+//                   lista[i].splice(index, 1);
+//                   }
+//           }
+//         }
+//       }
+//     } 
+
+//   }
+
+//   this.allAulas.push(lista);
+//   this.allAulas.push(0);
+//   this.loaded = true;
+
+// }
+
+ delay(ms: number) {
+  return new Promise( resolve => setTimeout(resolve, ms) );
+}
+
+  separateCourseAbsences(){
+      // await delay(5000);
+      for (let absence of this.absenceList){
+        let index = this.coursesIds.indexOf(absence.Curso);
+        if (index > -1) {
+          this.coursesCounter[index] += 1;
+        } else {
+          this.coursesIds.push(absence.Curso);
+          this.coursesCounter.push(0);
         }
       }
-    } 
+    
+
+    this.loaded = true;
+
 
   }
-
-  this.allAulas.push(lista);
-  this.allAulas.push(0);
-  this.loaded = true;
-
-}
 
     // --SERVICE METHODS--
   // Calls service to get "cursos"
@@ -109,82 +135,106 @@ export class StudentHistoryComponent implements OnInit {
       (error) => {console.log("ERROR! --getTurmasAluno")}, // error
       () => { // Once completed
         console.log(JSON.stringify(this.turmasAluno));
-        for (let turma of this.turmasAluno){
-          this.getAulasAluno(turma.id);
-        } 
+        this.getAulasComFalta(id);
+        // for (let turma of this.turmasAluno){
+        //   this.getAulasAluno(turma.id);
+        // } 
+
       }
        );
   }
 
-  getAulasAluno(id: number): void{
-    var auxLista : any;
+  getAulasComFalta(id: number){
 
-    this.service.getAulasTurma(id).subscribe(
-      (aulas) => {
-        auxLista = aulas 
-        // this.allAulas.push(aulas);
-        // this.allAulas.push(0);
+      this.service.getFaltasTotais(id).subscribe(
+        (faltas) => {this.absenceList = faltas;
+        // this.dataLoaded = Promise.resolve(true);
+        // this.separateCourseAbsences();
       }, // on Success
-      (error) => {console.log("ERROR! --getAulasTurma")}, // error
-      () => { // Once completed
-        // this.allAulas.push(auxLista);
-        console.log(JSON.stringify(auxLista));
-        // console.log(JSON.stringify(this.allAulas[0][0]));
-        // console.log(this.allAulas);
-        // this.test = false;
-        this.auxAulas = auxLista;
-        this.getAbsencePerAula(this.fakeId, auxLista);
-        // this.example = this.allAulas[0][0];
-        // console.log(JSON.stringify(this.example));
-
-        // this.separateAbsentAulas(auxLista);
-        // console.log(this.allAulas);
-
-        // this.allAulas.push(0);
-        // console.log(JSON.stringify(this.allAulas));
-        // this.getAulas(this.listaTurmas);
-        console.log(this.absenceList);
-        console.log(this.absenceCounter);
-
-        this.ref.detectChanges();
-        this.dataLoaded = Promise.resolve(true);
-      }
-
-       );
-
-      console.log(JSON.stringify(this.allAulas));
-  }
-
-  getAbsencePerAula(idAluno: number, aulas: Array<any>){
-      var faltou;
-      // var auxAulas = aulas;
-      // var aux = this.allAulas;
-    if (aulas.length > 0 ) {
-      var aula = aulas.pop();
-      if (aula != 0) { // <= MAYBE WAS RENDERED UNNECESSARY
-        this.service.getFalta(idAluno, aula.id).subscribe(
-          (falta) => {faltou = falta }, // on Success
-          (error) => {console.log("ERROR! --getFalta")}, // error
-          () => { // Once completed
-            if (faltou.length > 0) {
-              this.absenceList.push(faltou); // Can only be one
-              this.auxCount += 1;
-            } 
-            this.getAbsencePerAula(idAluno, aulas);
-            // this.getAulas(this.listaTurmas);
+        (error) => {console.log("ERROR! --getAulasComFalta")}, // error
+        () => { // Once completed
+          console.log(JSON.stringify(this.absenceList));
+          this.separateCourseAbsences();
+          // for (let turma of this.turmasAluno){
+          //   this.getAulasAluno(turma.id);
+          // } 
           }
-          
-          );
-      }
-    } else {
-      // this.absenceList.push(0); // TEMPORARY COMMENTING
-      this.absenceCounter.push(this.auxCount);
-      this.auxCount = 0;
-      // this.test = true;
-      this.loaded = false;
-      this.separateAbsentAulas(this.auxAulas);
-    }
+  
+         );
+    
   }
+
+
+
+  // getAulasAluno(id: number): void{
+  //   var auxLista : any;
+
+  //   this.service.getAulasTurma(id).subscribe(
+  //     (aulas) => {
+  //       auxLista = aulas 
+  //       // this.allAulas.push(aulas);
+  //       // this.allAulas.push(0);
+  //     }, // on Success
+  //     (error) => {console.log("ERROR! --getAulasTurma")}, // error
+  //     () => { // Once completed
+  //       // this.allAulas.push(auxLista);
+  //       console.log(JSON.stringify(auxLista));
+  //       // console.log(JSON.stringify(this.allAulas[0][0]));
+  //       // console.log(this.allAulas);
+  //       // this.test = false;
+  //       this.auxAulas = auxLista;
+  //       this.getAbsencePerAula(this.fakeId, auxLista);
+  //       // this.example = this.allAulas[0][0];
+  //       // console.log(JSON.stringify(this.example));
+
+  //       // this.separateAbsentAulas(auxLista);
+  //       // console.log(this.allAulas);
+
+  //       // this.allAulas.push(0);
+  //       // console.log(JSON.stringify(this.allAulas));
+  //       // this.getAulas(this.listaTurmas);
+  //       console.log(this.absenceList);
+  //       console.log(this.absenceCounter);
+
+  //       this.ref.detectChanges();
+  //       this.dataLoaded = Promise.resolve(true);
+  //     }
+
+  //      );
+
+  //     console.log(JSON.stringify(this.allAulas));
+  // }
+
+  // getAbsencePerAula(idAluno: number, aulas: Array<any>){
+  //     var faltou;
+  //     // var auxAulas = aulas;
+  //     // var aux = this.allAulas;
+  //   if (aulas.length > 0 ) {
+  //     var aula = aulas.pop();
+  //     if (aula != 0) { // <= MAYBE WAS RENDERED UNNECESSARY
+  //       this.service.getFalta(idAluno, aula.id).subscribe(
+  //         (falta) => {faltou = falta }, // on Success
+  //         (error) => {console.log("ERROR! --getFalta")}, // error
+  //         () => { // Once completed
+  //           if (faltou.length > 0) {
+  //             this.absenceList.push(faltou); // Can only be one
+  //             this.auxCount += 1;
+  //           } 
+  //           this.getAbsencePerAula(idAluno, aulas);
+  //           // this.getAulas(this.listaTurmas);
+  //         }
+          
+  //         );
+  //     }
+  //   } else {
+  //     // this.absenceList.push(0); // TEMPORARY COMMENTING
+  //     this.absenceCounter.push(this.auxCount);
+  //     this.auxCount = 0;
+  //     // this.test = true;
+  //     this.loaded = false;
+  //     this.separateAbsentAulas(this.auxAulas);
+  //   }
+  // }
 
 
 }

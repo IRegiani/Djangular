@@ -89,4 +89,8 @@ export class AuthService {
   getFalta(idAluno: number, idAula: number){
     return this.http.get(`${this.url}/serve/presencaAula/` + idAluno + `/` + idAula);
   }
+
+  getFaltasTotais(id: number){
+    return this.http.get(`${this.url}/serve/faltasTotais/` + id);
+  }
 } 

@@ -42,7 +42,7 @@
   </ul>
 </body> -->
 
-<body>
+<!-- <body>
   <div *ngIf="loaded; then thenBlock else elseBlock"></div>
   <ng-template #thenBlock>
       <li *ngFor="let aulas of allAulas">
@@ -64,4 +64,22 @@
           <span class=s1> <b> Carregando... </b> </span>
         </div>
       </ng-template>
-</body>
+</body> -->
+
+<body>
+  <div *ngIf="loaded; then thenBlock else elseBlock"></div>
+  <ng-template #thenBlock>
+      <li *ngFor="let course of coursesIds; let i = index">
+          <div class="card">
+              <span class=s1> <b> {{course}} </b> </span>
+            </div>
+        <div class="card">
+          <span class=s1> <b> Faltas: {{coursesCounter[i]}} </b> </span>
+        </div>
+  </ng-template>
+  <ng-template #elseBlock>
+        <div class="card">
+          <span class=s1> <b> Carregando... </b> </span>
+        </div>
+  </ng-template>
+  </body>
