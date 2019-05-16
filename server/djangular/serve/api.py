@@ -21,8 +21,6 @@ class PessoaAPI(ModelViewSet):
     print("FUNCIONA!!!")
 
 # class de GET detalhe da Pessoa
-
-
 class DetalhePessoaAPI(ListAPIView):
     serializer_class = PessoaSerializer
 
@@ -31,7 +29,6 @@ class DetalhePessoaAPI(ListAPIView):
         print("Id Pessoa = ", idpessoa)
         queryset = Pessoa.objects.filter(id=idpessoa)
         return queryset
-
 
 class CursoAPI(ListAPIView):
     queryset = Curso.objects.all()
@@ -68,25 +65,34 @@ class PessoaAulaAPI(ListAPIView):
     serializer_class = PessoaAulaSerializer
 
 
-# class POST detalhe para adicionar aluno X na aula Y
+# class POST detalhe para adicionar um novo aluno em uma aula específica
 class AddPessoaAulaAPI(ModelViewSet):
     serializer_class = PessoaAulaSerializer
     serializerPessoa = PessoaSerializer
     serializerAula = AulaSerializer
     
     def create(self, request):
-        pessoa = request.POST['pessoa']
-        aula = request.POST['aula']
+        
+        pessoa = request.POST['pessoa'] #Pegar o URL Boddy
+        aula = request.POST['aula'] #Pegar o URL Boddy
         print(pessoa, aula)
+        
+        #QUERY para pegar Pessoa com o id correspondente
         existPessoa = Pessoa.objects.filter(id=pessoa)
+        #QUERY para pegar Aula com o id correspondente
         existAula = Aula.objects.filter(id=aula)
-        if existAula.count() > 0 and existPessoa.count() > 0:
-            print("yes")
-            p = PessoaAula(Contador=0, Pessoas=pessoa, Aulas=aula)
-            p.save()
-            return Response(queryset.data)
-        print("no")
-        return Response()
+        if existAula.count() == 0:
+            return Response("Aula Não Encontrada")
+        if existAula.count() == 0:
+            return Response("Pessoa Não Encontrada")
+        id = existPessoa.values('id')[0]['id']
+        
+        p = Pessoa.objects.get(id=id)
+        a = Aula.objects.get(id=existAula.values('id')[0]['id'])
+        PessoaAula.objects.create(Pessoas=p, Aulas=a, Contador=111).save()
+        
+        return Response("Sucesso, 200")
+
     # def get_queryset(self, request):
     #      if request.method == 'GET':
     #         queryset = PessoaAula.objects.all()
