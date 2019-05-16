@@ -16,5 +16,5 @@ urlpatterns = [
     url(r'^aulas$', AulaAPI.as_view()),
     url(r'^pa$', PessoaAulaAPI.as_view()),
     url(r'^ct$', ColaboradorTurmaAPI.as_view()),
-    url(r'^addPA$', AddPessoaAulaAPI.as_view()),
+    url(r'^addPA/$', AddPessoaAulaAPI.as_view({'post': 'create'})),
 ]

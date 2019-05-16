@@ -9,6 +9,7 @@ from .models import Administrador, Pessoa, Curso, Aula, Turma, ColaboradorTurma,
 
 from rest_framework.decorators import api_view
 
+
 class AdministradorAPI(ListAPIView):
     queryset = Administrador.objects.all()
     serializer_class = AdministradorSerializer
@@ -19,28 +20,33 @@ class PessoaAPI(ModelViewSet):
     serializer_class = PessoaSerializer
     print("FUNCIONA!!!")
 
-#class de GET detalhe da Pessoa
+# class de GET detalhe da Pessoa
+
+
 class DetalhePessoaAPI(ListAPIView):
     serializer_class = PessoaSerializer
+
     def get_queryset(self):
         idpessoa = self.kwargs['id']
         print("Id Pessoa = ", idpessoa)
         queryset = Pessoa.objects.filter(id=idpessoa)
         return queryset
 
+
 class CursoAPI(ListAPIView):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
 
 
-#class de GET detalhe do Curso
+# class de GET detalhe do Curso
 class DetalheCursoAPI(ListAPIView):
     serializer_class = CursoSerializer
-    
+
     def get_queryset(self):
         idcurso = self.kwargs['id']
         queryset = Curso.objects.filter(id=idcurso)
         return queryset
+
 
 class TurmaAPI(ListAPIView):
     queryset = Turma.objects.all()
@@ -62,21 +68,31 @@ class PessoaAulaAPI(ListAPIView):
     serializer_class = PessoaAulaSerializer
 
 
-#class POST detalhe para adicionar aluno X na aula Y
-class AddPessoaAulaAPI(ListAPIView):
+# class POST detalhe para adicionar aluno X na aula Y
+class AddPessoaAulaAPI(ModelViewSet):
     serializer_class = PessoaAulaSerializer
     serializerPessoa = PessoaSerializer
     serializerAula = AulaSerializer
-
-    @api_view(['GET', 'PUT'])
-    def get_queryset(self, request):
-        if request.method == 'GET':
-            queryset = PessoaAula.objects.all()
-            return queryset
-        if request.method == 'PUT':
-            data = request.data
-            print(data)
-            queryset = data
-            return data
-            
-
+    
+    def create(self, request):
+        pessoa = request.POST['pessoa']
+        aula = request.POST['aula']
+        print(pessoa, aula)
+        existPessoa = Pessoa.objects.filter(id=pessoa)
+        existAula = Aula.objects.filter(id=aula)
+        if existAula.count() > 0 and existPessoa.count() > 0:
+            print("yes")
+            p = PessoaAula(Contador=0, Pessoas=pessoa, Aulas=aula)
+            p.save()
+            return Response(queryset.data)
+        print("no")
+        return Response()
+    # def get_queryset(self, request):
+    #      if request.method == 'GET':
+    #         queryset = PessoaAula.objects.all()
+    #          return queryset
+    #      if request.method == 'PUT':
+    #          data = request.data
+    #          print(data)
+    #          queryset = data
+    #     #    return data
