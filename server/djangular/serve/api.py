@@ -1,6 +1,7 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from django.http import HttpResponse
 
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -8,7 +9,7 @@ from .serializers import PessoaSerializer, AdministradorSerializer, CursoSeriali
 from .models import Administrador, Pessoa, Curso, Aula, Turma, ColaboradorTurma, PessoaAula
 
 from rest_framework.decorators import api_view
-
+import datetime
 
 class AdministradorAPI(ListAPIView):
     queryset = Administrador.objects.all()
@@ -65,6 +66,26 @@ class PessoaAulaAPI(ListAPIView):
     serializer_class = PessoaAulaSerializer
 
 
+class AddPessoaAPI(ModelViewSet):
+    serializerPessoa = PessoaSerializer
+    
+    def create(self, request):
+        
+        nome = request.POST['nome'] #Pegar o URL Boddy
+        senha = request.POST['senha'] #Pegar o URL Boddy
+        email = request.POST['email']
+        telefone = request.POST['telefone']
+        
+        #QUERY para pegar Pessoa com o email correspondente
+        existPessoa = Pessoa.objects.filter(Email=email)
+        if existPessoa.count() > 0:
+            reponse = HttpResponse("Email já utilizado", status=409)
+            return reponse
+        p = Pessoa.objects.create(Name=nome, Email=email, Password=senha, Phone=telefone, UserType=0)
+        p.save()
+        reponse = HttpResponse("Cadastro Efetuado", status=201)
+        return reponse
+
 # class POST detalhe para adicionar um novo aluno em uma aula específica
 class AddPessoaAulaAPI(ModelViewSet):
     serializer_class = PessoaAulaSerializer
@@ -83,7 +104,7 @@ class AddPessoaAulaAPI(ModelViewSet):
         existAula = Aula.objects.filter(id=aula)
         if existAula.count() == 0:
             return Response("Aula Não Encontrada")
-        if existAula.count() == 0:
+        if existPessoa.count() == 0:
             return Response("Pessoa Não Encontrada")
         id = existPessoa.values('id')[0]['id']
         

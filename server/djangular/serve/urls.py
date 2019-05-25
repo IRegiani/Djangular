@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .api import AdministradorAPI, PessoaAPI, CursoAPI, TurmaAPI, AulaAPI, PessoaAulaAPI, ColaboradorTurmaAPI, DetalhePessoaAPI, DetalheCursoAPI, AddPessoaAulaAPI
+from .api import AdministradorAPI, PessoaAPI, CursoAPI, TurmaAPI, AulaAPI, PessoaAulaAPI, ColaboradorTurmaAPI, DetalhePessoaAPI, DetalheCursoAPI, AddPessoaAulaAPI, AddPessoaAPI
 
 from rest_framework.routers import DefaultRouter
 
@@ -17,5 +17,5 @@ urlpatterns = [
     url(r'^pa$', PessoaAulaAPI.as_view()),
     url(r'^ct$', ColaboradorTurmaAPI.as_view()),
     url(r'^addPA/$', AddPessoaAulaAPI.as_view({'post': 'create'})),
-    
+    url(r'^cadastroUsuario/$', AddPessoaAPI.as_view({'post': 'create'}))
 ]
