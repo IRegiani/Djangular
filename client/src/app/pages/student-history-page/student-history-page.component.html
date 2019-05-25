@@ -73,9 +73,13 @@
           <div class="card">
               <span class=s1> <b> {{course}} </b> </span>
             </div>
+       <li *ngFor="let missedClass of missedClasses"></li>
         <div class="card">
-          <span class=s1> <b> Faltas: {{coursesCounter[i]}} </b> </span>
+          <span class=s1> <b> Aula: {{missedClass.Assunto}} </b> </span>
         </div>
+        <!-- <div class="card">
+            <span class=s1> <b> Faltas: {{coursesCounter[i]}} </b> </span>
+          </div> -->
   </ng-template>
   <ng-template #elseBlock>
         <div class="card">

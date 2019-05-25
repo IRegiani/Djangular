@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^turmasAluno/(?P<id>.+)$', TurmasDoAlunoAPI.as_view()),
     url(r'^presencaAula/(?P<idAluno>.+)/(?P<idAula>.+)$', FaltaAPI.as_view()),
     url(r'^faltasTotais/(?P<idAluno>.+)$', FaltasTotaisAPI.as_view()),
+    url(r'^cadastroUsuario$', ),
     url(r'^cursos$', CursoAPI.as_view()),
     url(r'^turmas$', TurmaAPI.as_view()),
     url(r'^aulas$', AulaAPI.as_view()),

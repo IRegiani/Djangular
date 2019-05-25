@@ -51,6 +51,17 @@ class FaltasTotaisAPI(ListAPIView):
         queryFaltas = queryPresenca.filter(Contador__range=(0, 1)).values("Aulas").all()
         queryset = Aula.objects.filter(id__in=queryFaltas)
         return queryset
+
+# class CadastroUsuario(ListAPIView):
+#     serializer_class = AulaSerializer
+
+#     def get_queryset(self):
+#         idAluno = self.kwargs['idAluno']
+#         queryPresenca = PessoaAula.objects.filter(Pessoas_id=idAluno)
+#         # This is filtering only the  values between 0 and 1 in the field "Contador", since 2 means the attendance was filled!
+#         queryFaltas = queryPresenca.filter(Contador__range=(0, 1)).values("Aulas").all()
+#         queryset = Aula.objects.filter(id__in=queryFaltas)
+#         return queryset
     
 class CursoAPI(ListAPIView):
     queryset = Curso.objects.all()

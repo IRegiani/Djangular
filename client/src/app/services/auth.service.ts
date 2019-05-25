@@ -76,6 +76,18 @@ export class AuthService {
   }
 
   postCurrentAttendance(){
+  }
+
+  postNewPerson(name, password, email, phone){
+    var json = JSON.stringify({name: name, password: password, email: email, phone: phone});
+                var params = 'json=' + json;
+                var cabe = new HttpHeaders();
+                cabe.append('Content-Type', 'application/x-www-form-urlencoded');
+                return this.http.post(`${this.url}/serve/cadastroUsuario`, 
+                params, {
+                         headers : cabe
+                        })
+                        // .map(res=> res.json());
 
   }
 

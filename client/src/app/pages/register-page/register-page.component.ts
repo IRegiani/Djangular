@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-register-page',
@@ -8,10 +9,23 @@ import { Component, OnInit } from '@angular/core';
 export class RegisterPageComponent implements OnInit {
 
   loading = false;
-  constructor() { }
+  constructor(private service: AuthService) { }
 
   ngOnInit() {
+
     // get courses info from the server
+    this.service.postNewPerson("NOME", "SENHA", "GMAIL", "19997711700").subscribe(
+      () => { console.log("PARTE A"); }, // on Success
+      (error) => {console.log("ERROR! --postNewPerson")}, // error
+      () => { // Once completed
+        console.log("PARTE B");
+        // this.getAulasComFalta(id);
+        // for (let turma of this.turmasAluno){
+        //   this.getAulasAluno(turma.id);
+        // } 
+
+      }
+       );;
   }
 
   onClickSubmit(){

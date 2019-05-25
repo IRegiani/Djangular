@@ -52,6 +52,7 @@ export class StudentHistoryComponent implements OnInit {
   loaded = false;
   coursesIds : Array<any> = [];
   coursesCounter: Array<any> = [];
+  missedClasses: Array<any> = [];
 
   constructor(private location: Location, 
               private service: AuthService, 
@@ -115,9 +116,15 @@ export class StudentHistoryComponent implements OnInit {
         let index = this.coursesIds.indexOf(absence.Curso);
         if (index > -1) {
           this.coursesCounter[index] += 1;
+          // TESTE
+          var arr = []; 
+          arr.join(this.missedClasses[index]);
+          arr.push(absence);
+          this.missedClasses = arr;
         } else {
           this.coursesIds.push(absence.Curso);
-          this.coursesCounter.push(0);
+          this.coursesCounter.push(0); // Substituir por um array a receber (pra ter o array de aulas)
+          this.missedClasses.push(absence);
         }
       }
     
