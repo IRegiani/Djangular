@@ -17,6 +17,7 @@ import { ClassDetailComponent } from './components/class-detail/class-detail.com
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { ExpandableListModule } from 'angular2-expandable-list';
 import { AttendanceListComponent } from './pages/attendance-list/attendance-list.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AttendanceListComponent } from './pages/attendance-list/attendance-list
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ExpandableListModule
+    ExpandableListModule,
+    NgxSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
