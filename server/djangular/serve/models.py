@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 # Create your models here.
 class Administrador(models.Model):
@@ -16,8 +17,8 @@ class Pessoa(models.Model):
     Phone = models.CharField(max_length=14)
     Password = models.CharField(max_length=50)
     UserType = models.IntegerField(default=0)
-    StartDate = models.DateField()
-    EndDate = models.DateField()
+    StartDate = models.DateField(default=date.today)
+    EndDate = models.DateField(null=True)
     Ativo = models.BooleanField(default=False)
     def __str__(self):
         return "Pessoa: {}".format(self.Name)

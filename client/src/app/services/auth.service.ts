@@ -63,10 +63,13 @@ export class AuthService {
     return this.http.get(`${this.url}/serve/aulas`);
   }
 
+<<<<<<< HEAD
   getAula(id: number): Observable<any>{
     return this.http.get(`${this.url}/serve/aulas/` + id);
   }
 
+=======
+>>>>>>> origin/serveApi
   getAllAlunosDaAula(): Observable<any>{
     return this.http.get(`${this.url}/serve/pa`);
   }
@@ -76,6 +79,7 @@ export class AuthService {
   }
 
   postCurrentAttendance(){
+<<<<<<< HEAD
   }
 
   postNewPerson(name, password, email, phone){
@@ -104,5 +108,8 @@ export class AuthService {
 
   getFaltasTotais(id: number){
     return this.http.get(`${this.url}/serve/faltasTotais/` + id);
+=======
+    
+>>>>>>> origin/serveApi
   }
 } 
