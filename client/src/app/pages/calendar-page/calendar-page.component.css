@@ -7,8 +7,24 @@
   text-align: center;
 }
 
-.button{
+.nav{
+  font-size: 30px;
+  display: block;
+  margin: 0;
+  padding: 0;
+  height: 38px;
+  background: #007bff;
+}
+
+.tit{
+  /* position: absolute; */
+  text-align: center;
+}
+
+.btn{
   margin:auto;
+  padding: auto;
+  float: left;
 }
 
 #subt{
