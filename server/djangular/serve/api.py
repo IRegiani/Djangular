@@ -1,6 +1,8 @@
 from rest_framework.generics import ListAPIView
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, status
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 from .serializers import *
 from .models import *
@@ -61,20 +63,43 @@ class ColaboradorTurmaAPI(generics.ListAPIView):
     #filter_backends = (DjangoFilterBackend,)
     #filterset_fields = ('id',)
     
-class PessoaAulaAPI(generics.ListAPIView):
-    queryset = PessoaAula.objects.all()
-    filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('id',)
-
-    def get_serializer_class(self):
-        metodo = self.request.method
-        if metodo == 'PUT' or metodo == 'POST':
-            return PessoaAulaSerializer
-        else:
-            return GetPessoaAulaSerializer
+#class PessoaAulaAPI(generics.ListAPIView):
+#    queryset = PessoaAula.objects.all()
+#    filter_backends = (DjangoFilterBackend,)
+#    filterset_fields = ('id',)
+#
+#    def get_serializer_class(self):
+#        metodo = self.request.method
+#        if metodo == 'PUT' or metodo == 'POST':
+#            return PessoaAulaSerializer
+#        else:
+#            return GetPessoaAulaSerializer
+#
+class newPessoaAulaAPI(viewsets.ModelViewSet):
+    queryset = PessoaAula.objects.all(),
+    serializer_class = PessoaAulaSerializer
+    @api_view(['GET','POST'])
+    def create(self, request):
+        pessoaId = request.data.get("pessoaId", "")
+        aula = request.data.get("aulaId", "")
+        print('*******************')
+        print(pessoaId, aula)
+        if not (pessoa and aula):
+            return Response(data={
+                "message": "Verique se foi passado pessoaId e aulaId"
+            }, status=status.HTTP_400_BAD_REQUEST)       
+       # pessoa = Pessoa.objects.filter(id=pessoaId)
+       # if not (pessoa):
+       #     return Response(data={
+       #         "message": "Pessoa nao encontrada"
+       #     }, status=status.HTTP_404_NOT_FOUND)
+        #class_group = PessoaAula.objects.create(
+        #    title=title, classroom=classroom)
+        return Response(data={"message": "Entrada criada com sucesso"
+            }, status = status.HTTP_201_CREATED)
 
 class TurmaProfessorAPI(generics.ListAPIView):
     queryset = Turma.objects.all()
     filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('id',)
+    filterset_fields = ('Aluno.id',)
     serializer_class = GetTurmaSerializer
