@@ -7,7 +7,7 @@ from .models import *
 
 ## API de Serializers Normais ###############
 
-class AdministradorAPI(viewsets.ModelViewSet):
+class AdministradorAPI(generics.ListAPIView):
     queryset = Administrador.objects.all()
     serializer_class = AdministradorSerializer
     
@@ -19,14 +19,14 @@ class PessoaAPI(generics.ListAPIView):
     #    pessoas = list(Pessoa.objects.filter(groups__in=[1]).values())
     #    return pessoas
 
-class CursoAPI(viewsets.ModelViewSet):
+class CursoAPI(generics.ListAPIView):
     queryset = Curso.objects.all()
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ('Name',)
     serializer_class = CursoSerializer
     
 
-class TurmaAPI(viewsets.ModelViewSet):
+class TurmaAPI(generics.ListAPIView):
     queryset = Turma.objects.all()
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ('Name',)
@@ -38,7 +38,7 @@ class TurmaAPI(viewsets.ModelViewSet):
         else:
             return GetTurmaSerializer
     
-class AulaAPI(viewsets.ModelViewSet):
+class AulaAPI(generics.ListAPIView):
     queryset = Aula.objects.all()
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ('Assunto',)
@@ -52,7 +52,7 @@ class AulaAPI(viewsets.ModelViewSet):
 
 ## API de Serializers Relacionais ###############
 
-class ColaboradorTurmaAPI(viewsets.ModelViewSet):
+class ColaboradorTurmaAPI(generics.ListAPIView):
     queryset = ColaboradorTurma.objects.all()
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ('Description',)
@@ -64,7 +64,7 @@ class ColaboradorTurmaAPI(viewsets.ModelViewSet):
         else:
             return GetColaboradorTurmaSerializer
 
-class PessoaAulaAPI(viewsets.ModelViewSet):
+class PessoaAulaAPI(generics.ListAPIView):
     queryset = PessoaAula.objects.all()
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ('id',)
