@@ -17,34 +17,20 @@ class PessoaUniqueAPI(generics.RetrieveAPIView):
 
 class CursoAPI(generics.ListAPIView):
     queryset = Curso.objects.all()
-    filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('Name',)
     serializer_class = CursoSerializer
     
 
 class TurmaAPI(generics.ListAPIView):
     queryset = Turma.objects.all()
-    filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('Name',)
-
-    def get_serializer_class(self):
-        metodo = self.request.method
-        if metodo == 'PUT' or metodo == 'POST':
-            return TurmaSerializer
-        else:
-            return GetTurmaSerializer
+    serializer_class = GetTurmaSerializer
     
 class AulaAPI(generics.ListAPIView):
     queryset = Aula.objects.all()
-    filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('Assunto',)
+    serializer_class = GetAulaSerializer
 
-    def get_serializer_class(self):
-        metodo = self.request.method
-        if metodo == 'PUT' or metodo == 'POST':
-            return AulaSerializer
-        else:
-            return GetAulaSerializer
+class AulaUniqueAPI(generics.RetrieveAPIView):
+    queryset = Aula.objects.all()
+    serializer_class = GetAulaSerializer
 
 ## API de Serializers Relacionais ###############
 

@@ -12,9 +12,10 @@ urlpatterns = [
  path('curso/', CursoAPI.as_view()),
  path('turma/', TurmaAPI.as_view()),
  path('aulas/', AulaAPI.as_view()),
+ path('aulas/<int:pk>', AulaUniqueAPI.as_view()),
  # return specific aula
  path('pessoaAula/', PessoaAulaAPI.as_view()),
- #id pessoa, id aula -> PessoaAula
+ #id pessoa, id aula -> PessoaAula POST
  #id pessoa
  path('colaboradorTurma/', ColaboradorTurmaAPI.as_view()),
 ]
