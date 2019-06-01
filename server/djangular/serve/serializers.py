@@ -56,10 +56,10 @@ class ColaboradorTurmaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class GetColaboradorTurmaSerializer(serializers.ModelSerializer):
+    #prof_id = serializers.IntegerField(source="Colaborador.id")
     class Meta:
-        model = ColaboradorTurma
+        model = Pessoa
         fields = '__all__'
-        depth = 1
 
 ## PESSOA-AULA SERIALIZER #################
 class PessoaAulaSerializer(serializers.ModelSerializer):

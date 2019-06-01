@@ -13,9 +13,10 @@ urlpatterns = [
  path('turma/', TurmaAPI.as_view()),
  path('aulas/', AulaAPI.as_view()),
  path('aulas/<int:pk>', AulaUniqueAPI.as_view()),
- # return specific aula
- path('pessoaAula/', PessoaAulaAPI.as_view()),
+ path('pessoaAula/', PessoaAulaAllAPI.as_view()),
+ path('pessoaAula/<int:pk>', PessoaAulaUniqueAPI.as_view()),
  #id pessoa, id aula -> PessoaAula POST
- #id pessoa
- path('colaboradorTurma/', ColaboradorTurmaAPI.as_view()),
+ #path('pessoaAula/<int:pk>/<int:pk>', PessoaAulaAPI.as_view()),
+ path('colaboradorTurma/', ColaboradorTurmaAPIALL.as_view()),
+ path('colaboradorTurma/<int:fk>', ColaboradorTurmaAPI.as_view()),
 ]

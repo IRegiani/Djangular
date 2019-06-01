@@ -32,20 +32,35 @@ class AulaUniqueAPI(generics.RetrieveAPIView):
     queryset = Aula.objects.all()
     serializer_class = GetAulaSerializer
 
+class PessoaAulaAllAPI(generics.ListAPIView):
+    queryset = PessoaAula.objects.all()
+    serializer_class = GetPessoaAulaSerializer
+
+class PessoaAulaUniqueAPI(generics.RetrieveAPIView):
+    queryset = PessoaAula.objects.all()
+    serializer_class = GetPessoaAulaSerializer
+
 ## API de Serializers Relacionais ###############
 
-class ColaboradorTurmaAPI(generics.ListAPIView):
+class ColaboradorTurmaAPIALL(generics.ListAPIView):
     queryset = ColaboradorTurma.objects.all()
-    filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('Description',)
+    serializer_class = ColaboradorTurmaSerializer
 
+class ColaboradorTurmaAPI(generics.ListAPIView):
+    # queryset = ColaboradorTurma.objects.filter(Colaborador__id=6)
+    queryset = ColaboradorTurma.objects.filter(Colaborador__id=6)
+    serializer_class = ColaboradorTurmaSerializer
+    print('***************')
+    print(queryset)
+    print('***************')
     def get_serializer_class(self):
-        metodo = self.request.method
-        if metodo == 'PUT' or metodo == 'POST':
-            return ColaboradorTurmaSerializer
-        else:
-            return GetColaboradorTurmaSerializer
+        idProf = self.kwargs['id']      
+        print(idProf)                     
+        return queryset
 
+    #filter_backends = (DjangoFilterBackend,)
+    #filterset_fields = ('id',)
+    
 class PessoaAulaAPI(generics.ListAPIView):
     queryset = PessoaAula.objects.all()
     filter_backends = (DjangoFilterBackend,)
@@ -57,3 +72,9 @@ class PessoaAulaAPI(generics.ListAPIView):
             return PessoaAulaSerializer
         else:
             return GetPessoaAulaSerializer
+
+class TurmaProfessorAPI(generics.ListAPIView):
+    queryset = Turma.objects.all()
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('id',)
+    serializer_class = GetTurmaSerializer
