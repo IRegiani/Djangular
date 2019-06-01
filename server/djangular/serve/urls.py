@@ -7,10 +7,14 @@ from .api import *
 #   API.as_view({'get': 'lists'})
 # Porem, se lembro bem, o Pedro Cotta fez de um jeito que não precisava argumentar os 'as_view()'
 urlpatterns = [
- path('pessoas/', PessoaAPI.as_view()),
+ path('pessoa/', PessoaAPI.as_view()),
+ path('pessoa/<int:pk>', PessoaUniqueAPI.as_view()), # return specific pessoa
  path('curso/', CursoAPI.as_view()),
  path('turma/', TurmaAPI.as_view()),
  path('aulas/', AulaAPI.as_view()),
+ # return specific aula
  path('pessoaAula/', PessoaAulaAPI.as_view()),
+ #id pessoa, id aula -> PessoaAula
+ #id pessoa
  path('colaboradorTurma/', ColaboradorTurmaAPI.as_view()),
 ]

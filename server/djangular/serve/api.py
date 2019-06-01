@@ -7,17 +7,13 @@ from .models import *
 
 ## API de Serializers Normais ###############
 
-class AdministradorAPI(generics.ListAPIView):
-    queryset = Administrador.objects.all()
-    serializer_class = AdministradorSerializer
-    
 class PessoaAPI(generics.ListAPIView):
     queryset = Pessoa.objects.all()
     serializer_class = PessoaSerializer
 
-    #def get_queryset(self):
-    #    pessoas = list(Pessoa.objects.filter(groups__in=[1]).values())
-    #    return pessoas
+class PessoaUniqueAPI(generics.RetrieveAPIView):
+    serializer_class = PessoaSerializer
+    queryset = Pessoa.objects.all()
 
 class CursoAPI(generics.ListAPIView):
     queryset = Curso.objects.all()
