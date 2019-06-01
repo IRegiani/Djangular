@@ -1,5 +1,5 @@
 from rest_framework.generics import ListAPIView
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .serializers import *
@@ -11,18 +11,13 @@ class AdministradorAPI(viewsets.ModelViewSet):
     queryset = Administrador.objects.all()
     serializer_class = AdministradorSerializer
     
-class PessoaAPI(viewsets.ModelViewSet):
+class PessoaAPI(generics.ListAPIView):
     queryset = Pessoa.objects.all()
-    filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('Name',)
+    serializer_class = PessoaSerializer
 
-    def get_serializer_class(self):
-        metodo = self.request.method
-        if metodo == 'PUT' or metodo == 'POST':
-            return PessoaSerializer
-        else:
-            return GetPessoaSerializer
-
+    #def get_queryset(self):
+    #    pessoas = list(Pessoa.objects.filter(groups__in=[1]).values())
+    #    return pessoas
 
 class CursoAPI(viewsets.ModelViewSet):
     queryset = Curso.objects.all()

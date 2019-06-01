@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path
 from .api import *
 
 
@@ -7,11 +7,5 @@ from .api import *
 #   API.as_view({'get': 'lists'})
 # Porem, se lembro bem, o Pedro Cotta fez de um jeito que não precisava argumentar os 'as_view()'
 urlpatterns = [
-    url(r'^adm$', AdministradorAPI.as_view()),
-    url(r'^pessoas$', PessoaAPI.as_view()),
-    url(r'^cursos$', CursoAPI.as_view()),
-    url(r'^turmas$', TurmaAPI.as_view()),
-    url(r'^aulas$', AulaAPI.as_view()),
-    url(r'^pa$', PessoaAulaAPI.as_view()),
-    url(r'^ct$', ColaboradorTurmaAPI.as_view()),
+ path('pessoas/', PessoaAPI.as_view(), name='lista-pessoas')
 ]
