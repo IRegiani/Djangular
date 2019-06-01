@@ -1,6 +1,7 @@
 from django.db import models
 
-# Create your models here.
+## MODELS NORMAIS ######################
+
 class Administrador(models.Model):
     Name = models.CharField(max_length=120)
     Email = models.CharField(max_length=50)
@@ -8,7 +9,6 @@ class Administrador(models.Model):
     Password = models.CharField(max_length=50)
     def __str__(self):
         return "ADM: {}".format(self.Name)
-
 
 class Pessoa(models.Model):
     Name = models.CharField(max_length=120)
@@ -45,11 +45,12 @@ class Turma(models.Model):
     StartTime = models.TimeField()
     EndTime = models.TimeField()
     Alunos = models.ManyToManyField(Pessoa)
-    #Colaboradores = models.ManyToManyField(Pessoa, through='ColaboradorTurma')
     Cursos = models.ForeignKey(Curso, on_delete=models.CASCADE)
     Aulas = models.ManyToManyField(Aula)
     def __str__(self):
         return "Turma: {}".format(self.Name)
+
+## MODELS DE RELACIONAMENTO ##################
 
 class ColaboradorTurma(models.Model):
     Description = models.TextField()
@@ -57,16 +58,6 @@ class ColaboradorTurma(models.Model):
     Turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
     def __str__(self):
         return "Colaborador {} na Turma {}".format(self.Colaborador, self.Turma)
-
-
-# class Curso(models.Model):
-#     Name = models.CharField(max_length=50)
-#     Description = models.TextField()
-#     StartDate = models.DateField()
-#     EndDate = models.DateField()
-#     def __str__(self):
-#         return "Curso: {}".format(self.Name)
-
 
 class PessoaAula(models.Model):
     Contador = models.IntegerField(default=0)
