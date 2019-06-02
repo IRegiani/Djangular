@@ -21,7 +21,7 @@
   text-align: center;
 }
 
-.btn{
+#bntVoltar{
   margin:auto;
   padding: auto;
   float: left;
@@ -33,7 +33,7 @@
   margin-bottom: 20px;
 }
 
-.qrBut{
+.qr{
   text-align: center;
 }
 
@@ -59,6 +59,11 @@
 .varHora {
   float: right;
   position: relative;
+}
+
+.aviso{
+  margin-top: 50px;
+  text-align: center;
 }
 
 

@@ -7,7 +7,7 @@
 </header> -->
 
 <nav class="nav">
-  <button class="btn btn-primary" routerLink="/home/false">Voltar</button>
+  <button class="btn btn-primary" id="bntVoltar" routerLink="/home/false">Voltar</button>
   <h2 class="tit">Chamada</h2>
 </nav>
 
@@ -17,7 +17,7 @@
 </div>
 
 <body>
-  <div class="aviso">
+  <div class="aviso1">
     <div class="content">
       <div class="card">
         <span class="data"><b>Data: </b></span>
@@ -35,12 +35,14 @@
         <span class="curso"><b>Curso no Momento: </b></span>
         <span class="varCurso">{{curso.nomeCurso}}</span>
       </div>
-
     </div>
   </div>
-  <p class="info">Esteja presente para atender a Chamada</p>
-  <div class="qrBut">
+  
+  <div class="aviso">
+    <p class="info">Esteja presente para atender a Chamada</p>
     <p class="info2">Usa o QR Code para Atender a Chamada</p>
-    <button class="btn-primary">Ler o QR Code</button>
+  </div>
+  <div class="qr">
+    <button class="btn btn-primary">Ler o QR Code</button>
   </div>
 </body>
