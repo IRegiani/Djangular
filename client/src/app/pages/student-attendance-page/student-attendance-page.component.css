@@ -1,4 +1,4 @@
-header {
+header {}
     h2 {
       text-align: center;
       margin: 0;
@@ -36,9 +36,7 @@ header {
       background-color: #cfd8dc;
     }
   
-  }
-  
-  body {
+  body {}
   
     ul {
       margin: 0 auto;
@@ -111,5 +109,4 @@ header {
       background-color: #395694;
       cursor: pointer;
     }
-  }
   
