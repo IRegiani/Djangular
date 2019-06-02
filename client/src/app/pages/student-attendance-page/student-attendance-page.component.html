@@ -1,31 +1,46 @@
-<header>
+<!-- <header>
   <h2> Chamada </h2>
 
   <h4> <a routerLink="/home/false"><button>Voltar</button></a>
     Realizar Chamada</h4>
 
-</header>
+</header> -->
+
+<nav class="nav">
+  <button class="btn btn-primary" routerLink="/home/false">Voltar</button>
+  <h2 class="tit">Chamada</h2>
+</nav>
+
+<div class="subt" id="subt">
+  <h3> Realizar Chamada </h3>
+  <span class="data">{{myDate | date}}</span>
+</div>
 
 <body>
   <div class="aviso">
-    <ul>
-      <li>
+    <div class="content">
+      <div class="card">
         <span class="data"><b>Data: </b></span>
         <span class="varData">{{myDate | date}}</span>
-      </li>
-      <li>
+      </div>
+    </div>
+    <div class="content">
+      <div class="card">
         <span class="hora"><b>Horário: </b></span>
         <span class="varHora">{{curso.inicio}}</span>
-      </li>
-      <li>
+      </div>
+    </div>
+    <div class="content">
+      <div class="card">
         <span class="curso"><b>Curso no Momento: </b></span>
         <span class="varCurso">{{curso.nomeCurso}}</span>
-      </li>
-    </ul>
+      </div>
+
+    </div>
   </div>
   <p class="info">Esteja presente para atender a Chamada</p>
-  <div>
+  <div class="qrBut">
     <p class="info2">Usa o QR Code para Atender a Chamada</p>
-    <button>LER O QR CODE</button>
+    <button class="btn-primary">Ler o QR Code</button>
   </div>
 </body>
