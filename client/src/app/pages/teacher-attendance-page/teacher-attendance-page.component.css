@@ -1,4 +1,85 @@
-header {
+.title{
+  color: black;
+  font-size: 30px;
+  height: 50px;
+}
+.navbar{
+  text-align: center;
+}
+
+.nav{
+  font-size: 30px;
+  display: block;
+  margin: 0;
+  padding: 0;
+  height: 38px;
+  background: #007bff;
+}
+
+.tit{
+  text-align: center;
+}
+
+.btn{
+  margin:auto;
+  padding: auto;
+  float: left;
+}
+
+#subt{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.nomeEvento{
+  font-size: 20px;
+}
+
+.card{
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.content{
+  text-align: center;
+  margin: 5px;
+  border: 3px solid rgba(0, 0, 0, 0.5);
+  height: 200px;
+
+}
+.data{
+  font-size: 20px;
+}
+
+h3{
+  font-size: 20px;
+}
+
+.buttonSearch{
+  background-color: #007bff;
+  color:#fff;
+  border-color: #007bff;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  padding: .375rem .75rem;
+  user-select: none;
+  text-align: center;
+}
+
+.mr-3{
+  margin-right: .5rem!important;
+  margin-left: .5rem!important;
+}
+
+.form-control-sm{
+  height: calc(1.5em + .5rem + 10px);
+  padding: .25rem .5rem;
+  font-size: .875rem;
+  line-height: 2;
+  border-radius: .2rem;
+}
+
+/* header {}
     h2 {
       text-align: center;
       margin: 0;
@@ -39,9 +120,9 @@ header {
       background-color: #cfd8dc;
     }
   
-  }
+
   
-  body {
+  body {}
     button.buttonSearch {
       width: 20%;
       position: relative;
@@ -55,7 +136,7 @@ header {
       border-left: none;
       border-right: none;
       border: 1px solid rgba(0, 0, 0, 0.1);
-  
+    }
       button.presente {
         border: 1px solid #CCC;
         box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.5);
@@ -76,11 +157,4 @@ header {
         cursor: pointer;
         border-radius: 3px;
   
-      }
-  
-  
-  
-    }
-  
-  }
-  
+      } */
