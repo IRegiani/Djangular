@@ -35,6 +35,7 @@
 
 .qr{
   text-align: center;
+  margin-top: 30px;
 }
 
 .nomeEvento{
@@ -52,17 +53,31 @@
   /* height: 200px; */
 
 }
-.data{
-  font-size: 20px;
+.data-hora-curso{
+  font-size: 15px;
+  margin: 10px;
 }
 
 .varHora {
   float: right;
   position: relative;
+  /* margin: 10px; */
+}
+
+.varData {
+  float: right;
+  position: relative;
+  /* margin: 10px; */
+}
+
+.varCurso{
+  float: right;
+  position: relative;
+  /* margin: 10px; */
 }
 
 .aviso{
-  margin-top: 50px;
+  margin-top: 30px;
   text-align: center;
 }
 

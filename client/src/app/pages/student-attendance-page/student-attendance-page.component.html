@@ -20,24 +20,30 @@
   <div class="aviso1">
     <div class="content">
       <div class="card">
-        <span class="data"><b>Data: </b></span>
-        <span class="varData">{{myDate | date}}</span>
+        <span class="data-hora-curso">
+          <b>Data: </b>
+          <span class="varData">{{myDate | date}}</span>
+        </span>
       </div>
     </div>
     <div class="content">
       <div class="card">
-        <span class="hora"><b>Horário: </b></span>
-        <span class="varHora">{{curso.inicio}}</span>
+        <span class="data-hora-curso">
+          <b>Horário: </b>
+          <span class="varHora">{{curso.inicio}}</span>
+        </span>
       </div>
     </div>
     <div class="content">
       <div class="card">
-        <span class="curso"><b>Curso no Momento: </b></span>
-        <span class="varCurso">{{curso.nomeCurso}}</span>
+        <span class="data-hora-curso">
+          <b>Curso no Momento: </b>
+          <span class="varCurso">{{curso.nomeCurso}}</span>
+        </span>
       </div>
     </div>
   </div>
-  
+
   <div class="aviso">
     <p class="info">Esteja presente para atender a Chamada</p>
     <p class="info2">Usa o QR Code para Atender a Chamada</p>
