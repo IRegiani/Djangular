@@ -5,8 +5,8 @@
 </header> -->
 
 <nav class="nav">
-    <button class="btn btn-primary" routerLink="/home/true">Voltar</button>
-    <h2 class="tit">Turmas</h2>
+  <button class="btn btn-primary" routerLink="/home/true">Voltar</button>
+  <h2 class="tit">Turmas</h2>
 </nav>
 
 <div class="subt" id="subt">
@@ -16,18 +16,16 @@
 <body>
   <div class="header" *ngFor="let c of listaCurso">
     <span class="title"><b>{{c.Name}}</b></span>
-    <ul>
-      <div *ngFor="let lista of listaCurso">
-        <li *ngIf="c.id === lista.id">
-          <a routerLink="/detailClasse/{{lista.idAula}}">
-            <button class="card">
-              <span><b>Aula </b></span>
-              <span class="data">{{lista.StartDate | date}}</span>
-              <span class="data">{{lista.EndDate | date}}</span>
-            </button>
-          </a>
-        </li>
+    <div *ngFor="let lista of listaCurso">
+      <div *ngIf="c.id === lista.id">
+        <a routerLink="/detailClasse/{{lista.idAula}}">
+          <button class="card">
+            <span><b>Aula </b></span>
+            <span class="data">{{lista.StartDate | date}}</span>
+            <span class="data">{{lista.EndDate | date}}</span>
+          </button>
+        </a>
       </div>
-    </ul>
+    </div>
   </div>
 </body>
