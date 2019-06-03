@@ -1,29 +1,38 @@
-<header>
+<!-- <header>
   <h2>{{nomeCurso}}</h2>
   
   <h3> <button (click)="goBack()">Voltar</button> 
     Faltas: {{userFalta.length}}/10</h3>
   
-</header>
+</header> -->
+
+<nav class="nav">
+  <button class="btn btn-primary" (click)="goBack()">Voltar</button>
+  <h2 class="tit">{{nomeCurso}}</h2>
+</nav>
+
+<div class="subt" id="subt">
+  <h3 class="tit"> Faltas: {{userFalta.length}}/10 </h3>
+  <span class="data">{{myDate | date}}</span>
+</div>
+
 
 <body>
-  <ul>
-    <li *ngFor="let u of userFalta">
-      <div class="card">
-        <div class="header">
-          <h4><b>Dia: </b>{{u.data| date}}</h4>
-        </div>
-        <div>
-          <b>1º Chamada: </b>
-          <span [hidden]=u.aula1 [ngStyle]="{'color': 'red'}">Faltou</span>
-          <span [hidden]=!u.aula1 [ngStyle]="{'color': 'green'}">Presente</span>
-        </div>
-        <div>
-          <b>2º Chamada: </b>
-          <span [hidden]=u.aula2 [ngStyle]="{'color': 'red'}">Faltou</span>
-          <span [hidden]=!u.aula2 [ngStyle]="{'color': 'green'}">Presente</span>
-        </div>
+  <div class="content" *ngFor="let u of userFalta">
+    <div class="card">
+      <div class="header">
+        <h4 class="tit"><b>Dia: </b>{{u.data| date}}</h4>
       </div>
-    </li>
-  </ul>
+      <div>
+        <b>1º Chamada: </b>
+        <span [hidden]=u.aula1 [ngStyle]="{'color': 'red'}">Faltou</span>
+        <span [hidden]=!u.aula1 [ngStyle]="{'color': 'green'}">Presente</span>
+      </div>
+      <div>
+        <b>2º Chamada: </b>
+        <span [hidden]=u.aula2 [ngStyle]="{'color': 'red'}">Faltou</span>
+        <span [hidden]=!u.aula2 [ngStyle]="{'color': 'green'}">Presente</span>
+      </div>
+    </div>
+  </div>
 </body>
