@@ -1,44 +1,42 @@
 <!-- <header>
   <h2> Chamada </h2>
   <h4> <a routerLink="/home/true"><button>Voltar</button></a> </h4> -->
-    <!-- {{presencaCurso.nomeCurso}} </h4> -->
-  <!-- <span class="data">{{myDate | date}}</span>
+<!-- {{presencaCurso.nomeCurso}} </h4> -->
+<!-- <span class="data">{{myDate | date}}</span>
   <span class="hora">{{presencaCurso.inicio}} - {{presencaCurso.fim}}</span> -->
 <!-- </header> -->
 
 <nav class="nav">
-    <button class="btn btn-primary" routerLink="/home/true">Voltar</button>
-    <h2 class="tit">Chamada</h2>
+  <button class="btn btn-primary" routerLink="/home/true">Voltar</button>
+  <h2 class="tit">Chamada</h2>
 </nav>
 
 <div class="subt" id="subt">
-  <h3> Realizar chamada por nome do curso </h3>
+  <h3> Procurar Aluno </h3>
 </div>
 
 <body>
   <form class="form-inline md-form form-sm active-cyan-2">
-    <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Procurar por curso" aria-label="Search" mdbInput>
+    <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Nome do Aluno" aria-label="Search"
+      mdbInput>
     <i class="fas fa-search" aria-hidden="true"></i>
     <button class="buttonSearch">Buscar</button>
   </form>
 
   <ul>
-      <li *ngFor="let aula of class_student; let i = index">
-        <expandable-list>
-            <expandable-list-item>
-              <span title (click)="goToAttendance(aula.id)">Aula {{i + 1}}</span>
-              <span secondary>{{aula.Assunto}}</span>
-              <!-- <li *ngFor="let aluno of turmasToday[i].Alunos"> -->
-                  <!-- <li *ngFor="let aluno of aluno[2]">
+    <li *ngFor="let aula of class_student; let i = index">
+      <expandable-list>
+        <expandable-list-item>
+          <span title (click)="goToAttendance(aula.id)">Aula {{i + 1}}</span>
+          <span secondary>{{aula.Assunto}}</span>
+          <!-- <li *ngFor="let aluno of turmasToday[i].Alunos"> -->
+          <!-- <li *ngFor="let aluno of aluno[2]">
                   <span><b>{{aluno}}</b></span>
                   <button class="presente" [ngStyle]="{'color': 'green'}">Presente</button>
                   <button class="ausente" [ngStyle]="{'color': 'red'}">Ausente</button>
               </li> -->
-
-            </expandable-list-item>
-          </expandable-list>
-
+        </expandable-list-item>
+      </expandable-list>
     </li>
-
   </ul>
 </body>

@@ -17,7 +17,7 @@
 }
 
 .tit{
-  text-align: center;
+  /* text-align: center; */
 }
 
 .btn{
@@ -53,6 +53,16 @@
 
 h3{
   font-size: 20px;
+}
+
+.form-inline {
+  display: -ms-flexbox;
+  display: block;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
 }
 
 .buttonSearch{
