@@ -77,17 +77,30 @@ class ColaboradorTurmaAPI(generics.ListAPIView):
 #
 class newPessoaAulaAPI(viewsets.ModelViewSet):
     queryset = PessoaAula.objects.all(),
-    serializer_class = PessoaAulaSerializer
-    @api_view(['GET','POST'])
-    def create(self, request):
-        pessoaId = request.data.get("pessoaId", "")
-        aula = request.data.get("aulaId", "")
-        print('*******************')
-        print(pessoaId, aula)
-        if not (pessoa and aula):
-            return Response(data={
-                "message": "Verique se foi passado pessoaId e aulaId"
-            }, status=status.HTTP_400_BAD_REQUEST)       
+    #filter_backends = (DjangoFilterBackend,)
+    #filterset_fields = ('id', )
+
+    def get_serializer_class(self):
+        method = self.request.method
+        if method == 'PUT' or method == 'POST':
+            return PessoaAulaSerializer
+        else:
+            return GetPessoaAulaSerializer
+
+
+
+
+
+    #@api_view(['GET','POST'])
+    #def post(self, request):
+    #    pessoaId = request.data.get("pessoaId", "")
+    #    aula = request.data.get("aulaId", "")
+    #    print('*******************')
+    #    print(pessoaId, aula)
+    #    if not (pessoa and aula):
+    #        return Response(data={
+    #            "message": "Verique se foi passado pessoaId e aulaId"
+    #        }, status=status.HTTP_400_BAD_REQUEST)       
        # pessoa = Pessoa.objects.filter(id=pessoaId)
        # if not (pessoa):
        #     return Response(data={

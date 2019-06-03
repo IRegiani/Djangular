@@ -11,7 +11,7 @@ urlpatterns = [
  #path('pessoaAula/', PessoaAulaAllAPI.as_view()),
  #path('pessoaAula/<int:pk>', PessoaAulaUniqueAPI.as_view()),
  #id pessoa, id aula -> PessoaAula POST
- path('pessoaAula/', newPessoaAulaAPI.as_view({'post':'create',})),
+ path('pessoaAula/', newPessoaAulaAPI.as_view({'post':'create', 'get':'list'})),
  path('colaboradorTurma/', ColaboradorTurmaAPIALL.as_view()),
- path('colaboradorTurma/<int:fk>', ColaboradorTurmaAPI.as_view()),
+ path('colaboradorTurma/<int:fk>', ColaboradorTurmaAPI.as_view()), #check this 
 ]
