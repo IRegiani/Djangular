@@ -1,4 +1,4 @@
-
+<!-- 
 <header>
   <h2> Histórico </h2>
   <ul>
@@ -7,11 +7,20 @@
         Faltas de {{user.nome}}</h3>
     </li>
   </ul>
-</header>
+</header> -->
+
+<nav class="nav">
+  <button class="btn btn-primary" (click)="goBack()">Voltar</button>
+  <h2 class="tit">Histórico</h2>
+</nav>
+
+<div class="subt" id="subt">
+<h3> Faltas de {{user.nome}} </h3>
+<!-- <span class="data">{{myDate | date}}</span> -->
+</div>
 
 <body>
-  <ul>
-    <li *ngFor="let c of cursoFalta">
+    <div class="content" *ngFor="let c of cursoFalta">
       <a routerLink='/detailFalta/{{c.id}}'>
         <div class="card">
           <span class=s1> <b> {{c.nomeCurso}} </b> </span>
@@ -21,6 +30,5 @@
           </div>
           </div>
       </a>
-    </li>
-  </ul>
+    </div>
 </body>
