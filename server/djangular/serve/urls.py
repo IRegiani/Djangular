@@ -1,12 +1,17 @@
-from django.conf.urls import url
-from .api import AdministradorAPI, PessoaAPI, CursoAPI, TurmaAPI, AulaAPI, PessoaAulaAPI, ColaboradorTurmaAPI
+from django.urls import path
+from .api import *
 
 urlpatterns = [
-    url(r'^adm$', AdministradorAPI.as_view()),
-    url(r'^pessoas$', PessoaAPI.as_view()),
-    url(r'^cursos$', CursoAPI.as_view()),
-    url(r'^turmas$', TurmaAPI.as_view()),
-    url(r'^aulas$', AulaAPI.as_view()),
-    url(r'^pa$', PessoaAulaAPI.as_view()),
-    url(r'^ct$', ColaboradorTurmaAPI.as_view()),
+ path('pessoa/', PessoaAPI.as_view()), #TODO:should receive a new person as well
+ path('pessoa/<int:pk>', PessoaUniqueAPI.as_view()),
+ path('curso/', CursoAPI.as_view()),
+ path('turma/', TurmaAPI.as_view()),
+ path('aulas/', AulaAPI.as_view()),
+ path('aulas/<int:pk>', AulaUniqueAPI.as_view()),
+ #path('pessoaAula/', PessoaAulaAllAPI.as_view()),
+ #path('pessoaAula/<int:pk>', PessoaAulaUniqueAPI.as_view()),
+ #id pessoa, id aula -> PessoaAula POST
+ path('pessoaAula/', newPessoaAulaAPI.as_view({'post':'create', 'get':'list'})),
+ path('colaboradorTurma/', ColaboradorTurmaAPIALL.as_view()),
+ path('colaboradorTurma/<int:fk>', ColaboradorTurmaAPI.as_view()), #check this 
 ]
