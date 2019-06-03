@@ -20,6 +20,7 @@ export class TeacherAttendancePageComponent implements OnInit {
   // class_student: [any, any, Array<any>][] = [];
   class_student:  Array<any>[] = [];
   alunos_aula:  Array<any>[] = [];
+  alunos = []
 
   constructor(private service: AuthService, 
               private _route: ActivatedRoute,
@@ -54,6 +55,7 @@ export class TeacherAttendancePageComponent implements OnInit {
              this.listaTurmas.push(turma.Turma);
           }
         }
+        console.log("A")
         console.log(JSON.stringify(this.listaTurmas));
         this.getAulas(this.listaTurmas);
       }
@@ -73,7 +75,12 @@ export class TeacherAttendancePageComponent implements OnInit {
           }
         }
         console.log(JSON.stringify(this.listaAulas));
-        this.getAulasToday(this.listaAulas);
+        var ids = [];
+        for (let aula of this.listaAulas){
+          ids.push(aula.id)
+        }
+        // this.getAulasToday(this.listaAulas);
+        this.getAulasToday(ids);
       }
        );
   }
@@ -86,13 +93,19 @@ export class TeacherAttendancePageComponent implements OnInit {
       (error) => {console.log("ERROR! --getAulasToday")}, // error
       () => { // Once completed
         for (let aula of auxLista){
+          console.log("B")
+          console.log(auxLista)
+          console.log(aulasIds)
+          
           if (aulasIds.indexOf(aula.id) > -1) { // Found the Turma of the teacher
+            console.log("ENTREI")
             var date = new Date()
             var dd = String(date.getDate()).padStart(2, '0');
             var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
             var yyyy = date.getFullYear();
             
             var today = yyyy + '-' + mm + '-' + dd;
+            console.log("TODAY: "+today)
             if (aula.Data == today) {
               this.aulasToday.push(aula);
             }
@@ -107,15 +120,25 @@ export class TeacherAttendancePageComponent implements OnInit {
           (error) => {console.log("ERROR! --getAllTurmas2")}, // error
           () => { // Once completed
             for (let turma of auxTurmas){
+              console.log("AQUI")
               console.log(turma);
               var aulasArr: Array<any> = turma.Aulas as Array<any> ;
               for (let aula of this.aulasToday) {
+                console.log("aulasArr")
                 console.log(JSON.stringify(aulasArr));
-                if (aulasArr.indexOf(aula.id) > -1) {
+                console.log("AULA")
+                console.log(aula)
+                var aId = []
+                for (let arr of aulasArr){
+                  aId.push(arr.id)
+                }
+                if (aId.indexOf(aula.id) > -1) {
+                  console.log("ENTRA 2")
                   this.turmasToday.push(turma);
                }
               }
             }
+            console.log("TURMAS TODAY")
             console.log(JSON.stringify(this.turmasToday));
 
 
