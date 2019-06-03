@@ -48,27 +48,27 @@ export class AuthService {
   }
 
   getCursos(): Observable<any>{
-    return this.http.get(`${this.url}/serve/cursos`);
+    return this.http.get(`${this.url}/curso`);
   }
 
   getTurmasDoColaborador(): Observable<any>{
-    return this.http.get(`${this.url}/serve/ct`);
+    return this.http.get(`${this.url}/colaboradorTurma`);
   }
 
   getAllTurmas(): Observable<any>{
-    return this.http.get(`${this.url}/serve/turmas`);
+    return this.http.get(`${this.url}/turma`);
   }
   
   getAllAulas(): Observable<any>{
-    return this.http.get(`${this.url}/serve/aulas`);
+    return this.http.get(`${this.url}/aulas`);
   }
 
   getAllAlunosDaAula(): Observable<any>{
-    return this.http.get(`${this.url}/serve/pa`);
+    return this.http.get(`${this.url}/pessoaAula`);
   }
 
   getAllAlunos(): Observable<any>{
-    return this.http.get(`${this.url}/serve/pessoas`);
+    return this.http.get(`${this.url}/pessoa`);
   }
 
   postCurrentAttendance(){
