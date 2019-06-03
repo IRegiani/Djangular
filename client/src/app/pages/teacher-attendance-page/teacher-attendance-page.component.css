@@ -17,13 +17,14 @@
 }
 
 .tit{
-  /* text-align: center; */
+  text-align: center;
+
 }
 
 .btn{
   margin:auto;
   padding: auto;
-  float: left;
+  position: absolute;
 }
 
 #subt{
