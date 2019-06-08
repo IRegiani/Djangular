@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 ## MODELS NORMAIS ######################
 
@@ -16,23 +17,23 @@ class Pessoa(models.Model):
     Phone = models.CharField(max_length=14)
     Password = models.CharField(max_length=50)
     UserType = models.IntegerField(default=0)
-    StartDate = models.DateField()
-    EndDate = models.DateField()
+    StartDate = models.DateField(default=date.today)
+    EndDate = models.DateField(null=True)
     Ativo = models.BooleanField(default=False)
     def __str__(self):
         return "Pessoa: {}".format(self.Name)
 
 class Curso(models.Model):
     Name = models.CharField(max_length=50)
-    Description = models.TextField()
-    StartDate = models.DateField()
-    EndDate = models.DateField()
+    Description = models.TextField(null=True)
+    StartDate = models.DateField(null=True)
+    EndDate = models.DateField(null=True)
     def __str__(self):
         return "Curso: {}".format(self.Name)
 
 class Aula(models.Model):
-    Assunto = models.TextField()
-    Data = models.DateField()
+    Assunto = models.TextField(null=True)
+    Data = models.DateField(null=True)
     Curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     def __str__(self):
         return "Aula: {}".format(self.Assunto)
@@ -40,10 +41,10 @@ class Aula(models.Model):
 class Turma(models.Model):
     Name = models.CharField(max_length=50)
     Place = models.CharField(max_length=50)
-    Description = models.TextField()
-    WeekDay = models.IntegerField()
-    StartTime = models.TimeField()
-    EndTime = models.TimeField()
+    Description = models.TextField(null=True)
+    WeekDay = models.IntegerField(null=True)
+    StartTime = models.TimeField(null=True)
+    EndTime = models.TimeField(null=True)
     Alunos = models.ManyToManyField(Pessoa)
     Cursos = models.ForeignKey(Curso, on_delete=models.CASCADE)
     Aulas = models.ManyToManyField(Aula)
@@ -53,7 +54,7 @@ class Turma(models.Model):
 ## MODELS DE RELACIONAMENTO ##################
 
 class ColaboradorTurma(models.Model):
-    Description = models.TextField()
+    Description = models.TextField(null=True)
     Colaborador = models.ForeignKey(Pessoa, on_delete=models.CASCADE)
     Turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
     def __str__(self):
