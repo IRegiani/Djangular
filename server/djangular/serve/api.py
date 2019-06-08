@@ -119,6 +119,15 @@ class newPessoaAulaAPI(viewsets.ModelViewSet):
         return Response(data={"message": "Entrada criada com sucesso"
             }, status = status.HTTP_201_CREATED)
 
+class GetAulasdaPessoaAPI(generics.ListAPIView):
+    serializer_class = GetPessoaAulaSerializer
+
+    def get_queryset(self):
+        idPessoa = self.kwargs['idPessoa']
+        queryset = PessoaAula.objects.filter(Pessoas=idPessoa)
+        return queryset
+
+
 class TurmaProfessorAPI(generics.ListAPIView):
     queryset = Turma.objects.all()
     filter_backends = (DjangoFilterBackend,)
