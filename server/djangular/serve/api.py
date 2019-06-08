@@ -124,7 +124,9 @@ class GetAulasdaPessoaAPI(generics.ListAPIView):
 
     def get_queryset(self):
         idPessoa = self.kwargs['idPessoa']
-        queryset = PessoaAula.objects.filter(Pessoas=idPessoa)
+        aulasPessoa = PessoaAula.objects.filter(Pessoas=idPessoa)
+        idAula = self.kwargs['idAula']
+        queryset = aulasPessoa.filter(Aulas=idAula)
         return queryset
 
 

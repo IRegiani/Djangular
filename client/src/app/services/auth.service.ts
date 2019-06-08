@@ -71,6 +71,10 @@ export class AuthService {
     return this.http.get(`${this.url}/pessoa`);
   }
 
+  getPresencaEmAula(idPessoa, idAula): Observable<any>{
+    return this.http.get(`${this.url}/pessoaAula/` +idPessoa + `/` + idAula);
+  }
+
   postCurrentAttendance(){
     
   }

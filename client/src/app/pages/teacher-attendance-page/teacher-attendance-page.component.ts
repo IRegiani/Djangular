@@ -21,6 +21,7 @@ export class TeacherAttendancePageComponent implements OnInit {
   class_student:  Array<any>[] = [];
   alunos_aula:  Array<any>[] = [];
   alunos = []
+  alunosAttendance = []
 
   constructor(private service: AuthService, 
               private _route: ActivatedRoute,
@@ -42,7 +43,7 @@ export class TeacherAttendancePageComponent implements OnInit {
   }
 
   studentAttendendance(){
-    
+
   }
 
   // --SERVICE METHODS--
@@ -162,6 +163,31 @@ export class TeacherAttendancePageComponent implements OnInit {
            );
       }
        );
+  }
+
+    populateStudentAttendance(num, idAula): void {
+      this.alunosAttendance = [];
+      var cont = 0
+      for (let aluno of this.turmasToday[num].Alunos){
+        console.log("AULA")
+        console.log(this.turmasToday[num])
+        console.log("idAula")
+        console.log(idAula)
+        console.log("idAluno")
+        console.log(aluno.id)
+        this.service.getPresencaEmAula(aluno.id, idAula).subscribe(
+          (relacao) => {cont = relacao[0].Contador 
+          console.log("RELACAO")
+          console.log(relacao)}, // on Success
+          (error) => {console.log("ERROR! --getTurmasDoColaborador")}, // error
+          () => { // Once completed
+            console.log(this.alunosAttendance)
+            this.alunosAttendance.push(cont)
+          }
+           );
+      }
+
+      console.log("ALUNOS ATTENDANCE: " +this.alunosAttendance)
   }
 
 }
