@@ -1,50 +1,32 @@
-<!-- <header>
-  <h2> Chamada </h2>
-  <h4> <a routerLink="/home/true"><button>Voltar</button></a> </h4> -->
-<!-- {{presencaCurso.nomeCurso}} </h4> -->
-<!-- <span class="data">{{myDate | date}}</span>
-  <span class="hora">{{presencaCurso.inicio}} - {{presencaCurso.fim}}</span> -->
-<!-- </header> -->
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Personal data
+      </mat-panel-title>
+      <mat-panel-description>
+        Type your name and age
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-<nav class="nav">
-  <button class="btn btn-primary" routerLink="/home/true">Voltar</button>
-  <h2 class="tit">Chamada</h2>
-</nav>
+    <mat-form-field>
+      <input matInput placeholder="First name">
+    </mat-form-field>
 
-<div class="subt" id="subt">
-  <h3> Procurar Aluno </h3>
-</div>
-
-<body>
-  <form class="form-inline md-form form-sm active-cyan-2">
-    <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Nome do Aluno" aria-label="Search"
-      mdbInput>
-    <i class="fas fa-search" aria-hidden="true"></i>
-    <button class="buttonSearch">Buscar</button>
-  </form>
-
-  <div>
-    <div *ngFor="let aula of class_student; let i = index">
-      <!-- <expandable-list> -->
-        <!-- <expandable-list-item> -->
-          <h3 title (click)="goToAttendance(aula.id)">Aula {{i + 1}}</h3>
-          <h2>{{i}}</h2>
-          <span secondary>{{aula.Assunto}}</span>
-
-          <li *ngFor="let aluno of turmasToday[i].Alunos">
-            <span>{{aluno.Name}}</span>
-          </li>
-          <!-- <li *ngFor="let aluno of aluno[2]">
-                  <span><b>{{aluno}}</b></span>
-                  <button class="presente" [ngStyle]="{'color': 'green'}">Presente</button>
-                  <button class="ausente" [ngStyle]="{'color': 'red'}">Ausente</button>
-              </li> -->
-
-        <!-- </expandable-list-item> -->
-      <!-- </expandable-list> -->
-
-
-    </div>
-
-  </div>
-</body>
+    <mat-form-field>
+      <input matInput placeholder="Age">
+    </mat-form-field>
+  </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Self aware panel
+      </mat-panel-title>
+      <mat-panel-description>
+        Currently I am {{panelOpenState ? 'open' : 'closed'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>I'm visible because I am open</p>
+  </mat-expansion-panel>
+</mat-accordion>
