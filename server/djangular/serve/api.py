@@ -94,7 +94,24 @@ class newPessoaAulaAPI(viewsets.ModelViewSet):
     # queryset = PessoaAula.objects.all()
     # serializer_class = GetPessoaAulaSerializer
 
+class UpdatePessoaAulaAPI(generics.RetrieveUpdateAPIView):
+    queryset = PessoaAula.objects.all()
+    serializer_class = PessoaAulaSerializer
 
+    def put(self):
+        idPessoa = self.kwargs['idPessoa']
+        idAula = self.kwargs['idAula']
+        Contador = self.kwargs['Contador']
+        queryset = PessoaAula.objects.filter(Pessoas=idPessoa, Aulas=idAula)
+        queryset.Contador = Contatador
+        queryset.save()
+        
+        # queryset = PessoaAula.objects.filter(Pessoas=Pessoas, Aulas=Aulas)
+        # queryset.Contador += 1
+        # queryset.save()
+        return Response(data=serializer_class, status=status.HTTP_200_OK)
+        
+            
 
 
 
@@ -116,8 +133,8 @@ class newPessoaAulaAPI(viewsets.ModelViewSet):
         #class_group = PessoaAula.objects.create(
         #    title=title, classroom=classroom)
 
-        return Response(data={"message": "Entrada criada com sucesso"
-            }, status = status.HTTP_201_CREATED)
+        # return Response(data={"message": "Entrada criada com sucesso"
+        #     }, status = status.HTTP_201_CREATED)
 
 class GetAulasdaPessoaAPI(generics.ListAPIView):
     serializer_class = GetPessoaAulaSerializer

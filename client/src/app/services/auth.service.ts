@@ -75,7 +75,7 @@ export class AuthService {
     return this.http.get(`${this.url}/pessoaAula/` +idPessoa + `/` + idAula);
   }
 
-  postCurrentAttendance(){
-    
+  postCurrentAttendance(pessoaPresenca){
+    return this.http.post(`${this.url}/pessoaAula/1/6/1`);
   }
 } 
