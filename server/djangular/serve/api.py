@@ -9,8 +9,9 @@ from .models import *
 
 ## API de Serializers Normais ###############
 
-class PessoaAPI(generics.ListAPIView):
+class PessoaAPI(generics.ListCreateAPIView):
     queryset = Pessoa.objects.all()
+    
     serializer_class = PessoaSerializer
 
 class PessoaUniqueAPI(generics.RetrieveAPIView):

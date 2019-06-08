@@ -11,6 +11,7 @@ import { ManageClassesComponent } from './pages/manage-classes-page/manage-class
 import { ClassDetailComponent } from './components/class-detail/class-detail.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { AttendanceListComponent } from './pages/attendance-list/attendance-list.component';
+import route from './constants/routes';
 
 const routes: Routes = [
   {
@@ -18,17 +19,17 @@ const routes: Routes = [
     redirectTo: 'home/falso',
     pathMatch: 'full',
   },
-  { path: 'login', component: LoginPage },
-  { path: 'detailFalta/:id', component: HistoryDetailComponent },
-  { path: 'history', component: StudentHistoryComponent },
-  { path: 'calendar', component: CalendarComponent },
-  { path: 'home/:adm', component: HomePageComponent },
-  { path: 'chamada', component: StudentAttendancePageComponent },
-  { path: 'teacher', component: TeacherAttendancePageComponent },
-  { path: 'turma', component: ManageClassesComponent },
-  { path: 'detailClasse/:id', component: ClassDetailComponent },
-  { path: 'register', component: RegisterPageComponent },
-  { path: 'attendanceList', component: AttendanceListComponent }
+  { path: route.LOGIN_PAGE, component: LoginPage },
+  { path: `${route.ABSENCE_DETAIL}/:id`, component: HistoryDetailComponent },
+  { path: route.HISTORY_PAGE, component: StudentHistoryComponent },
+  { path: route.CALENDAR_PAGE, component: CalendarComponent },
+  { path: `${route.HOME_PAGE}/:adm`, component: HomePageComponent },
+  { path: route.PRESENCE_PAGE, component: StudentAttendancePageComponent },
+  { path: route.TEACHER_PAGE, component: TeacherAttendancePageComponent },
+  { path: route.CLASS_PAGE, component: ManageClassesComponent },
+  { path: `${route.CLASS_DETAIL}/:id`, component: ClassDetailComponent },
+  { path: route.REGISTER_PAGE, component: RegisterPageComponent },
+  { path: route.ATTENDANCE_PAGE, component: AttendanceListComponent }
 
 ];
 

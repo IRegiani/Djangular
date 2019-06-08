@@ -35,6 +35,9 @@ export class AuthService {
   }
 
   createNewUser(cadastro: any){ //tipar para user
+      console.log( "Cadastro: " + cadastro);
+      return this.http.post(`${this.url}/pessoa/`, cadastro);
+    
     // conectar ao banco com post
     // enviar dados do cadastro para o banco salvar
     // recebe um true sobre os dados do novo usuario esta salvo
