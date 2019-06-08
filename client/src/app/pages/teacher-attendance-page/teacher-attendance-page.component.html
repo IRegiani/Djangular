@@ -25,24 +25,27 @@
 
   <div>
     <div *ngFor="let aula of class_student; let i = index">
-      <!-- <expandable-list> -->
-        <!-- <expandable-list-item> -->
-          <h3 title (click)="goToAttendance(aula.id)">Aula {{i + 1}}</h3>
-          <h2>{{i}}</h2>
-          <span secondary>{{aula.Assunto}}</span>
 
-          <li *ngFor="let aluno of turmasToday[i].Alunos">
-            <span>{{aluno.Name}}</span>
-          </li>
-          <!-- <li *ngFor="let aluno of aluno[2]">
-                  <span><b>{{aluno}}</b></span>
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Aula {{i + 1}}
+                </mat-panel-title>
+                <!-- <mat-panel-description>
+                  Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                </mat-panel-description> -->
+              </mat-expansion-panel-header>
+              <!-- <p>{{aula/Assunto}}</p> -->
+              <span secondary>{{aula.Assunto}}</span>
+              <li *ngFor="let aluno of turmasToday[i].Alunos">
+                  <span><b>{{aluno.Name}}</b></span>
                   <button class="presente" [ngStyle]="{'color': 'green'}">Presente</button>
                   <button class="ausente" [ngStyle]="{'color': 'red'}">Ausente</button>
-              </li> -->
-
-        <!-- </expandable-list-item> -->
-      <!-- </expandable-list> -->
-
+              </li>
+            </mat-expansion-panel>
+          </mat-accordion>
 
     </div>
 
