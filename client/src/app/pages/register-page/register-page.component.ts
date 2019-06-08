@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register-page',
@@ -8,10 +9,20 @@ import { Component, OnInit } from '@angular/core';
 export class RegisterPageComponent implements OnInit {
 
   loading = false;
-  constructor() { }
+  constructor(private service : AuthService) { }
 
   ngOnInit() {
     // get courses info from the server
+    let cadastro = {
+      Name: "Test",
+      Email: "vsdsaajdaskdj",
+      Phone: "1213",
+      Password: "senha",
+      UserType: 0,
+      Ativo: 1
+      }
+    this.service.createNewUser(cadastro).subscribe(pessoa =>
+      console.log(pessoa));
   }
 
   onClickSubmit(){
