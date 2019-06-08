@@ -19,6 +19,7 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^serve/', include('serve.urls')),
+    path('', include('serve.urls'))
+    #url(r'^serve/', include('serve.urls')),
 
 ]

@@ -1,4 +1,59 @@
-header {
+.title{
+  color: black;
+  font-size: 30px;
+  height: 50px;
+}
+.navbar{
+  text-align: center;
+}
+
+.nav{
+  font-size: 30px;
+  display: block;
+  margin: 0;
+  padding: 0;
+  height: 38px;
+  background: #007bff;
+}
+
+.tit{
+  /* position: absolute; */
+  text-align: center;
+}
+
+.btn{
+  margin:auto;
+  padding: auto;
+  position: absolute;
+}
+
+#subt{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.nomeEvento{
+  font-size: 20px;
+}
+
+.card{
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.content{
+  text-align: center;
+  margin: 5px;
+  border: 3px solid rgba(0, 0, 0, 0.5);
+  height: 200px;
+
+}
+.data{
+  font-size: 20px;
+}
+
+
+/* header {}
     h2 {
       text-align: center;
       margin: 0;
@@ -37,10 +92,7 @@ header {
     }
   
   
-  }
-  
-  
-  body {
+  body {}
   
     ul {
       margin: 0 auto;
@@ -49,7 +101,7 @@ header {
       border-left: none;
       border-right: none;
       border: 1px solid rgba(0, 0, 0, 0.1);
-  
+    }
       button.card {
         border: 1px solid #CCC;
         box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.5);
@@ -64,6 +116,5 @@ header {
       span.data {
         position: relative;
       }
-    }
-  }
-  
+
+   */

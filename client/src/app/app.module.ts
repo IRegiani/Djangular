@@ -17,7 +17,10 @@ import { ClassDetailComponent } from './components/class-detail/class-detail.com
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { ExpandableListModule } from 'angular2-expandable-list';
 import { AttendanceListComponent } from './pages/attendance-list/attendance-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +42,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AppRoutingModule,
     HttpClientModule,
     ExpandableListModule,
+    BrowserAnimationsModule,
+    MaterialModule,
     NgxSpinnerModule,
   ],
   providers: [],

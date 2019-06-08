@@ -1,4 +1,88 @@
-header {
+.title{
+  color: black;
+  font-size: 30px;
+  height: 50px;
+}
+.navbar{
+  text-align: center;
+}
+
+.nav{
+  font-size: 30px;
+  display: block;
+  margin: 0;
+  padding: 0;
+  height: 38px;
+  background: #007bff;
+}
+
+.tit{
+  /* position: absolute; */
+  text-align: center;
+}
+
+#bntVoltar{
+  margin:auto;
+  padding: auto;
+  float: left;
+}
+
+#subt{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.qr{
+  text-align: center;
+  margin-top: 30px;
+}
+
+.nomeEvento{
+  font-size: 20px;
+}
+
+.card{
+  /* border-bottom: 2px solid rgba(0, 0, 0, 0.5); */
+}
+
+.content{
+  /* text-align: center; */
+  margin: 10px;
+  /* border: 3px solid rgba(0, 0, 0, 0.5); */
+  /* height: 200px; */
+
+}
+.data-hora-curso{
+  font-size: 15px;
+  margin: 10px;
+}
+
+.varHora {
+  float: right;
+  position: relative;
+  /* margin: 10px; */
+}
+
+.varData {
+  float: right;
+  position: relative;
+  /* margin: 10px; */
+}
+
+.varCurso{
+  float: right;
+  position: relative;
+  /* margin: 10px; */
+}
+
+.aviso{
+  margin-top: 30px;
+  text-align: center;
+}
+
+
+/* header {}
     h2 {
       text-align: center;
       margin: 0;
@@ -36,9 +120,7 @@ header {
       background-color: #cfd8dc;
     }
   
-  }
-  
-  body {
+  body {}
   
     ul {
       margin: 0 auto;
@@ -111,5 +193,4 @@ header {
       background-color: #395694;
       cursor: pointer;
     }
-  }
-  
+   */

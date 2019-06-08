@@ -1,45 +1,26 @@
 
-<header>
-    <h2> Calendário </h2>
-    <ul>
-      <li>
-        <h3>  <button (click)="goBack()">Voltar</button> 
-          Próximos Eventos</h3>
-          <span class="data">{{myDate | date}}</span>
-      </li>
-    </ul>
-  </header>
-  
-  <!-- <body>
-    <ul>
-      <li *ngFor="let c of cursoFalta">
-        <a routerLink='/detailFalta/{{c.id}}'>
-          <div class="card">
-            <span class=s1> <b> {{c.nomeCurso}} </b> </span>
-            <div>
-                <b>Faltas: </b>
-                <span [ngStyle]="{'color': 'red'}">{{c.falta}}/{{c.totalFalta}}</span>
-            </div>
-            </div>
-        </a>
-      </li>
-    </ul>
-  </body> -->
+<nav class="nav">
+    <button class="btn btn-primary" (click)="goBack()">Voltar</button>
+    <h2 class="tit">Calendario</h2>
+</nav>
+
+<div class="subt" id="subt">
+  <h3> Próximos Eventos </h3>
+  <span class="data">{{myDate | date}}</span>
+</div>
 
 <body>
 
-  <ul>
-    <li *ngFor="let event of cursoCalendario">
-      <div class="card">
-        <div class="header">
-          <span><b>{{event.nomeCurso}}</b></span>
-          <span class="data"> {{event.data|date}}</span>
-        </div>
-        <div>
-          <b>Horário: </b>
-          <span [ngStyle]="{'color': 'green'}">{{event.inicio}} - {{event.fim}}</span>
-        </div>
+  <div class="content" id="econt" *ngFor="let event of cursoCalendario">
+    <div class="card">
+      <div class="nomeEvento">
+        <span><b>{{event.nomeCurso}}</b></span>
+        <span class="data"> {{event.data|date}}</span>
       </div>
-    </li>
-  </ul>
+      <div class="nomeEvento">
+        <b>Horário: </b>
+        <span [ngStyle]="{'color': 'green'}">{{event.inicio}} - {{event.fim}}</span>
+      </div>
+    </div>
+  </div>
 </body>
