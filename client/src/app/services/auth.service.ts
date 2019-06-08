@@ -51,7 +51,7 @@ export class AuthService {
     return this.http.get(`${this.url}/curso`);
   }
 
-  getTurmasDoColaborador(): Observable<any>{
+  getAllTurmasDoColaborador(): Observable<any>{
     return this.http.get(`${this.url}/colaboradorTurma`);
   }
 

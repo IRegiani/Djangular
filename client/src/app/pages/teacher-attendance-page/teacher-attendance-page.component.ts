@@ -22,6 +22,7 @@ export class TeacherAttendancePageComponent implements OnInit {
   alunos_aula:  Array<any>[] = [];
   alunos = []
   alunosAttendance = []
+  expansionAux = -1
 
   constructor(private service: AuthService, 
               private _route: ActivatedRoute,
@@ -42,8 +43,23 @@ export class TeacherAttendancePageComponent implements OnInit {
     this._router.navigate(['attendanceList']);
   }
 
-  studentAttendendance(){
+  studentAttendendance(pos , bool){
+    if (bool){ // Adds to attendance
+      if (this.alunosAttendance[pos] < 2) {
+        var add = this.alunosAttendance[pos] + 1;
+        this.alunosAttendance[pos] = add;
+        // POST TO SERVICE HERE
+        let pessoaAula =  {
 
+        }
+      }
+    } else {// Subtracts to attendance
+        if (this.alunosAttendance[pos] > 0) {
+          var subtract = this.alunosAttendance[pos] - 1;
+          this.alunosAttendance[pos] = subtract;
+          // POST TO SERVICE HERE
+        }
+    }
   }
 
   // --SERVICE METHODS--
@@ -51,7 +67,7 @@ export class TeacherAttendancePageComponent implements OnInit {
   getTurmas(universalProfId: Number): void{
     var auxLista : Array<any> = [];
 
-    this.service.getTurmasDoColaborador().subscribe(
+    this.service.getAllTurmasDoColaborador().subscribe(
       (turmas) => {auxLista = turmas }, // on Success
       (error) => {console.log("ERROR! --getTurmasDoColaborador")}, // error
       () => { // Once completed
@@ -168,6 +184,8 @@ export class TeacherAttendancePageComponent implements OnInit {
     populateStudentAttendance(num, idAula): void {
       this.alunosAttendance = [];
       var cont = 0
+      this.expansionAux = idAula
+
       for (let aluno of this.turmasToday[num].Alunos){
         console.log("AULA")
         console.log(this.turmasToday[num])
@@ -190,4 +208,9 @@ export class TeacherAttendancePageComponent implements OnInit {
       console.log("ALUNOS ATTENDANCE: " +this.alunosAttendance)
   }
 
-}
+  expandCollapse(idAula){
+    return idAula == this.expansionAux
+    }
+  }
+
+

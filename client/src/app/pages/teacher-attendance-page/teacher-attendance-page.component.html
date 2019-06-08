@@ -27,8 +27,9 @@
     <div *ngFor="let aula of class_student; let i = index">
 
         <mat-accordion (click)="populateStudentAttendance(i, aula.id)">
-            <mat-expansion-panel (opened)="panelOpenState = true"
-                                 (closed)="panelOpenState = false">
+            <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false"> -->
+            <mat-expansion-panel [expanded]="expandCollapse(aula.id)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   Aula {{i + 1}}
@@ -39,12 +40,12 @@
               </mat-expansion-panel-header>
               <!-- <p>{{aula/Assunto}}</p> -->
               <span secondary>{{aula.Assunto}}</span>
-              <li *ngFor="let aluno of turmasToday[i].Alunos; let i = index">
+              <li *ngFor="let aluno of turmasToday[i].Alunos; let j = index">
                   <span><b>{{aluno.Name}}</b></span>
                   <button class="presente" [ngStyle]="{'color': 'green'}">Presente</button>
                   <button class="ausente" [ngStyle]="{'color': 'red'}">Ausente</button>
                   <span><b>
-                    {{alunosAttendance[i]}}/2
+                    {{alunosAttendance[j]}}/2
                   </b></span>
               </li>
             </mat-expansion-panel>
