@@ -9,19 +9,19 @@ import { AuthService} from '../../services/auth.service';
 export class ManageClassesComponent implements OnInit {
 
   listaCurso: Array<any> = [];
-
+  TEACHER_ID = 6; // should get user ID from service singleton
   constructor(private service: AuthService) { }
 
   ngOnInit() {
     // load spinner
-    // should get user ID from service
-    // should get all Turmas related to that ID, and extract all Courses from them
     this.getCursos();
   }
 
   // Calls service to get "cursos"
   getCursos(): void {
-    this.service.getCursos().subscribe(cursos =>
-       this.listaCurso = cursos);
+    this.service.getTurmasDoColaborador(this.TEACHER_ID).subscribe((cursos) => {
+      this.listaCurso = cursos;
+      console.log('Cursos: ', cursos);
+    });
   }
 }

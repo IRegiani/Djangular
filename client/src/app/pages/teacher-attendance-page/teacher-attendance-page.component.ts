@@ -44,9 +44,9 @@ export class TeacherAttendancePageComponent implements OnInit {
   // --SERVICE METHODS--
   // Calls service to get "cursos"
   getTurmas(universalProfId: Number): void{
-    var auxLista : Array<any> = [];
+    var auxLista;
 
-    this.service.getTurmasDoColaborador().subscribe(
+    this.service.getAllTurmasDoColaborador().subscribe(
       (turmas) => {auxLista = turmas }, // on Success
       (error) => {console.log("ERROR! --getTurmasDoColaborador")}, // error
       () => { // Once completed

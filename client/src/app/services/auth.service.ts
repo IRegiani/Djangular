@@ -7,8 +7,8 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-
-    // http options used for making API calls
+  
+  // http options used for making API calls
   private httpOptions: any;
   private url = 'http://localhost:8000';
   
@@ -51,8 +51,13 @@ export class AuthService {
     return this.http.get(`${this.url}/curso`);
   }
 
-  getTurmasDoColaborador(): Observable<any>{
+  getTurmasDoColaborador(id: number): Observable<any>{
+    return this.http.get(`${this.url}/colaboradorTurma/${id}`);
+  }
+
+  getAllTurmasDoColaborador() {
     return this.http.get(`${this.url}/colaboradorTurma`);
+
   }
 
   getAllTurmas(): Observable<any>{
