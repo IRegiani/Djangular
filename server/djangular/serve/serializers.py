@@ -66,9 +66,11 @@ class PessoaAulaSerializer(serializers.ModelSerializer):
     class Meta:
         model = PessoaAula
         fields = '__all__'
+        print(fields)
+        # fields = ['Contador', 'Aulas']
 
 class GetPessoaAulaSerializer(serializers.ModelSerializer):
     class Meta:
         model = PessoaAula
         fields = '__all__'
-        depth = 1
+        depth = 2

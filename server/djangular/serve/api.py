@@ -76,16 +76,23 @@ class ColaboradorTurmaAPI(generics.ListAPIView):
 #            return GetPessoaAulaSerializer
 #
 class newPessoaAulaAPI(viewsets.ModelViewSet):
-    queryset = PessoaAula.objects.all(),
-    #filter_backends = (DjangoFilterBackend,)
-    #filterset_fields = ('id', )
+    queryset = PessoaAula.objects.all()
+    serializer_class = GetPessoaAulaSerializer
+
+    # queryset = PessoaAula.objects.all(),
+    # #filter_backends = (DjangoFilterBackend,)
+    # #filterset_fields = ('id', )
 
     def get_serializer_class(self):
         method = self.request.method
         if method == 'PUT' or method == 'POST':
             return PessoaAulaSerializer
         else:
+            # return PessoaAulaSerializer
             return GetPessoaAulaSerializer
+
+    # queryset = PessoaAula.objects.all()
+    # serializer_class = GetPessoaAulaSerializer
 
 
 
@@ -108,6 +115,7 @@ class newPessoaAulaAPI(viewsets.ModelViewSet):
        #     }, status=status.HTTP_404_NOT_FOUND)
         #class_group = PessoaAula.objects.create(
         #    title=title, classroom=classroom)
+
         return Response(data={"message": "Entrada criada com sucesso"
             }, status = status.HTTP_201_CREATED)
 

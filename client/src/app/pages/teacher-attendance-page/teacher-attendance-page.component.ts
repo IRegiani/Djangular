@@ -41,6 +41,10 @@ export class TeacherAttendancePageComponent implements OnInit {
     this._router.navigate(['attendanceList']);
   }
 
+  studentAttendendance(){
+    
+  }
+
   // --SERVICE METHODS--
   // Calls service to get "cursos"
   getTurmas(universalProfId: Number): void{
