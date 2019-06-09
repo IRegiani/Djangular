@@ -18,10 +18,12 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
 
     //this.getAdmin();
+    this.updateContadorUp();
   }
 
   ngOnChanges() {
     this.getAdmin();
+    // this.updateContadorUp();
   }
   getAdmin(): void {
     const adm = this.route.snapshot.paramMap.get('adm');
@@ -34,12 +36,13 @@ export class HomePageComponent implements OnInit {
 
   //PESSOA AULA POST
   updateContadorUp(): void {
-    let findUser = {
+    let relation = {
       Pessoas: 1,
       Aulas: 1,
       Contador: 1
     }
-    this.service.postCurrentAttendance(findUser).subscribe(count => {
+    this.service.updateCurrentAttendance(6, relation).subscribe(count => {
+      console.log("FIZ REQUEST")
       console.log(count);
     })
   }

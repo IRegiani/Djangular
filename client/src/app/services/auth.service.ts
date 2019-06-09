@@ -75,7 +75,25 @@ export class AuthService {
     return this.http.get(`${this.url}/pessoaAula/` +idPessoa + `/` + idAula);
   }
 
-  postCurrentAttendance(pessoaPresenca){
-    return this.http.post(`${this.url}/pessoaAula/1/6/1`);
+
+  // makePutRequest (): Observable<any[]> {
+  //   let headers = new Headers();
+  //   headers.append('Content-Type', 'application/json');
+    
+  //   let bodyObj = {
+  //     userId: 1,
+  //     id: 1,
+  //     title: "new title",
+  //     body: "new body"
+  //   };
+    
+  //   return this.http
+  //     .put('https://jsonplaceholder.typicode.com/posts/1', JSON.stringify(bodyObj), {headers: headers})
+  //                   .map(this.extractData)
+  //                   .catch(this.handleError);
+  // }
+
+  updateCurrentAttendance(idRelacao, bodyObj){
+    return this.http.put(`${this.url}/updatePessoaAula/` + idRelacao, bodyObj, this.httpOptions);
   }
 } 
