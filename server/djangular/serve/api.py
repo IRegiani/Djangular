@@ -121,7 +121,7 @@ class newPessoaAulaAPI(viewsets.ModelViewSet):
 
 class GetAulasdaPessoaAPI(generics.ListAPIView):
     serializer_class = GetPessoaAulaSerializer
-
+    # generics.
     def get_queryset(self):
         idPessoa = self.kwargs['idPessoa']
         aulasPessoa = PessoaAula.objects.filter(Pessoas=idPessoa)
