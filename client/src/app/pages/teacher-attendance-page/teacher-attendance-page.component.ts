@@ -4,12 +4,19 @@ import  { ActivatedRoute, Router } from '@angular/router'
 import { IdSelectorService} from '../../services/id-selector.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+export interface PessoaAula {
+  id: Number,
+  Contador: Number,
+  Pessoas: any,
+  Aulas: any
+}
 
 @Component({
   selector: 'app-teacher-attendance-page',
   templateUrl: './teacher-attendance-page.component.html',
   styleUrls: ['./teacher-attendance-page.component.css']
 })
+
 export class TeacherAttendancePageComponent implements OnInit {
 
 
@@ -25,6 +32,9 @@ export class TeacherAttendancePageComponent implements OnInit {
   alunosAttendance = []
   relacaoListIds = []
   expansionAux = -1
+  // alunosGeral: Array<PessoaAula> = [];
+  alunosGeral = []
+
 
   constructor(private service: AuthService, 
               private _route: ActivatedRoute,
@@ -185,57 +195,14 @@ export class TeacherAttendancePageComponent implements OnInit {
             }
           }
         }
+        console.log("AULAS TODAY ----------------")
         console.log(JSON.stringify(this.aulasToday));
-
-        // Make array of turmas (since they are the ones with each student)
-        var auxTurmas = []
-        this.service.getAllTurmas().subscribe(
-          (turmas) => {auxTurmas = turmas }, // on Success
-          (error) => {console.log("ERROR! --getAllTurmas2")}, // error
-          () => { // Once completed
-            for (let turma of auxTurmas){
-              console.log("AQUI")
-              console.log(turma);
-              var aulasArr: Array<any> = turma.Aulas as Array<any> ;
-              for (let aula of this.aulasToday) {
-                console.log("aulasArr")
-                console.log(JSON.stringify(aulasArr));
-                console.log("AULA")
-                console.log(aula)
-                var aId = []
-                for (let arr of aulasArr){
-                  aId.push(arr.id)
-                }
-                if (aId.indexOf(aula.id) > -1) {
-                  console.log("ENTRA 2")
-                  this.turmasToday.push(turma);
-               }
-              }
-            }
-            console.log("TURMAS TODAY")
-            console.log(JSON.stringify(this.turmasToday));
-
-
-
-
-
-            // Finally, add both values to the tuple
-            for (let aula of this.aulasToday){
-              var i = this.aulasToday.indexOf(aula);
-              // this.class_student.push([aula, this.turmasToday[i], this.turmasToday[i].Alunos])
-              this.class_student.push(aula)
-
-            }
-            // Stopped loading all the "Aulas" of the teacher, that day
-            this.spinner.hide();
-            console.log(this.class_student);
-          }
-           );
+        this.spinner.hide();
       }
        );
   }
 
-    populateStudentAttendance(num, idAula): void {
+    populateStudents(idAula): void {
       // Begins loading the students info
       this.spinner.show(undefined,
         {
@@ -249,33 +216,40 @@ export class TeacherAttendancePageComponent implements OnInit {
 
       this.alunosAttendance = [];
       this.relacaoListIds = [];
+      this.alunosGeral = [];
+
       var cont = -1;
       var id = -1;
       this.expansionAux = idAula
 
-      for (let aluno of this.turmasToday[num].Alunos){
-        console.log("AULA")
-        console.log(this.turmasToday[num])
-        console.log("idAula")
-        console.log(idAula)
-        console.log("idAluno")
-        console.log(aluno.id)
-        this.service.getPresencaEmAula(aluno.id, idAula).subscribe(
-          (relacao) => {
-            cont = relacao[0].Contador;
-            id = relacao[0].id;
-          console.log("RELACAO")
-          console.log(relacao)}, // on Success
-          (error) => {console.log("ERROR! --getTurmasDoColaborador")}, // error
-          () => { // Once completed
-            console.log(this.alunosAttendance);
-            this.alunosAttendance.push(cont);
-            this.relacaoListIds.push(id);
-          }
-           );
-      }
+      this.service.getPessoaAulaDaAula(idAula).subscribe(
+        (relacoes) => {
+          for (let relacao of relacoes){
+            // let rel: PessoaAula;
+            this.relacaoListIds.push(relacao.id);
+            this.alunosAttendance.push(relacao.Contador);
+            this.alunosGeral.push(relacao.Pessoas);
+            // rel.Aulas = relacao.Aulas;
 
-      console.log("ALUNOS ATTENDANCE: " +this.alunosAttendance)
+            // this.alunosGeral.push(rel);
+          }
+        console.log("RELACAO")
+        console.log(relacoes)}, // on Success
+        (error) => {console.log("ERROR! --getTurmasDoColaborador")}, // error
+        () => { // Once completed
+          console.log(this.alunosAttendance);
+          this.alunosAttendance.push(cont);
+          this.relacaoListIds.push(id);
+        }
+         );
+
+      // console.log("ALUNOS ATTENDANCE: " +this.alunosAttendance)
+      console.log("ALUNOS GERAL: ")
+      console.log(this.alunosGeral)
+      console.log(JSON.stringify(this.alunosGeral))
+      console.log(this.alunosGeral[1])
+      console.log(this.relacaoListIds)
+      console.log(this.alunosAttendance)
       this.spinner.hide();
   }
 

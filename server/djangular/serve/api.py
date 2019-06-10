@@ -128,6 +128,14 @@ class GetAulasdaPessoaAPI(generics.ListAPIView):
         return queryset
 
 
+class GetAlunosDaAulaAPI(generics.ListAPIView):
+    serializer_class = GetPessoaAulaSerializer
+    # generics.
+    def get_queryset(self):
+        idAula = self.kwargs['idAula']
+        queryset = PessoaAula.objects.filter(Aulas=idAula)
+        return queryset
+
 class TurmaProfessorAPI(generics.ListAPIView):
     queryset = Turma.objects.all()
     filter_backends = (DjangoFilterBackend,)
