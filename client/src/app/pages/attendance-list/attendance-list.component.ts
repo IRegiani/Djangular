@@ -65,7 +65,7 @@ export class AttendanceListComponent implements OnInit {
 
     getAlunosInfo(alunosIds : Array<any>){
       var auxLista : Array<any> = [];
-      this.service.getAllAlunos().subscribe(
+      this.service.getAllPessoas().subscribe(
         (alunos) => {auxLista = alunos }, // on Success
         (error) => {console.log("ERROR! --getAllAlunos")}, // error
         () => { // Once completed

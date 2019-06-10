@@ -14,6 +14,7 @@ import { StudentAttendancePageComponent } from './pages/student-attendance-page/
 import { TeacherAttendancePageComponent } from './pages/teacher-attendance-page/teacher-attendance-page.component';
 import { ManageClassesComponent } from './pages/manage-classes-page/manage-classes-page.component';
 import { ClassDetailComponent } from './components/class-detail/class-detail.component';
+import { AddStudentSingleClassComponent } from './components/add-student-single-class/add-student-single-class.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { ExpandableListModule } from 'angular2-expandable-list';
 import { AttendanceListComponent } from './pages/attendance-list/attendance-list.component';
@@ -35,7 +36,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     StudentHistoryComponent,
     TeacherAttendancePageComponent,
     ManageClassesComponent,
-    AttendanceListComponent
+    AttendanceListComponent,
+    AddStudentSingleClassComponent
   ],
   imports: [
     BrowserModule,

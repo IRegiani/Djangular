@@ -79,8 +79,12 @@ export class AuthService {
     return this.http.get(`${this.url}/alunosDaAula/` + idAula);
   }
 
-  getAllAlunos(): Observable<any>{
+  getAllPessoas(): Observable<any>{
     return this.http.get(`${this.url}/pessoa`);
+  }
+
+  getAllAlunos(): Observable<any>{
+    return this.http.get(`${this.url}/alunos`);
   }
 
   getPresencaEmAula(idPessoa, idAula): Observable<any>{
@@ -89,5 +93,9 @@ export class AuthService {
 
   updateCurrentAttendance(idRelacao, bodyObj){
     return this.http.put(`${this.url}/updatePessoaAula/` + idRelacao, bodyObj, this.httpOptions);
+  }
+
+  postNewAlunoInAula(bodyObj){
+    return this.http.post(`${this.url}/pessoaAula/`, bodyObj, this.httpOptions);
   }
 } 

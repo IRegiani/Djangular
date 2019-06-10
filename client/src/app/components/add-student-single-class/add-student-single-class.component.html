@@ -1,0 +1,22 @@
+<nav class="nav">
+    <button class="btn btn-primary" routerLink="/teacher">Voltar</button>
+    <h2 class="tit">Novo Aluno Para Aula</h2>
+  </nav>
+  
+  <div class="subt" id="subt">
+    <h3> Procurar Aluno </h3>
+  </div>
+  
+  <body>
+    <form class="form-inline md-form form-sm active-cyan-2">
+      <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Nome do Aluno" aria-label="Search"
+        mdbInput>
+      <i class="fas fa-search" aria-hidden="true"></i>
+      <button class="buttonSearch">Buscar</button>
+    </form>
+
+    <li *ngFor="let aluno of alunos; let j = index">
+        <span><b>{{aluno.Name}}</b></span>
+        <button class="presente" [ngStyle]="{'color': 'green'}" (click)="addAlunoToClass(aluno.id)">+</button>
+    </li>
+  

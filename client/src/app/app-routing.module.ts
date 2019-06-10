@@ -11,6 +11,7 @@ import { ManageClassesComponent } from './pages/manage-classes-page/manage-class
 import { ClassDetailComponent } from './components/class-detail/class-detail.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { AttendanceListComponent } from './pages/attendance-list/attendance-list.component';
+import { AddStudentSingleClassComponent } from './components/add-student-single-class/add-student-single-class.component';
 import route from './constants/routes';
 
 const routes: Routes = [
@@ -29,7 +30,8 @@ const routes: Routes = [
   { path: route.CLASS_PAGE, component: ManageClassesComponent },
   { path: `${route.CLASS_DETAIL}/:id`, component: ClassDetailComponent },
   { path: route.REGISTER_PAGE, component: RegisterPageComponent },
-  { path: route.ATTENDANCE_PAGE, component: AttendanceListComponent }
+  { path: route.ATTENDANCE_PAGE, component: AttendanceListComponent },
+  { path: route.ADD_STUDENT_SINGLE_CLASS, component: AddStudentSingleClassComponent }
 
 ];
 

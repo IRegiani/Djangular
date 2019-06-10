@@ -4,13 +4,6 @@ import  { ActivatedRoute, Router } from '@angular/router'
 import { IdSelectorService} from '../../services/id-selector.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-export interface PessoaAula {
-  id: Number,
-  Contador: Number,
-  Pessoas: any,
-  Aulas: any
-}
-
 @Component({
   selector: 'app-teacher-attendance-page',
   templateUrl: './teacher-attendance-page.component.html',
@@ -47,10 +40,9 @@ export class TeacherAttendancePageComponent implements OnInit {
 
 
   // --GENERAL METHODS--
-  goToAttendance(aulaId: Number){
+  goToAddStudent(aulaId: Number){
     this.shared.setData(aulaId);
-
-    this._router.navigate(['attendanceList']);
+    this._router.navigate(['addStudentSingleClass']);
   }
 
   studentAttendendance(pos , bool){
