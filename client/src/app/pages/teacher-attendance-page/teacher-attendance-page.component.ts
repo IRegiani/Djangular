@@ -53,11 +53,11 @@ export class TeacherAttendancePageComponent implements OnInit {
     this._router.navigate(['attendanceList']);
   }
 
-  studentAttendendance(pos , bool, auxPos){
+  studentAttendendance(pos , bool){
     console.log("DADOS: ")
     console.log(pos)
     console.log(bool)
-    console.log(auxPos)
+    // console.log(auxPos)
 
     // Begins loading the PUT request
     this.spinner.show(undefined,
@@ -84,7 +84,7 @@ export class TeacherAttendancePageComponent implements OnInit {
         this.service.updateCurrentAttendance(this.alunosDaAula[pos].id, pessoaAula).subscribe(result => {
               console.log("UPDATE DE PRESENCA - presente")
               console.log(result);
-              // this.populateStudentAttendance(auxPos, aulaId);
+              this.populateStudents(pessoaAula.Aulas);
             })
 
       }
@@ -103,7 +103,7 @@ export class TeacherAttendancePageComponent implements OnInit {
           this.service.updateCurrentAttendance(this.alunosDaAula[pos].id, pessoaAula).subscribe(result => {
                 console.log("UPDATE DE PRESENCA - presente")
                 console.log(result);
-                // this.populateStudentAttendance(auxPos, aulaId);
+                this.populateStudents(pessoaAula.Aulas);
               })
         }
     }
