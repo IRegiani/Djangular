@@ -7,8 +7,8 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-
-    // http options used for making API calls
+  
+  // http options used for making API calls
   private httpOptions: any;
   private url = 'http://localhost:8000';
   
@@ -35,6 +35,9 @@ export class AuthService {
   }
 
   createNewUser(cadastro: any){ //tipar para user
+      console.log( "Cadastro: " + cadastro);
+      return this.http.post(`${this.url}/pessoa/`, cadastro);
+    
     // conectar ao banco com post
     // enviar dados do cadastro para o banco salvar
     // recebe um true sobre os dados do novo usuario esta salvo
@@ -51,8 +54,13 @@ export class AuthService {
     return this.http.get(`${this.url}/curso`);
   }
 
-  getAllTurmasDoColaborador(): Observable<any>{
+  getTurmasDoColaborador(id: number): Observable<any>{
+    return this.http.get(`${this.url}/colaboradorTurma/${id}`);
+  }
+
+  getAllTurmasDoColaborador() {
     return this.http.get(`${this.url}/colaboradorTurma`);
+
   }
 
   getAllTurmas(): Observable<any>{

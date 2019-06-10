@@ -9,8 +9,9 @@ from .models import *
 
 ## API de Serializers Normais ###############
 
-class PessoaAPI(generics.ListAPIView):
+class PessoaAPI(generics.ListCreateAPIView):
     queryset = Pessoa.objects.all()
+    
     serializer_class = PessoaSerializer
 
 class PessoaUniqueAPI(generics.RetrieveAPIView):
@@ -49,32 +50,12 @@ class ColaboradorTurmaAPIALL(generics.ListAPIView):
     serializer_class = ColaboradorTurmaSerializer
 
 class ColaboradorTurmaAPI(generics.ListAPIView):
-    # queryset = ColaboradorTurma.objects.filter(Colaborador__id=6)
-    queryset = ColaboradorTurma.objects.filter(Colaborador__id=6)
-    serializer_class = ColaboradorTurmaSerializer
-    print('***************')
-    print(queryset)
-    print('***************')
-    def get_serializer_class(self):
-        idProf = self.kwargs['id']      
-        print(idProf)                     
-        return queryset
-
-    #filter_backends = (DjangoFilterBackend,)
-    #filterset_fields = ('id',)
+    serializer_class = ColaboradorOnlyTurmaSerializer
     
-#class PessoaAulaAPI(generics.ListAPIView):
-#    queryset = PessoaAula.objects.all()
-#    filter_backends = (DjangoFilterBackend,)
-#    filterset_fields = ('id',)
-#
-#    def get_serializer_class(self):
-#        metodo = self.request.method
-#        if metodo == 'PUT' or metodo == 'POST':
-#            return PessoaAulaSerializer
-#        else:
-#            return GetPessoaAulaSerializer
-#
+    def get_queryset(self):
+        idPessoa = self.kwargs['idPessoa']
+        queryset = ColaboradorTurma.objects.filter(Colaborador_id=idPessoa)
+        return queryset
 class newPessoaAulaAPI(viewsets.ModelViewSet):
     queryset = PessoaAula.objects.all()
     serializer_class = GetPessoaAulaSerializer
