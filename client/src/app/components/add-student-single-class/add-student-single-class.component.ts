@@ -68,11 +68,12 @@ export class AddStudentSingleClassComponent implements OnInit {
 
     this.service.getPresencaEmAula(alunoId, this.shared.getData()).subscribe(
       (resultado) => { 
+        console.log(resultado)
         let parsed = JSON.parse(JSON.stringify(resultado));
         console.log("PARSED")
         console.log(parsed)
         // this.alunos = parsed;
-        if (parsed.isEmpty) {
+        if (parsed.length === 0) {
           let pessoaAula =  {
             Pessoas: alunoId,
             Aulas: this.shared.getData(),
