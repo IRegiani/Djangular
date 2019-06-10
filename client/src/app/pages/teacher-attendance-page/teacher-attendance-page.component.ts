@@ -29,12 +29,12 @@ export class TeacherAttendancePageComponent implements OnInit {
   class_student:  Array<any>[] = [];
   alunos_aula:  Array<any>[] = [];
   alunos = []
-  alunosAttendance = []
-  relacaoListIds = []
+  // alunosAttendance = []
+  // relacaoListIds = []
   expansionAux = -1
   // alunosGeral: Array<PessoaAula> = [];
   // alunosGeral = []
-  alunosGeral
+  alunosDaAula
 
 
   constructor(private service: AuthService, 
@@ -57,14 +57,14 @@ export class TeacherAttendancePageComponent implements OnInit {
     this._router.navigate(['attendanceList']);
   }
 
-  studentAttendendance(pos , bool, pessoaId, aulaId, auxPos){
+  studentAttendendance(pos , bool, auxPos){
     console.log("DADOS: ")
     console.log(pos)
     console.log(bool)
-    console.log(pessoaId)
-    console.log(aulaId)
+    // console.log(pessoaId)
+    // console.log(aulaId)
     console.log(auxPos)
-    console.log(this.relacaoListIds)
+    // console.log(this.relacaoListIds)
 
     // Begins loading the PUT request
     this.spinner.show(undefined,
@@ -77,18 +77,18 @@ export class TeacherAttendancePageComponent implements OnInit {
       }
     );
     if (bool){ // Adds to attendance
-      if (this.alunosAttendance[pos] < 2) {
+      if (this.alunosDaAula[pos].Contador < 2) {
         console.log("Vou adicionar a contador")
-        var add = this.alunosAttendance[pos] + 1;
-        this.alunosAttendance[pos] = add;
+        var add = this.alunosDaAula[pos].Contador + 1;
+        this.alunosDaAula[pos].Contador = add;
         // Update service
         let pessoaAula =  {
-          Pessoas: pessoaId,
-          Aulas: aulaId,
-          Contador: this.alunosAttendance[pos]
+          Pessoas: this.alunosDaAula[pos].Pessoas.id,
+          Aulas: this.alunosDaAula[pos].Aulas.id,
+          Contador: this.alunosDaAula[pos].Contador
         }
 
-        this.service.updateCurrentAttendance(this.relacaoListIds[pos], pessoaAula).subscribe(result => {
+        this.service.updateCurrentAttendance(this.alunosDaAula[pos].id, pessoaAula).subscribe(result => {
               console.log("UPDATE DE PRESENCA - presente")
               console.log(result);
               // this.populateStudentAttendance(auxPos, aulaId);
@@ -96,18 +96,18 @@ export class TeacherAttendancePageComponent implements OnInit {
 
       }
     } else {// Subtracts to attendance
-        if (this.alunosAttendance[pos] > 0) {
+        if (this.alunosDaAula[pos].Contador > 0) {
           console.log("Vou diminuir a contador")
-          var subtract = this.alunosAttendance[pos] - 1;
-          this.alunosAttendance[pos] = subtract;
+          var subtract = this.alunosDaAula[pos].Contador - 1;
+          this.alunosDaAula[pos].Contador = subtract;
           // Update service
           let pessoaAula =  {
-            Pessoas: pessoaId,
-            Aulas: aulaId,
-            Contador: this.alunosAttendance[pos]
+            Pessoas: this.alunosDaAula[pos].Pessoas.id,
+            Aulas: this.alunosDaAula[pos].Aulas.id,
+            Contador: this.alunosDaAula[pos].Contador
           }
   
-          this.service.updateCurrentAttendance(this.relacaoListIds[pos], pessoaAula).subscribe(result => {
+          this.service.updateCurrentAttendance(this.alunosDaAula[pos].id, pessoaAula).subscribe(result => {
                 console.log("UPDATE DE PRESENCA - presente")
                 console.log(result);
                 // this.populateStudentAttendance(auxPos, aulaId);
@@ -215,47 +215,38 @@ export class TeacherAttendancePageComponent implements OnInit {
         }
       );
 
-      this.alunosAttendance = [];
-      this.relacaoListIds = [];
-      this.alunosGeral = [];
+      // this.alunosAttendance = [];
+      // this.relacaoListIds = [];
+      this.alunosDaAula = []; // <= CHECK THIS
 
-      var cont = -1;
-      var id = -1;
+      // var cont = -1;
+      // var id = -1;
       this.expansionAux = idAula
 
       this.service.getPessoaAulaDaAula(idAula).subscribe(
         (relacoes) => {
           let parsed = JSON.parse(JSON.stringify(relacoes));
-          this.alunosGeral = parsed;
+          this.alunosDaAula = parsed;
           console.log("TESTE IMPORTANTE---------------------");
           console.log(parsed);
-          console.log(this.alunosGeral)
-          // for (let relacao of relacoes){
-          //   // let rel: PessoaAula;
-          //   // this.relacaoListIds.push(relacao.id);
-          //   // this.alunosAttendance.push(relacao.Contador);
-          //   // this.alunosGeral.push(relacao.Pessoas);
-          //   // rel.Aulas = relacao.Aulas;
-
-          //   // this.alunosGeral.push(rel);
-          // }
+          console.log(this.alunosDaAula)
         console.log("RELACAO")
         console.log(relacoes)}, // on Success
         (error) => {console.log("ERROR! --getTurmasDoColaborador")}, // error
         () => { // Once completed
-          console.log(this.alunosAttendance);
-          this.alunosAttendance.push(cont);
-          this.relacaoListIds.push(id);
+          // console.log(this.alunosAttendance);
+          // this.alunosAttendance.push(cont);
+          // this.relacaoListIds.push(id);
         }
          );
 
       // console.log("ALUNOS ATTENDANCE: " +this.alunosAttendance)
       console.log("ALUNOS GERAL: ")
-      console.log(this.alunosGeral)
-      console.log(JSON.stringify(this.alunosGeral))
-      console.log(this.alunosGeral[1])
-      console.log(this.relacaoListIds)
-      console.log(this.alunosAttendance)
+      console.log(this.alunosDaAula)
+      // console.log(JSON.stringify(this.alunosGeral))
+      // console.log(this.alunosGeral[1])
+      // console.log(this.relacaoListIds)
+      // console.log(this.alunosAttendance)
       this.spinner.hide();
   }
 
