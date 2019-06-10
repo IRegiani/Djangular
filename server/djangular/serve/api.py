@@ -11,8 +11,16 @@ from .models import *
 
 class PessoaAPI(generics.ListCreateAPIView):
     queryset = Pessoa.objects.all()
-    
     serializer_class = PessoaSerializer
+
+class AlunosAPI(generics.ListCreateAPIView):
+    # queryset = Pessoa.objects.all()
+    serializer_class = PessoaSerializer
+
+    def get_queryset(self):
+        # Pessoas de UserType 0 sao alunos
+        queryset = Pessoa.objects.filter(UserType=0)
+        return queryset
 
 class PessoaUniqueAPI(generics.RetrieveAPIView):
     serializer_class = PessoaSerializer

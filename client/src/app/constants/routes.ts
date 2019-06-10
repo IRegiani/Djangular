@@ -10,4 +10,5 @@ export default {
     CLASS_DETAIL: 'detailClasse',
     REGISTER_PAGE: 'register',
     ATTENDANCE_PAGE: 'attendanceList',
+    ADD_STUDENT_SINGLE_CLASS: 'addStudentSingleClass',
 };
