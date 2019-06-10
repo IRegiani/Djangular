@@ -84,6 +84,7 @@ export class AddStudentSingleClassComponent implements OnInit {
                 console.log("ALUNO PODE ASSISTIR ESSA AULA!")
                 console.log("RESULTADO:")
                 console.log(result);
+                window.alert("Aluno já pode participar dessa aula!");
                 this.spinner.hide();
               })
         } else {
