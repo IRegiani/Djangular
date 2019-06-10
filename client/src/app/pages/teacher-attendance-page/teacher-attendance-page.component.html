@@ -42,8 +42,8 @@
               <span secondary>{{aula.Assunto}}</span>
               <li *ngFor="let aluno of turmasToday[i].Alunos; let j = index">
                   <span><b>{{aluno.Name}}</b></span>
-                  <button class="presente" [ngStyle]="{'color': 'green'}">Presente</button>
-                  <button class="ausente" [ngStyle]="{'color': 'red'}">Ausente</button>
+                  <button class="presente" [ngStyle]="{'color': 'green'}" (click)="studentAttendendance(j, true, aluno.id, aula.id, i)">Presente</button>
+                  <button class="ausente" [ngStyle]="{'color': 'red'}" (click)="studentAttendendance(j, false, aluno.id, aula.id, i)">Ausente</button>
                   <span><b>
                     {{alunosAttendance[j]}}/2
                   </b></span>

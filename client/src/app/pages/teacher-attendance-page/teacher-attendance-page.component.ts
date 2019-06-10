@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService} from '../../services/auth.service';
 import  { ActivatedRoute, Router } from '@angular/router'
 import { IdSelectorService} from '../../services/id-selector.service';
+// import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class TeacherAttendancePageComponent implements OnInit {
   alunos_aula:  Array<any>[] = [];
   alunos = []
   alunosAttendance = []
+  relacaoListIds = []
   expansionAux = -1
 
   constructor(private service: AuthService, 
@@ -43,21 +45,41 @@ export class TeacherAttendancePageComponent implements OnInit {
     this._router.navigate(['attendanceList']);
   }
 
-  studentAttendendance(pos , bool){
+  studentAttendendance(pos , bool, pessoaId, aulaId, auxPos){
     if (bool){ // Adds to attendance
       if (this.alunosAttendance[pos] < 2) {
         var add = this.alunosAttendance[pos] + 1;
         this.alunosAttendance[pos] = add;
-        // POST TO SERVICE HERE
+        // Update service
         let pessoaAula =  {
-
+          Pessoas: pessoaId,
+          Aulas: aulaId,
+          Contador: this.alunosAttendance[pos]
         }
+
+        this.service.updateCurrentAttendance(this.relacaoListIds[pos], pessoaAula).subscribe(result => {
+              console.log("UPDATE DE PRESENCA - presente")
+              console.log(result);
+              // this.populateStudentAttendance(auxPos, aulaId);
+            })
+
       }
     } else {// Subtracts to attendance
         if (this.alunosAttendance[pos] > 0) {
           var subtract = this.alunosAttendance[pos] - 1;
           this.alunosAttendance[pos] = subtract;
-          // POST TO SERVICE HERE
+          // Update service
+          let pessoaAula =  {
+            Pessoas: pessoaId,
+            Aulas: aulaId,
+            Contador: this.alunosAttendance[pos]
+          }
+  
+          this.service.updateCurrentAttendance(this.relacaoListIds[pos], pessoaAula).subscribe(result => {
+                console.log("UPDATE DE PRESENCA - presente")
+                console.log(result);
+                // this.populateStudentAttendance(auxPos, aulaId);
+              })
         }
     }
   }
@@ -183,7 +205,9 @@ export class TeacherAttendancePageComponent implements OnInit {
 
     populateStudentAttendance(num, idAula): void {
       this.alunosAttendance = [];
-      var cont = 0
+      this.relacaoListIds = [];
+      var cont = -1;
+      var id = -1;
       this.expansionAux = idAula
 
       for (let aluno of this.turmasToday[num].Alunos){
@@ -194,13 +218,16 @@ export class TeacherAttendancePageComponent implements OnInit {
         console.log("idAluno")
         console.log(aluno.id)
         this.service.getPresencaEmAula(aluno.id, idAula).subscribe(
-          (relacao) => {cont = relacao[0].Contador 
+          (relacao) => {
+            cont = relacao[0].Contador;
+            id = relacao[0].id;
           console.log("RELACAO")
           console.log(relacao)}, // on Success
           (error) => {console.log("ERROR! --getTurmasDoColaborador")}, // error
           () => { // Once completed
-            console.log(this.alunosAttendance)
-            this.alunosAttendance.push(cont)
+            console.log(this.alunosAttendance);
+            this.alunosAttendance.push(cont);
+            this.relacaoListIds.push(id);
           }
            );
       }

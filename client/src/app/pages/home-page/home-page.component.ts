@@ -18,7 +18,7 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
 
     //this.getAdmin();
-    this.updateContadorUp();
+    // this.updateContadorUp();
   }
 
   ngOnChanges() {
@@ -35,17 +35,17 @@ export class HomePageComponent implements OnInit {
   }
 
   //PESSOA AULA POST
-  updateContadorUp(): void {
-    let relation = {
-      Pessoas: 1,
-      Aulas: 1,
-      Contador: 1
-    }
-    this.service.updateCurrentAttendance(6, relation).subscribe(count => {
-      console.log("FIZ REQUEST")
-      console.log(count);
-    })
-  }
+  // updateContadorUp(): void {
+  //   let relation = {
+  //     Pessoas: 1,
+  //     Aulas: 1,
+  //     Contador: 1
+  //   }
+  //   this.service.updateCurrentAttendance(6, relation).subscribe(count => {
+  //     console.log("FIZ REQUEST")
+  //     console.log(count);
+  //   })
+  // }
 
 }
 
