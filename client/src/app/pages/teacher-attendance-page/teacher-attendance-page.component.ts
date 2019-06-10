@@ -29,11 +29,7 @@ export class TeacherAttendancePageComponent implements OnInit {
   class_student:  Array<any>[] = [];
   alunos_aula:  Array<any>[] = [];
   alunos = []
-  // alunosAttendance = []
-  // relacaoListIds = []
   expansionAux = -1
-  // alunosGeral: Array<PessoaAula> = [];
-  // alunosGeral = []
   alunosDaAula
 
 
@@ -61,10 +57,7 @@ export class TeacherAttendancePageComponent implements OnInit {
     console.log("DADOS: ")
     console.log(pos)
     console.log(bool)
-    // console.log(pessoaId)
-    // console.log(aulaId)
     console.log(auxPos)
-    // console.log(this.relacaoListIds)
 
     // Begins loading the PUT request
     this.spinner.show(undefined,
@@ -215,12 +208,7 @@ export class TeacherAttendancePageComponent implements OnInit {
         }
       );
 
-      // this.alunosAttendance = [];
-      // this.relacaoListIds = [];
       this.alunosDaAula = []; // <= CHECK THIS
-
-      // var cont = -1;
-      // var id = -1;
       this.expansionAux = idAula
 
       this.service.getPessoaAulaDaAula(idAula).subscribe(
@@ -234,19 +222,11 @@ export class TeacherAttendancePageComponent implements OnInit {
         console.log(relacoes)}, // on Success
         (error) => {console.log("ERROR! --getTurmasDoColaborador")}, // error
         () => { // Once completed
-          // console.log(this.alunosAttendance);
-          // this.alunosAttendance.push(cont);
-          // this.relacaoListIds.push(id);
         }
          );
 
-      // console.log("ALUNOS ATTENDANCE: " +this.alunosAttendance)
       console.log("ALUNOS GERAL: ")
       console.log(this.alunosDaAula)
-      // console.log(JSON.stringify(this.alunosGeral))
-      // console.log(this.alunosGeral[1])
-      // console.log(this.relacaoListIds)
-      // console.log(this.alunosAttendance)
       this.spinner.hide();
   }
 
