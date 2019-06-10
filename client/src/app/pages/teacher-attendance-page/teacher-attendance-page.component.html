@@ -40,8 +40,8 @@
               </mat-expansion-panel-header>
               <!-- <p>{{aula/Assunto}}</p> -->
               <span secondary>{{aula.Assunto}}</span>
-              <li *ngFor="let aluno of alunosGeral.Pessoas; let j = index">
-                  <span><b>{{aluno.Name}}</b></span>
+              <li *ngFor="let aluno of alunosGeral; let j = index">
+                  <span><b>{{aluno.Pessoas.Name}}</b></span>
                   <button class="presente" [ngStyle]="{'color': 'green'}" (click)="studentAttendendance(j, true, aluno.id, aula.id, i)">Presente</button>
                   <button class="ausente" [ngStyle]="{'color': 'red'}" (click)="studentAttendendance(j, false, aluno.id, aula.id, i)">Ausente</button>
                   <span><b>

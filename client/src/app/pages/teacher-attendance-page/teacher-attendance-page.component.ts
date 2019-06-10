@@ -33,7 +33,8 @@ export class TeacherAttendancePageComponent implements OnInit {
   relacaoListIds = []
   expansionAux = -1
   // alunosGeral: Array<PessoaAula> = [];
-  alunosGeral = []
+  // alunosGeral = []
+  alunosGeral
 
 
   constructor(private service: AuthService, 
@@ -224,15 +225,20 @@ export class TeacherAttendancePageComponent implements OnInit {
 
       this.service.getPessoaAulaDaAula(idAula).subscribe(
         (relacoes) => {
-          for (let relacao of relacoes){
-            // let rel: PessoaAula;
-            this.relacaoListIds.push(relacao.id);
-            this.alunosAttendance.push(relacao.Contador);
-            this.alunosGeral.push(relacao.Pessoas);
-            // rel.Aulas = relacao.Aulas;
+          let parsed = JSON.parse(JSON.stringify(relacoes));
+          this.alunosGeral = parsed;
+          console.log("TESTE IMPORTANTE---------------------");
+          console.log(parsed);
+          console.log(this.alunosGeral)
+          // for (let relacao of relacoes){
+          //   // let rel: PessoaAula;
+          //   // this.relacaoListIds.push(relacao.id);
+          //   // this.alunosAttendance.push(relacao.Contador);
+          //   // this.alunosGeral.push(relacao.Pessoas);
+          //   // rel.Aulas = relacao.Aulas;
 
-            // this.alunosGeral.push(rel);
-          }
+          //   // this.alunosGeral.push(rel);
+          // }
         console.log("RELACAO")
         console.log(relacoes)}, // on Success
         (error) => {console.log("ERROR! --getTurmasDoColaborador")}, // error
