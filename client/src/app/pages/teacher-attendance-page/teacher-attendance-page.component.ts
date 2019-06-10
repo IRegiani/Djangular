@@ -2,13 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService} from '../../services/auth.service';
 import  { ActivatedRoute, Router } from '@angular/router'
 import { IdSelectorService} from '../../services/id-selector.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
+export interface PessoaAula {
+  id: Number,
+  Contador: Number,
+  Pessoas: any,
+  Aulas: any
+}
 
 @Component({
   selector: 'app-teacher-attendance-page',
   templateUrl: './teacher-attendance-page.component.html',
   styleUrls: ['./teacher-attendance-page.component.css']
 })
+
 export class TeacherAttendancePageComponent implements OnInit {
 
 
@@ -21,11 +29,15 @@ export class TeacherAttendancePageComponent implements OnInit {
   class_student:  Array<any>[] = [];
   alunos_aula:  Array<any>[] = [];
   alunos = []
+  expansionAux = -1
+  alunosDaAula
+
 
   constructor(private service: AuthService, 
               private _route: ActivatedRoute,
               private _router: Router,
-              private shared: IdSelectorService) {
+              private shared: IdSelectorService,
+              private spinner: NgxSpinnerService,) {
 
   }
 
@@ -41,9 +53,75 @@ export class TeacherAttendancePageComponent implements OnInit {
     this._router.navigate(['attendanceList']);
   }
 
+  studentAttendendance(pos , bool){
+    console.log("DADOS: ")
+    console.log(pos)
+    console.log(bool)
+    // console.log(auxPos)
+
+    // Begins loading the PUT request
+    this.spinner.show(undefined,
+      {
+        type: 'line-scale-party',
+        size: 'medium',
+        bdColor: 'rgba(100,149,237, .1)',
+        color: 'yellow',
+        fullScreen: true
+      }
+    );
+    if (bool){ // Adds to attendance
+      if (this.alunosDaAula[pos].Contador < 2) {
+        console.log("Vou adicionar a contador")
+        var add = this.alunosDaAula[pos].Contador + 1;
+        this.alunosDaAula[pos].Contador = add;
+        // Update service
+        let pessoaAula =  {
+          Pessoas: this.alunosDaAula[pos].Pessoas.id,
+          Aulas: this.alunosDaAula[pos].Aulas.id,
+          Contador: this.alunosDaAula[pos].Contador
+        }
+
+        this.service.updateCurrentAttendance(this.alunosDaAula[pos].id, pessoaAula).subscribe(result => {
+              console.log("UPDATE DE PRESENCA - presente")
+              console.log(result);
+              this.populateStudents(pessoaAula.Aulas);
+            })
+
+      }
+    } else {// Subtracts to attendance
+        if (this.alunosDaAula[pos].Contador > 0) {
+          console.log("Vou diminuir a contador")
+          var subtract = this.alunosDaAula[pos].Contador - 1;
+          this.alunosDaAula[pos].Contador = subtract;
+          // Update service
+          let pessoaAula =  {
+            Pessoas: this.alunosDaAula[pos].Pessoas.id,
+            Aulas: this.alunosDaAula[pos].Aulas.id,
+            Contador: this.alunosDaAula[pos].Contador
+          }
+  
+          this.service.updateCurrentAttendance(this.alunosDaAula[pos].id, pessoaAula).subscribe(result => {
+                console.log("UPDATE DE PRESENCA - presente")
+                console.log(result);
+                this.populateStudents(pessoaAula.Aulas);
+              })
+        }
+    }
+  }
+
   // --SERVICE METHODS--
   // Calls service to get "cursos"
   getTurmas(universalProfId: Number): void{
+    // Begins loading as the page shows up
+    this.spinner.show(undefined,
+      {
+        type: 'line-scale-party',
+        size: 'medium',
+        bdColor: 'rgba(100,149,237, .1)',
+        color: 'yellow',
+        fullScreen: true
+      }
+    );
     var auxLista;
 
     this.service.getAllTurmasDoColaborador().subscribe(
@@ -111,53 +189,50 @@ export class TeacherAttendancePageComponent implements OnInit {
             }
           }
         }
+        console.log("AULAS TODAY ----------------")
         console.log(JSON.stringify(this.aulasToday));
-
-        // Make array of turmas (since they are the ones with each student)
-        var auxTurmas = []
-        this.service.getAllTurmas().subscribe(
-          (turmas) => {auxTurmas = turmas }, // on Success
-          (error) => {console.log("ERROR! --getAllTurmas2")}, // error
-          () => { // Once completed
-            for (let turma of auxTurmas){
-              console.log("AQUI")
-              console.log(turma);
-              var aulasArr: Array<any> = turma.Aulas as Array<any> ;
-              for (let aula of this.aulasToday) {
-                console.log("aulasArr")
-                console.log(JSON.stringify(aulasArr));
-                console.log("AULA")
-                console.log(aula)
-                var aId = []
-                for (let arr of aulasArr){
-                  aId.push(arr.id)
-                }
-                if (aId.indexOf(aula.id) > -1) {
-                  console.log("ENTRA 2")
-                  this.turmasToday.push(turma);
-               }
-              }
-            }
-            console.log("TURMAS TODAY")
-            console.log(JSON.stringify(this.turmasToday));
-
-
-
-
-
-            // Finally, add both values to the tuple
-            for (let aula of this.aulasToday){
-              var i = this.aulasToday.indexOf(aula);
-              // this.class_student.push([aula, this.turmasToday[i], this.turmasToday[i].Alunos])
-              this.class_student.push(aula)
-
-            }
-            
-            console.log(this.class_student);
-          }
-           );
+        this.spinner.hide();
       }
        );
   }
 
-}
+    populateStudents(idAula): void {
+      // Begins loading the students info
+      this.spinner.show(undefined,
+        {
+          type: 'line-scale-party',
+          size: 'medium',
+          bdColor: 'rgba(100,149,237, .1)',
+          color: 'yellow',
+          fullScreen: true
+        }
+      );
+
+      this.alunosDaAula = []; // <= CHECK THIS
+      this.expansionAux = idAula
+
+      this.service.getPessoaAulaDaAula(idAula).subscribe(
+        (relacoes) => {
+          let parsed = JSON.parse(JSON.stringify(relacoes));
+          this.alunosDaAula = parsed;
+          console.log("TESTE IMPORTANTE---------------------");
+          console.log(parsed);
+          console.log(this.alunosDaAula)
+        console.log("RELACAO")
+        console.log(relacoes)}, // on Success
+        (error) => {console.log("ERROR! --getTurmasDoColaborador")}, // error
+        () => { // Once completed
+        }
+         );
+
+      console.log("ALUNOS GERAL: ")
+      console.log(this.alunosDaAula)
+      this.spinner.hide();
+  }
+
+  expandCollapse(idAula){
+    return idAula == this.expansionAux
+    }
+  }
+
+

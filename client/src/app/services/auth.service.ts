@@ -75,11 +75,19 @@ export class AuthService {
     return this.http.get(`${this.url}/pessoaAula`);
   }
 
+  getPessoaAulaDaAula(idAula): Observable<any>{
+    return this.http.get(`${this.url}/alunosDaAula/` + idAula);
+  }
+
   getAllAlunos(): Observable<any>{
     return this.http.get(`${this.url}/pessoa`);
   }
 
-  postCurrentAttendance(){
-    
+  getPresencaEmAula(idPessoa, idAula): Observable<any>{
+    return this.http.get(`${this.url}/pessoaAula/` +idPessoa + `/` + idAula);
+  }
+
+  updateCurrentAttendance(idRelacao, bodyObj){
+    return this.http.put(`${this.url}/updatePessoaAula/` + idRelacao, bodyObj, this.httpOptions);
   }
 } 

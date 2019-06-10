@@ -9,11 +9,14 @@ urlpatterns = [
  path('turma/', TurmaAPI.as_view()),
  path('aulas/', AulaAPI.as_view()),
  path('aulas/<int:pk>', AulaUniqueAPI.as_view()),
- #path('pessoaAula/', PessoaAulaAllAPI.as_view()),
+    path('pessoaAula/', PessoaAulaAllAPI.as_view()),
  #path('pessoaAula/<int:pk>', PessoaAulaUniqueAPI.as_view()),
  #id pessoa, id aula -> PessoaAula POST
- path('pessoaAula/', newPessoaAulaAPI.as_view({'post':'create', 'get':'list'})),
- url(r'^pessoaAula/(?P<idPessoa>.+)$', GetAulasdaPessoaAPI.as_view()),
+ #path('pessoaAula/', newPessoaAulaAPI.as_view({'post':'create', 'get':'list'})),
+ path('updatePessoaAula/<int:pk>', UpdatePessoaAulaAPI.as_view()),
+ url(r'^pessoaAula/(?P<idPessoa>.+)/(?P<idAula>.+)$', GetAulasdaPessoaAPI.as_view()),
+ url(r'^alunosDaAula/(?P<idAula>.+)$', GetAlunosDaAulaAPI.as_view()),
+#  url(r'^updatePessoaAula/(?P<idPessoa>.+)/(?P<idAula>.+)/(?P<Contador>.+)$', UpdatePessoaAulaAPI.as_view()),
  path('colaboradorTurma/', ColaboradorTurmaAPIALL.as_view()),
  url(r'^colaboradorTurma/(?P<idPessoa>.+)$', ColaboradorTurmaAPI.as_view()),     
 ]

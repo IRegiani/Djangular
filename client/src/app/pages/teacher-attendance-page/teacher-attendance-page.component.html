@@ -24,11 +24,12 @@
   </form>
 
   <div>
-    <div *ngFor="let aula of class_student; let i = index">
+    <div *ngFor="let aula of aulasToday; let i = index">
 
-        <mat-accordion>
-            <mat-expansion-panel (opened)="panelOpenState = true"
-                                 (closed)="panelOpenState = false">
+        <mat-accordion (click)="populateStudents(aula.id)">
+            <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false"> -->
+            <mat-expansion-panel [expanded]="expandCollapse(aula.id)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   Aula {{i + 1}}
@@ -39,10 +40,13 @@
               </mat-expansion-panel-header>
               <!-- <p>{{aula/Assunto}}</p> -->
               <span secondary>{{aula.Assunto}}</span>
-              <li *ngFor="let aluno of turmasToday[i].Alunos">
-                  <span><b>{{aluno.Name}}</b></span>
-                  <button class="presente" [ngStyle]="{'color': 'green'}">Presente</button>
-                  <button class="ausente" [ngStyle]="{'color': 'red'}">Ausente</button>
+              <li *ngFor="let aluno of alunosDaAula; let j = index">
+                  <span><b>{{aluno.Pessoas.Name}}</b></span>
+                  <button class="presente" [ngStyle]="{'color': 'green'}" (click)="studentAttendendance(j, true)">Presente</button>
+                  <button class="ausente" [ngStyle]="{'color': 'red'}" (click)="studentAttendendance(j, false)">Ausente</button>
+                  <span><b>
+                    {{aluno.Contador}}/2
+                  </b></span>
               </li>
             </mat-expansion-panel>
           </mat-accordion>
@@ -50,4 +54,6 @@
     </div>
 
   </div>
+
+  <button class="buttonSearch">Adicionar Aluno</button>
 </body>

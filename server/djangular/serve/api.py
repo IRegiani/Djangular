@@ -57,17 +57,42 @@ class ColaboradorTurmaAPI(generics.ListAPIView):
         queryset = ColaboradorTurma.objects.filter(Colaborador_id=idPessoa)
         return queryset
 class newPessoaAulaAPI(viewsets.ModelViewSet):
-    queryset = PessoaAula.objects.all(),
-    #filter_backends = (DjangoFilterBackend,)
-    #filterset_fields = ('id', )
+    queryset = PessoaAula.objects.all()
+    serializer_class = GetPessoaAulaSerializer
+
+    # queryset = PessoaAula.objects.all(),
+    # #filter_backends = (DjangoFilterBackend,)
+    # #filterset_fields = ('id', )
+
     def get_serializer_class(self):
         method = self.request.method
         if method == 'PUT' or method == 'POST':
             return PessoaAulaSerializer
         else:
+            # return PessoaAulaSerializer
             return GetPessoaAulaSerializer
 
+    # queryset = PessoaAula.objects.all()
+    # serializer_class = GetPessoaAulaSerializer
 
+class UpdatePessoaAulaAPI(generics.RetrieveUpdateAPIView):
+    queryset = PessoaAula.objects.all()
+    serializer_class = PessoaAulaSerializer
+
+    # def put(self):
+    #     idPessoa = self.kwargs['idPessoa']
+    #     idAula = self.kwargs['idAula']
+    #     Contador = self.kwargs['Contador']
+    #     queryset = PessoaAula.objects.filter(Pessoas=idPessoa, Aulas=idAula)
+    #     queryset.Contador = Contatador
+    #     queryset.save()
+        
+    #     # queryset = PessoaAula.objects.filter(Pessoas=Pessoas, Aulas=Aulas)
+    #     # queryset.Contador += 1
+    #     # queryset.save()
+    #     return Response(data=serializer_class, status=status.HTTP_200_OK)
+        
+            
 
 
 
@@ -89,12 +114,26 @@ class newPessoaAulaAPI(viewsets.ModelViewSet):
         #class_group = PessoaAula.objects.create(
         #    title=title, classroom=classroom)
 
+        # return Response(data={"message": "Entrada criada com sucesso"
+        #     }, status = status.HTTP_201_CREATED)
+
 class GetAulasdaPessoaAPI(generics.ListAPIView):
     serializer_class = GetPessoaAulaSerializer
-
+    # generics.
     def get_queryset(self):
         idPessoa = self.kwargs['idPessoa']
-        queryset = PessoaAula.objects.filter(Pessoas=idPessoa)
+        aulasPessoa = PessoaAula.objects.filter(Pessoas=idPessoa)
+        idAula = self.kwargs['idAula']
+        queryset = aulasPessoa.filter(Aulas=idAula)
+        return queryset
+
+
+class GetAlunosDaAulaAPI(generics.ListAPIView):
+    serializer_class = GetPessoaAulaSerializer
+    # generics.
+    def get_queryset(self):
+        idAula = self.kwargs['idAula']
+        queryset = PessoaAula.objects.filter(Aulas=idAula)
         return queryset
 
 class TurmaProfessorAPI(generics.ListAPIView):
