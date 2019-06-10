@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService} from '../../services/auth.service';
 import  { ActivatedRoute, Router } from '@angular/router'
 import { IdSelectorService} from '../../services/id-selector.service';
-// import { NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -29,7 +29,8 @@ export class TeacherAttendancePageComponent implements OnInit {
   constructor(private service: AuthService, 
               private _route: ActivatedRoute,
               private _router: Router,
-              private shared: IdSelectorService) {
+              private shared: IdSelectorService,
+              private spinner: NgxSpinnerService,) {
 
   }
 
@@ -46,8 +47,27 @@ export class TeacherAttendancePageComponent implements OnInit {
   }
 
   studentAttendendance(pos , bool, pessoaId, aulaId, auxPos){
+    console.log("DADOS: ")
+    console.log(pos)
+    console.log(bool)
+    console.log(pessoaId)
+    console.log(aulaId)
+    console.log(auxPos)
+    console.log(this.relacaoListIds)
+
+    // Begins loading the PUT request
+    this.spinner.show(undefined,
+      {
+        type: 'line-scale-party',
+        size: 'medium',
+        bdColor: 'rgba(100,149,237, .1)',
+        color: 'yellow',
+        fullScreen: true
+      }
+    );
     if (bool){ // Adds to attendance
       if (this.alunosAttendance[pos] < 2) {
+        console.log("Vou adicionar a contador")
         var add = this.alunosAttendance[pos] + 1;
         this.alunosAttendance[pos] = add;
         // Update service
@@ -66,6 +86,7 @@ export class TeacherAttendancePageComponent implements OnInit {
       }
     } else {// Subtracts to attendance
         if (this.alunosAttendance[pos] > 0) {
+          console.log("Vou diminuir a contador")
           var subtract = this.alunosAttendance[pos] - 1;
           this.alunosAttendance[pos] = subtract;
           // Update service
@@ -87,6 +108,16 @@ export class TeacherAttendancePageComponent implements OnInit {
   // --SERVICE METHODS--
   // Calls service to get "cursos"
   getTurmas(universalProfId: Number): void{
+    // Begins loading as the page shows up
+    this.spinner.show(undefined,
+      {
+        type: 'line-scale-party',
+        size: 'medium',
+        bdColor: 'rgba(100,149,237, .1)',
+        color: 'yellow',
+        fullScreen: true
+      }
+    );
     var auxLista;
 
     this.service.getAllTurmasDoColaborador().subscribe(
@@ -195,7 +226,8 @@ export class TeacherAttendancePageComponent implements OnInit {
               this.class_student.push(aula)
 
             }
-            
+            // Stopped loading all the "Aulas" of the teacher, that day
+            this.spinner.hide();
             console.log(this.class_student);
           }
            );
@@ -204,6 +236,17 @@ export class TeacherAttendancePageComponent implements OnInit {
   }
 
     populateStudentAttendance(num, idAula): void {
+      // Begins loading the students info
+      this.spinner.show(undefined,
+        {
+          type: 'line-scale-party',
+          size: 'medium',
+          bdColor: 'rgba(100,149,237, .1)',
+          color: 'yellow',
+          fullScreen: true
+        }
+      );
+
       this.alunosAttendance = [];
       this.relacaoListIds = [];
       var cont = -1;
@@ -233,6 +276,7 @@ export class TeacherAttendancePageComponent implements OnInit {
       }
 
       console.log("ALUNOS ATTENDANCE: " +this.alunosAttendance)
+      this.spinner.hide();
   }
 
   expandCollapse(idAula){
