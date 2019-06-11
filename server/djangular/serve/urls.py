@@ -19,5 +19,6 @@ urlpatterns = [
  url(r'^alunosDaAula/(?P<idAula>.+)$', GetAlunosDaAulaAPI.as_view()),
 #  url(r'^updatePessoaAula/(?P<idPessoa>.+)/(?P<idAula>.+)/(?P<Contador>.+)$', UpdatePessoaAulaAPI.as_view()),
  path('colaboradorTurma/', ColaboradorTurmaAPIALL.as_view()),
- url(r'^colaboradorTurma/(?P<idPessoa>.+)$', ColaboradorTurmaAPI.as_view()),     
+ url(r'^colaboradorTurma/(?P<idPessoa>.+)$', ColaboradorTurmaAPI.as_view()),
+ path('pessoaTurma/', UpdatePessoaTurmaAPI.as_view()),
 ]

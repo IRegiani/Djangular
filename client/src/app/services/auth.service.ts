@@ -60,13 +60,12 @@ export class AuthService {
 
   getAllTurmasDoColaborador() {
     return this.http.get(`${this.url}/colaboradorTurma`);
-
   }
 
-  getAllTurmas(): Observable<any>{
+  getAllTurmas(): Observable<any> {
     return this.http.get(`${this.url}/turma`);
   }
-  
+
   getAllAulas(): Observable<any>{
     return this.http.get(`${this.url}/aulas`);
   }
@@ -101,6 +100,6 @@ export class AuthService {
 
   removeAlunoFromTurma(turmaId, alunoId) {
     const obj = { turmaId, alunoId};
-    return this.http.delete(`${this.url}/pessoaPessoa/`, obj, this.httpOptions);
+    return this.http.delete(`${this.url}/pessoaTurma/`, obj, this.httpOptions);
   }
 } 

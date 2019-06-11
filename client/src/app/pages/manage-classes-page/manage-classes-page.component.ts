@@ -42,13 +42,14 @@ export class ManageClassesComponent implements OnInit {
     }
 
   populateStudents(turma) {
+    this.expansionAux = turma.id;
     Object.assign(this.studentList, turma.Alunos, {});
     // console.log('this.student: ', this.studentList)
   }
 
   removeStudent(student, turma) {
     // should remove from studentList
-    this.service.removeAlunoFromTurma(student.id, turma.id)
+    this.service.removeAlunoFromTurma(student.id, turma.id);
   }
 
   goToAddStudent(turmaId: number) {

@@ -149,3 +149,8 @@ class TurmaProfessorAPI(generics.ListAPIView):
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ('Aluno.id',)
     serializer_class = GetTurmaSerializer
+
+class UpdatePessoaTurmaAPI(generics.RetrieveUpdateAPIView):
+    queryset = Turma.objects.all()
+    serializer_class = TurmaSerializer
+        
