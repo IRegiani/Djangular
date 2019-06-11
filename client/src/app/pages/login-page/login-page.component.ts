@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import route from '../../constants/routes';
+import { AuthService } from 'src/app/services/auth.service';
 
 // import { AlertService, AuthenticationService } from '@/_services';
 
@@ -14,6 +15,7 @@ import route from '../../constants/routes';
 })
 export class LoginPage implements OnInit {
 
+    
     loginForm: FormGroup;
     disabledButton: false;
     submitted = false;
@@ -24,6 +26,7 @@ export class LoginPage implements OnInit {
         // private formBuilder: FormBuilder,
         // private route: ActivatedRoute,
         private router: Router,
+        private service : AuthService
         // private authenticationService: AuthenticationService,
         // private alertService: AlertService
     ) {
@@ -34,6 +37,18 @@ export class LoginPage implements OnInit {
     }
 
     ngOnInit() {
+        console.log("[login-page].ngOnInit(): Enviando os dados para o Service")
+        let email = "ogari2p@gmail.com"
+        let pass = "abc123"
+        this.service.authenticateUser(email, pass).subscribe(conta => {
+            let user = [];
+            user.push(conta);
+            if(user.length > 0){
+                console.log("[login-page].ngOnInit(): user = ");
+                console.log(user);
+                this.service.setUerLocalData(user[0][0]);
+            }
+        })
         // this.loginForm = this.formBuilder.group({
         //     username: ['', Validators.required],
         //     password: ['', Validators.required]

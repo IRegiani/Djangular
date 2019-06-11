@@ -12,9 +12,8 @@ export class AuthService {
   private httpOptions: any;
   private url = 'http://localhost:8000';
   
-   User = {
 
-  };
+  User: any;
 
   constructor(private http: HttpClient) {
     this.httpOptions = {
@@ -23,16 +22,24 @@ export class AuthService {
   }
 
   authenticateUser(login: string, password: string) {
+    console.log("[auth.service].authenticateUser: Estou aqui com login =" + login + " e password = " + password);
     let account = {
       Password: password
     }
-    return this.http.post(`${this.url}/${login}/`, account, this.httpOptions);
+    return this.http.post(`${this.url}/pessoa/${login}/`, account, this.httpOptions);
+
     // conectar ao banco
     // enviar dados de login pela api do django
     // caso receba ID do usuário, salvar no aqui
     // Retorna o true
     // caso erro: "Erro de usuário/senha"
   } 
+
+  setUerLocalData(login: any){
+    this.User = login;
+    console.log("[auth.service].setUserLocalData: User = ");
+    console.log(this.User)
+  }
 
   getUserLocalData(){
     //retorna o objeto local do usuario
