@@ -5,6 +5,7 @@ from .api import *
 urlpatterns = [
  path('pessoa/', PessoaAPI.as_view()), #TODO:should receive a new person as well
  path('pessoa/<int:pk>', PessoaUniqueAPI.as_view()),
+ path('pessoa/<str:Email>/', PessoaCheckAPI.as_view({'post': 'list'})),
  path('curso/', CursoAPI.as_view()),
  path('turma/', TurmaAPI.as_view()),
  path('aulas/', AulaAPI.as_view()),

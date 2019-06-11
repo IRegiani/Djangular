@@ -2,6 +2,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework import viewsets, generics, status
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
+from rest_framework import request
 from rest_framework.decorators import api_view
 
 from .serializers import *
@@ -17,6 +18,18 @@ class PessoaAPI(generics.ListCreateAPIView):
 class PessoaUniqueAPI(generics.RetrieveAPIView):
     serializer_class = PessoaSerializer
     queryset = Pessoa.objects.all()
+
+class PessoaCheckAPI(viewsets.ModelViewSet):
+    serializer_class = PessoaSerializer
+    #queryset = Pessoa.objects.all()
+
+    def get_queryset(self):
+        Email = self.kwargs['Email']
+        print(Email)
+        Password = self.request.data['Password']
+        print(Password)
+        queryset = Pessoa.objects.filter(Email=Email, Password=Password)
+        return queryset
 
 class CursoAPI(generics.ListAPIView):
     queryset = Curso.objects.all()
