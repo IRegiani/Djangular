@@ -21,6 +21,7 @@ import { AttendanceListComponent } from './pages/attendance-list/attendance-list
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BrowserAnimationsModule,
     MaterialModule,
     NgxSpinnerModule,
+    ZXingScannerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
