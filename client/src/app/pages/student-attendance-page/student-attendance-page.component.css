@@ -82,115 +82,83 @@
 }
 
 
-/* header {}
-    h2 {
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      display: block;
-      color: #ffffff;
-      background-color: rgb(57, 86, 148);
-  
+zxing-scanner {
+  max-width: 100%;
+}
+
+header {
+
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  background: #333;
+  display: flex;
+
+   button {
+    margin-left: 8px;
+  }
+
+  mat-form-field {
+
+    width: 100%;
+    font-weight: bold;
+
+    ::ng-deep {
+      .mat-form-field-wrapper {
+
+        padding: 0;
+
+        .mat-form-field-flex {
+          padding-top: 0;
+        }
+      }
+      .mat-form-field-underline {
+        bottom: 0;
+      }
     }
-  
-    h4 {
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      display: block;
-      color: black;
-      background: rgb(225, 226, 227);
-  
+
+    option {
+      padding: 10px;
+      line-height: 2;
+      background: #474747;
+      color: #fff;
     }
+  }
+}
+
+.results {
+
+  position: sticky;
+  bottom: 0;
+  padding: 15px;
+  background: #02c3c3;
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  small {
+    font-weight: bolder;
+    display: block;
+    font-size: 60%;
+    margin: -.6em 0 0 0;
+  }
+
+  button {
+    background: none;
+    border: none;
+    line-height: 1;
+    font-weight: bolder;
+    font-size: 120%;
+    float: right;
+    color: #fff;
+    $mg: 8px;
+    margin: (-$mg) (-$mg) (-$mg) $mg;
+  }
+}
+
+h2 {
+  padding: 0 16px;
+}
   
-  
-    button {
-      margin: 4px auto;
-      font-family: Arial;
-      background-color: #e1e2e3;
-      border: none;
-      padding: auto;
-      border-radius: 0;
-      cursor: pointer;
-      float: left;
-      font-size: medium;
-    }
-  
-    button:hover {
-      background-color: #cfd8dc;
-    }
-  
-  body {}
-  
-    ul {
-      margin: 0 auto;
-      padding: 0;
-      padding: 5px 5px 0 5px;
-      border-left: none;
-      border-right: none;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-    }
-  
-    li {
-      border: 1px solid #CCC;
-      box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.5);
-      margin-bottom: 5px;
-      width: 100%;
-      box-sizing: border-box;
-      border-radius: 3px;
-    }
-  
-    span.data {
-      float: left;
-      position: relative;
-    }
-  
-    span.varData {
-      float: right;
-      position: relative;
-    }
-  
-    span.hora {
-      float: left;
-      position: relative;
-    }
-  
-    span.varHora {
-      float: right;
-      position: relative;
-    }
-  
-    span.curso {
-      float: left;
-      position: relative;
-    }
-  
-    span.varCurso {
-      float: right;
-      position: relative;
-    }
-  
-    p.info {
-      margin: 1em auto;
-      text-align: center;
-      position: relative;
-    }
-    p.info2 {
-      margin: 2em auto;
-      text-align: center;
-      position: relative;
-    }
-  
-    button {
-      width: 100%;
-      margin: 3em auto;
-      font-family: Arial;
-      border: none;
-      padding: auto;
-      border-radius: 0;
-      height: 5em;
-      color: #ffffff;
-      background-color: #395694;
-      cursor: pointer;
-    }
-   */
