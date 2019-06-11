@@ -23,6 +23,10 @@ export class AuthService {
   }
 
   authenticateUser(login: string, password: string) {
+    let account = {
+      Password: password
+    }
+    return this.http.post(`${this.url}/${login}/`, account, this.httpOptions);
     // conectar ao banco
     // enviar dados de login pela api do django
     // caso receba ID do usuário, salvar no aqui
