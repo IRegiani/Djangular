@@ -6,7 +6,7 @@
 
 </header> -->
 
-<!-- <nav class="nav">
+<nav class="nav">
   <button class="btn btn-primary" id="bntVoltar" routerLink="/home/false">Voltar</button>
   <h2 class="tit">Chamada</h2>
 </nav>
@@ -26,7 +26,7 @@
         </span>
       </div>
     </div>
-    <div class="content">
+    <!-- <div class="content">
       <div class="card">
         <span class="data-hora-curso">
           <b>Horário: </b>
@@ -41,17 +41,117 @@
           <span class="varCurso">{{curso.nomeCurso}}</span>
         </span>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div class="aviso">
     <p class="info">Esteja presente para atender a Chamada</p>
-    <p class="info2">Usa o QR Code para Atender a Chamada</p>
+    <!-- <p class="info2">Usa o QR Code para Atender a Chamada</p> -->
+
+    <div *ngFor="let aula of aulasToday; let i = index">
+
+        <mat-accordion (click)="setSingleExpansion(i)">
+            <mat-expansion-panel [expanded]="expandCollapse(i)">
+              <!-- <mat-expansion-panel> -->
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Aula {{i + 1}}
+                </mat-panel-title>
+                <!-- <mat-panel-description>
+                  Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                </mat-panel-description> -->
+              </mat-expansion-panel-header>
+              <!-- <p>{{aula/Assunto}}</p> -->
+              <span secondary>Assunto: {{aula.Assunto}}</span>    
+              <div class="qr">
+                <button class="btn btn-primary" (click)="showScanner()" > {{scanBtnText}} </button>
+              </div>
+              <div>
+                <div class="scanner-shell" [hidden]="!hasDevices">
+
+                  <header>
+                    <select (change)="onDeviceSelectChange($event.target.value)">
+                      <option value="" [selected]="!currentDevice">No Device Selected</option>
+                      <option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{device.label}}</option>
+                    </select>
+                  </header>
+                
+                  <zxing-scanner #scanner [(device)]="currentDevice" (scanSuccess)="onCodeResult($event)" [formats]="['EAN_13', 'CODE_128', 'QR_CODE']" [tryHarder]="true" (hasDevices)="hasDevices = $event" (permissionResponse)="hasPermission = $event"></zxing-scanner>
+                
+                  <section class="results" *ngIf="qrResultString">
+                    <small>Result</small>
+                    <strong>{{ qrResultString }}</strong>
+                    <button (click)="clearResult()">&times;</button>
+                  </section>
+                
+                </div>
+                
+                <ng-container *ngIf="hasPermission === undefined">
+                
+                  <h2>Waiting for permissions.</h2>
+                
+                  <blockquote>
+                    If your device does not has cameras, no permissions will be asked.
+                  </blockquote>
+                
+                </ng-container>
+                
+                <ng-container *ngIf="hasPermission === false">
+                
+                  <h2>You denied the camera permission, we can't scan anything without it. 😪</h2>
+                
+                </ng-container>
+                
+                <ng-container *ngIf="hasDevices === undefined">
+                
+                  <h2>Couldn't check for devices.</h2>
+                
+                  <blockquote>
+                    This may be caused by some security error.
+                  </blockquote>
+                
+                </ng-container>
+                
+                <ng-container *ngIf="hasDevices === false">
+                
+                  <h2>No devices were found.</h2>
+                
+                  <blockquote>
+                    I believe your device has no media devices attached to.
+                  </blockquote>
+                
+                </ng-container>
+                
+                <footer>
+                  <table class="table-scanner-state">
+                    <thead>
+                      <tr>
+                        <th>Status</th>
+                        <th>Property</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Devices</td>
+                      </tr>
+                      <tr>
+                        <td>Permissions</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p class="ng-version">Angular version: {{ ngVersion }}</p>
+                </footer>
+                </div>
+  
+            </mat-expansion-panel>
+          </mat-accordion>
+
+    </div>
+
   </div>
-  <div class="qr">
-    <button class="btn btn-primary">Ler o QR Code</button>
-  </div>
-</body> -->
+
+  <!-- </div> -->
+</body>
 
 
 
@@ -90,7 +190,7 @@
   </div>
 </body> -->
 
-<div class="scanner-shell" [hidden]="!hasDevices">
+<!-- <div class="scanner-shell" [hidden]="!hasDevices">
 
     <header>
       <select (change)="onDeviceSelectChange($event.target.value)">
@@ -155,11 +255,9 @@
       </thead>
       <tbody>
         <tr>
-          <!-- <td>{{ stateToEmoji(hasDevices) }}</td> -->
           <td>Devices</td>
         </tr>
         <tr>
-          <!-- <td>{{ stateToEmoji(hasPermission) }}</td> -->
           <td>Permissions</td>
         </tr>
       </tbody>
@@ -167,12 +265,4 @@
     <p class="ng-version">Angular version: {{ ngVersion }}</p>
   </footer>
   
-  <!-- <qr-scanner
-          [debug]="false"
-          [canvasWidth]="1080" 
-          [canvasHeight]="720" 
-          
-          [updateTime]="500"
-          (onRead)="decodedOutput($event)">
-  </qr-scanner> -->
-  
+   -->

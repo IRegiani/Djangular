@@ -14,6 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class StudentAttendancePageComponent implements OnInit {
   
+  // QR SCAN Variables
   availableDevices: MediaDeviceInfo[];
   currentDevice: MediaDeviceInfo = null;
 
@@ -33,8 +34,15 @@ export class StudentAttendancePageComponent implements OnInit {
   torchAvailable$ = new BehaviorSubject<boolean>(false);
   tryHarder = false;
 
+  // SERVICE Variables
   // Will be changed by the Singleton (that will have the user's ID and password, so far...)
   fixedStudentId = 1;
+  aulasToday = [];
+
+ // GENERAL Variables
+  expansionAux = -1;
+  scannerShown = false;
+  scanBtnText = "Ler o QR Code";
 
   ngOnInit(){
     this.getAulasDoAlunoToday();
@@ -43,7 +51,8 @@ export class StudentAttendancePageComponent implements OnInit {
   curso = { id: "ca1", nomeCurso: "1º Ciclo", data: "2019-04-08", inicio: "20:00", fim: "22:30"};
   myDate = new Date();
 
-  constructor(private service: AuthService) { }
+  constructor(private service: AuthService,
+              private spinner: NgxSpinnerService) { }
 
 
   // ------------ QR CODE SCANNER METHODS -------------
@@ -107,7 +116,17 @@ export class StudentAttendancePageComponent implements OnInit {
   getAulasDoAlunoToday(){
     // var auxLista : Array<any> = [];
     var auxLista
-  
+
+  // Begins loading the GET request
+  this.spinner.show(undefined,
+    {
+      type: 'line-scale-party',
+      size: 'medium',
+      bdColor: 'rgba(100,149,237, .1)',
+      color: 'yellow',
+      fullScreen: true
+    }
+  );
     this.service.getAulasDoAluno(this.fixedStudentId).subscribe(
       (pessoaAula) => {auxLista = JSON.parse(JSON.stringify(pessoaAula));
       console.log("AUXLISTA");
@@ -115,30 +134,45 @@ export class StudentAttendancePageComponent implements OnInit {
   console.log(pessoaAula);}, // on Success
       (error) => {console.log("ERROR! --getAulasToday")}, // error
       () => { // Once completed
-        // for (let aula of auxLista){
-        //   console.log("B")
-        //   console.log(auxLista)
-        //   console.log(aulasIds)
-          
-        //   if (aulasIds.indexOf(aula.id) > -1) { // Found the Turma of the teacher
-        //     console.log("ENTREI")
-        //     var date = new Date()
-        //     var dd = String(date.getDate()).padStart(2, '0');
-        //     var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-        //     var yyyy = date.getFullYear();
+        for (let aula of auxLista){
+            var date = new Date()
+            var dd = String(date.getDate()).padStart(2, '0');
+            var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = date.getFullYear();
             
-        //     var today = yyyy + '-' + mm + '-' + dd;
-        //     console.log("TODAY: "+today)
-        //     if (aula.Data == today) {
-        //       this.aulasToday.push(aula);
-        //     }
-        //   }
-        // }
-        // console.log("AULAS TODAY ----------------")
-        // console.log(JSON.stringify(this.aulasToday));
-        // this.spinner.hide();
+            var today = yyyy + '-' + mm + '-' + dd;
+            console.log("TODAY: "+today)
+            if (aula.Aulas.Data == today) {
+              this.aulasToday.push(aula.Aulas);
+            }
+          
+        }
+        console.log("AULAS TODAY ----------------")
+        console.log(JSON.stringify(this.aulasToday));
+        this.spinner.hide();
       }
        );
+  }
+
+// ------------ GENERAL METHODS -------------
+  expandCollapse(pos){
+    return pos == this.expansionAux;
+    }
+
+  setSingleExpansion(pos){
+    this.expansionAux = pos;
+    this.scannerShown = false;
+    this.scanBtnText = "Ler o QR Code";
+  }
+
+  showScanner(){
+    if (this.scannerShown) {
+      this.scannerShown = false;
+      this.scanBtnText = "Ler o QR Code";
+    } else {
+      this.scannerShown = true;
+      this.scanBtnText = "Fechar QR Scanner";
+    }
   }
 
 }
