@@ -98,4 +98,9 @@ export class AuthService {
   postNewAlunoInAula(bodyObj){
     return this.http.post(`${this.url}/pessoaAula/`, bodyObj, this.httpOptions);
   }
+
+  removeAlunoFromTurma(turmaId, alunoId) {
+    const obj = { turmaId, alunoId};
+    return this.http.delete(`${this.url}/pessoaPessoa/`, obj, this.httpOptions);
+  }
 } 

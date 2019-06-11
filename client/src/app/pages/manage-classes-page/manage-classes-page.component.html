@@ -1,9 +1,3 @@
-<!-- <header>
-  <h2> Turmas </h2>
-  <h4> <a routerLink="/home/true"><button>Voltar</button></a>
-    Turmas Realizadas </h4>
-</header> -->
-
 <nav class="nav">
   <button class="btn btn-primary" routerLink="/home/true">Voltar</button>
   <h2 class="tit">Turmas</h2>
@@ -14,18 +8,26 @@
 </div>
 
 <body>
-  <div class="header" *ngFor="let c of listaCurso">
-    <span class="title"><b>{{c.Name}}</b></span>
-    <div *ngFor="let lista of listaCurso">
-      <div *ngIf="c.id === lista.id">
-        <a routerLink="/detailClasse/{{lista.idAula}}">
-          <button class="card">
-            <span><b>Aula </b></span>
-            <span class="data">{{lista.StartDate | date}}</span>
-            <span class="data">{{lista.EndDate | date}}</span>
-          </button>
-        </a>
-      </div>
+  <div>
+    <div *ngFor="let turma of courseList">
+      <mat-accordion (click)="populateStudents(turma.Turma)">
+        <mat-expansion-panel [expanded]="expandCollapse(turma.Turma.id)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Turma {{turma.Turma.Name}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div *ngFor="let student of studentList">
+                  <div>
+                    <b>
+                      {{student.Name}}
+                    </b>
+                    <button class="btn btn-primary" (click)="removeStudent(student, turma.Turma)">Remover</button>
+                  </div>
+                </div>
+            <button class="btn btn-primary" (click)="goToAddStudent(turma.Turma.id)">Adicionar Aluno</button>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
   </div>
 </body>
