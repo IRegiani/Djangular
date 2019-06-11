@@ -150,7 +150,10 @@ class TurmaProfessorAPI(generics.ListAPIView):
     filterset_fields = ('Aluno.id',)
     serializer_class = GetTurmaSerializer
 
-class UpdatePessoaTurmaAPI(generics.RetrieveUpdateAPIView):
-    queryset = Turma.objects.all()
+class UpdatePessoaTurmaAPI(generics.RetrieveDestroyAPIView):
     serializer_class = TurmaSerializer
+    def get_queryset(self):
+        alunoId = self.kwargs['alunoId']
+        turmaId = self.kwargs['turmaId']
+        Turma.objects.filter(id = turmaId).remove(Alunos=alunoId)
         
