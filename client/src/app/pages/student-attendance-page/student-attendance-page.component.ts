@@ -7,6 +7,11 @@ import  { ActivatedRoute, Router } from '@angular/router'
 // import { IdSelectorService} from '../../services/id-selector.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+class AttendanceControl {
+  ptA: boolean;
+  ptB: boolean;
+}
+
 @Component({
   selector: 'app-student-attendance-page',
   templateUrl: './student-attendance-page.component.html',
@@ -43,6 +48,9 @@ export class StudentAttendancePageComponent implements OnInit {
   expansionAux = -1;
   scannerShown = false;
   scanBtnText = "Ler o QR Code";
+
+  qrId = 0;
+  presenca: Array<AttendanceControl> = [];
 
   ngOnInit(){
     this.getAulasDoAlunoToday();
@@ -144,6 +152,14 @@ export class StudentAttendancePageComponent implements OnInit {
             console.log("TODAY: "+today)
             if (aula.Aulas.Data == today) {
               this.aulasToday.push(aula.Aulas);
+
+              // Creates new Attendance Object to control each class' indivual attendance
+              var attendanceObj: AttendanceControl = new AttendanceControl();
+              console.log(attendanceObj);
+              attendanceObj.ptA = false;
+              attendanceObj.ptB = false; 
+              this.presenca.push(attendanceObj);
+              console.log(this.presenca);
             }
           
         }
@@ -153,6 +169,8 @@ export class StudentAttendancePageComponent implements OnInit {
       }
        );
   }
+
+
 
 // ------------ GENERAL METHODS -------------
   expandCollapse(pos){
@@ -182,6 +200,39 @@ export class StudentAttendancePageComponent implements OnInit {
       this.scannerShown = true;
       this.scanBtnText = "Fechar QR Scanner";
     }
+  }
+
+  identifyQRString(qrString: string, pos){
+    console.log(qrString);
+    // qrString = qrString.replace(/aulaId.*$/, "");
+    // var new_str = qrString.substring(8, qrString.indexOf("aulaId_"));
+    var semiId = qrString.split("aulaId").pop();
+    console.log(semiId);
+    var attendanceType  = semiId.split("_").pop();
+    console.log(attendanceType);
+    let aux = "_" +attendanceType;
+
+    // Gets the aula Id
+    this.qrId = +semiId.replace(aux, "");
+    console.log(this.qrId);
+
+    // Defines the part of the 'aula' the student watched (A or B)
+    var type = attendanceType.split("-").pop()
+    console.log(type);
+    if (type === "A"){
+      this.presenca[pos].ptA = true;
+      console.log(this.presenca)
+    } else if (type === "B") {
+      this.presenca[pos].ptB = true;
+    } else {
+      window.alert("Erro nas informações fornecidas pelo QR Code. \n Certifique-se de ler o QR Code correto!")
+    }
+    console.log(this.presenca[pos]);
+
+  }
+
+  sendQRCode(){
+
   }
 
 }
