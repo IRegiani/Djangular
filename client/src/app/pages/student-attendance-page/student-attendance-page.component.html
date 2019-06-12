@@ -67,20 +67,15 @@
                 <button class="btn btn-primary" (click)="showScanner()" > {{scanBtnText}} </button>
               </div>
               <div>
-                <div class="scanner-shell" [hidden]="!hasDevices">
-
-                  <header>
-                    <select (change)="onDeviceSelectChange($event.target.value)">
-                      <option value="" [selected]="!currentDevice">No Device Selected</option>
-                      <option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{device.label}}</option>
-                    </select>
-                  </header>
+                <!-- <div *ngIf="scannerShown">
+                  <p> TESTANDO AQUI!!!</p>
+                </div> -->
+                <div *ngIf="scannerShown"  class="scanner-shell" [hidden]="!hasDevices">
                 
                   <zxing-scanner #scanner [(device)]="currentDevice" (scanSuccess)="onCodeResult($event)" [formats]="['EAN_13', 'CODE_128', 'QR_CODE']" [tryHarder]="true" (hasDevices)="hasDevices = $event" (permissionResponse)="hasPermission = $event"></zxing-scanner>
                 
                   <section class="results" *ngIf="qrResultString">
-                    <small>Result</small>
-                    <strong>{{ qrResultString }}</strong>
+                    <strong>Leitura realizada com sucesso!</strong>
                     <button (click)="clearResult()">&times;</button>
                   </section>
                 
@@ -88,42 +83,42 @@
                 
                 <ng-container *ngIf="hasPermission === undefined">
                 
-                  <h2>Waiting for permissions.</h2>
+                  <h2>Esperando permissão...</h2>
                 
                   <blockquote>
-                    If your device does not has cameras, no permissions will be asked.
+                    Caso o seu device não tenha câmeras, permissões não serão exigidas.
                   </blockquote>
                 
                 </ng-container>
                 
                 <ng-container *ngIf="hasPermission === false">
                 
-                  <h2>You denied the camera permission, we can't scan anything without it. 😪</h2>
+                  <h2>Você negou a permissão de acesso à câmera. Sem ela, não podemos ler o QR Code. 😪</h2>
                 
                 </ng-container>
                 
                 <ng-container *ngIf="hasDevices === undefined">
                 
-                  <h2>Couldn't check for devices.</h2>
+                  <h2>Não foi possível verificar o seu device.</h2>
                 
                   <blockquote>
-                    This may be caused by some security error.
+                    Isso pode estar sendo causado por algum erro de segurança.
                   </blockquote>
                 
                 </ng-container>
                 
                 <ng-container *ngIf="hasDevices === false">
                 
-                  <h2>No devices were found.</h2>
+                  <h2>Nenhum device foi encontrado.</h2>
                 
                   <blockquote>
-                    I believe your device has no media devices attached to.
+                    O seu device, provavelmente, não possui mídias associadas.
                   </blockquote>
                 
                 </ng-container>
                 
                 <footer>
-                  <table class="table-scanner-state">
+                  <!-- <table class="table-scanner-state">
                     <thead>
                       <tr>
                         <th>Status</th>
@@ -135,13 +130,16 @@
                         <td>Devices</td>
                       </tr>
                       <tr>
-                        <td>Permissions</td>
+                        <td>Permissões</td>
                       </tr>
                     </tbody>
-                  </table>
-                  <p class="ng-version">Angular version: {{ ngVersion }}</p>
+                  </table> -->
+                  <!-- <p class="ng-version">Angular version: {{ ngVersion }}</p> -->
                 </footer>
                 </div>
+                <!-- <div class="qr">
+                    <button class="btn btn-primary" (click)="showScanner()" > {{scanBtnText}} </button>
+                </div> -->
   
             </mat-expansion-panel>
           </mat-accordion>

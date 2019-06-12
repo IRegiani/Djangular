@@ -160,15 +160,24 @@ export class StudentAttendancePageComponent implements OnInit {
     }
 
   setSingleExpansion(pos){
+    if (this.expansionAux != pos) {
+        this.scannerShown = false;
+        this.scanBtnText = "Ler o QR Code";
+        this.torchEnabled = false;
+        this.tryHarder = false;
+    }
     this.expansionAux = pos;
-    this.scannerShown = false;
-    this.scanBtnText = "Ler o QR Code";
   }
 
   showScanner(){
+    console.log(this.scannerShown)
     if (this.scannerShown) {
       this.scannerShown = false;
       this.scanBtnText = "Ler o QR Code";
+      // this.hasDevices = false;
+      // this.hasPermission = false;
+      this.torchEnabled = false;
+      this.tryHarder = false;
     } else {
       this.scannerShown = true;
       this.scanBtnText = "Fechar QR Scanner";
