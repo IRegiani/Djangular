@@ -48,7 +48,7 @@
     <p class="info">Esteja presente para atender a Chamada</p>
     <!-- <p class="info2">Usa o QR Code para Atender a Chamada</p> -->
 
-    <div *ngFor="let aula of aulasToday; let i = index">
+    <div *ngFor="let pa of pessoaAulasToday; let i = index">
 
         <mat-accordion (click)="setSingleExpansion(i)">
             <mat-expansion-panel [expanded]="expandCollapse(i)">
@@ -62,7 +62,10 @@
                 </mat-panel-description> -->
               </mat-expansion-panel-header>
               <!-- <p>{{aula/Assunto}}</p> -->
-              <span secondary>Assunto: {{aula.Assunto}}</span>    
+              <span secondary>Assunto: {{pa.Aulas.Assunto}}</span>
+              <div>
+                  <span secondary>Presença: {{pa.Contador}}/2</span>    
+              </div>
               <div class="qr">
                 <button class="btn btn-primary" (click)="showScanner()" > {{scanBtnText}} </button>
               </div>
@@ -118,8 +121,9 @@
                 </ng-container>
                 
                 <footer>
-                    <div class="qr">
-                        <button class="btn btn-primary" (click)="identifyQRString('aulaId10_presenca-A', i)" > Enviar Presença </button>
+                    <div class="qr" *ngIf="qrResultString">
+                        <!-- <button class="btn btn-primary" (click)="identifyQRString('aulaId10_presenca-A', i)" > Marcar Presença </button> -->
+                        <button class="btn btn-primary" (click)="sendQRCode(i, pa)" > Marcar Presença </button>
                       </div>
 
                   <!-- <table class="table-scanner-state">

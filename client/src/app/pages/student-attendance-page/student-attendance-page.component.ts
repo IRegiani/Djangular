@@ -42,7 +42,7 @@ export class StudentAttendancePageComponent implements OnInit {
   // SERVICE Variables
   // Will be changed by the Singleton (that will have the user's ID and password, so far...)
   fixedStudentId = 1;
-  aulasToday = [];
+  pessoaAulasToday = [];
 
  // GENERAL Variables
   expansionAux = -1;
@@ -151,7 +151,7 @@ export class StudentAttendancePageComponent implements OnInit {
             var today = yyyy + '-' + mm + '-' + dd;
             console.log("TODAY: "+today)
             if (aula.Aulas.Data == today) {
-              this.aulasToday.push(aula.Aulas);
+              this.pessoaAulasToday.push(aula);
 
               // Creates new Attendance Object to control each class' indivual attendance
               var attendanceObj: AttendanceControl = new AttendanceControl();
@@ -164,7 +164,7 @@ export class StudentAttendancePageComponent implements OnInit {
           
         }
         console.log("AULAS TODAY ----------------")
-        console.log(JSON.stringify(this.aulasToday));
+        console.log(JSON.stringify(this.pessoaAulasToday));
         this.spinner.hide();
       }
        );
@@ -183,6 +183,7 @@ export class StudentAttendancePageComponent implements OnInit {
         this.scanBtnText = "Ler o QR Code";
         this.torchEnabled = false;
         this.tryHarder = false;
+        this.qrResultString = null;
     }
     this.expansionAux = pos;
   }
@@ -203,9 +204,10 @@ export class StudentAttendancePageComponent implements OnInit {
   }
 
   identifyQRString(qrString: string, pos){
+    // VERIFICAR POTENCIAIS BUGS COM QRs NAO PREVISTOS
+
+    // EXPECTED QR STRING: aulaIdX_presenca-Y     (X: int > 0 | Y: 'A'/'B')
     console.log(qrString);
-    // qrString = qrString.replace(/aulaId.*$/, "");
-    // var new_str = qrString.substring(8, qrString.indexOf("aulaId_"));
     var semiId = qrString.split("aulaId").pop();
     console.log(semiId);
     var attendanceType  = semiId.split("_").pop();
@@ -225,14 +227,96 @@ export class StudentAttendancePageComponent implements OnInit {
     } else if (type === "B") {
       this.presenca[pos].ptB = true;
     } else {
-      window.alert("Erro nas informações fornecidas pelo QR Code. \n Certifique-se de ler o QR Code correto!")
+      window.alert(" Erro nas informações fornecidas pelo QR Code. \n Certifique-se de ler o QR Code correto!")
     }
     console.log(this.presenca[pos]);
 
   }
 
-  sendQRCode(){
+  sendQRCode(pos, pessoaAula){
+    if (this.qrResultString) {
+      this.identifyQRString(this.qrResultString, pos);
+      if (isNaN(this.qrId)){
+        window.alert(" O ID da aula não pôde ser apropriadamente identificado. \n Certifique-se de ler o QR Code correto!")
+      } else {
+        this.spinner.show(undefined,
+          {
+            type: 'line-scale-party',
+            size: 'medium',
+            bdColor: 'rgba(100,149,237, .1)',
+            color: 'yellow',
+            fullScreen: true
+          }
+        );
 
+        // Ordered cases
+        // 1) Student has both needed attendances
+        if (this.presenca[pos].ptA == true && this.presenca[pos].ptB == true){ 
+              // Update service
+              let pessoaAulaObj =  {
+                Pessoas: pessoaAula.Pessoas.id,
+                Aulas: pessoaAula.Aulas.id,
+                Contador: 2
+              }
+      
+              this.service.updateCurrentAttendance(pessoaAula.id, pessoaAulaObj).subscribe(result => {
+                    console.log("UPDATE DE PRESENCA - presente")
+                    console.log(result);
+
+                    // this.populateStudents(pessoaAula.Aulas);
+                    this.spinner.hide();
+                  });
+      
+            
+           
+        } 
+        // 2) Student has ONE of the needed attendances
+        else if (this.presenca[pos].ptA == true || this.presenca[pos].ptB == true) {
+          // Checks if the student isn't trying to mark 2 attendances based on the same QR Code
+         // MAYBE change this, if the update is appropriate
+          this.service.getPresencaEmAula(this.fixedStudentId, pessoaAula.Aulas.id).subscribe(
+            (resultado) => { 
+              console.log(resultado)
+              let parsed = JSON.parse(JSON.stringify(resultado));
+              console.log("PARSED")
+              console.log(parsed)
+              if (parsed[0].Contador > 0) {
+                window.alert(" A presença para essa parte da aula já foi marcada! \n Certifique-se de ler o QR Code da outra metade da aula!");
+                this.spinner.hide();
+              } else {
+
+                let pessoaAulaObj =  {
+                  Pessoas: pessoaAula.Pessoas.id,
+                  Aulas: pessoaAula.Aulas.id,
+                  Contador: 1
+                }
+
+                this.service.updateCurrentAttendance(pessoaAula.id, pessoaAulaObj).subscribe(result => {
+                  console.log("UPDATE DE PRESENCA - presente")
+                  console.log(result);
+                  // window.alert(" Ocorreu um erro na leitura do QR Code a ser enviado. \n Ele está vazio!");
+                  // this.populateStudents(pessoaAula.Aulas);
+                  this.spinner.hide();
+                });
+              }
+
+             }, // on Success
+            (error) => {console.log("ERROR! --getPresencaEmAula")}, // error
+            () => { // Once completed
+              this.spinner.hide();
+            }
+             );
+        }
+        // 3) The student has NONE of the needed attendances -- ERROR CASE
+        else {
+          window.alert(" Ocorreu um erro referente à identificação da parte da presença no período de aula. \n Certifique-se de ler o QR Code correto!");
+          this.spinner.hide();
+        }
+
+      }
+    } else {
+      window.alert(" Ocorreu um erro na leitura do QR Code a ser enviado. \n Ele está vazio!");
+    }
   }
 
 }
