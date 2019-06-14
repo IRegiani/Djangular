@@ -37,6 +37,33 @@
               </mat-expansion-panel-header>
               <!-- <p>{{aula/Assunto}}</p> -->
               <span secondary>{{aula.Assunto}}</span>
+
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title> QR Code </mat-panel-title>
+                      <mat-panel-description> Primeira Presença </mat-panel-description>
+                    </mat-expansion-panel-header>
+                   
+                    <mat-form-field>
+                        <input id="presenca1" type="password" placeholder="Senha" matInput showHideInput>
+                      </mat-form-field>
+                      <button class="buttonSearch">Revelar QR Code</button>
+      
+                  </mat-expansion-panel>
+
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title> QR Code </mat-panel-title>
+                        <mat-panel-description> Segunda Presença </mat-panel-description>
+                      </mat-expansion-panel-header>
+                     
+                      <mat-form-field>
+                          <input id="presenca2" type="password" placeholder="Senha" matInput showHideInput>
+                        </mat-form-field>
+                        <button class="buttonSearch">Revelar QR Code</button>
+        
+                    </mat-expansion-panel>
+                
               <li *ngFor="let aluno of alunosDaAula; let j = index">
                   <span><b>{{aluno.Pessoas.Name}}</b></span>
                   <button class="presente" [ngStyle]="{'color': 'green'}" (click)="studentAttendendance(j, true)">Presente</button>
