@@ -13,7 +13,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class TeacherAttendancePageComponent implements OnInit {
 
 
-  fixedParameter = 6 // Rodrigo's num
+  fixedParameterId = 6 // Rodrigo's num
+  fixedParameterPassword = 'abc123' // Example of Rodrigo's password
   listaTurmas: Array<any> = [];
   listaAulas: Array<any> = [];
   aulasToday: Array<any> = [];
@@ -25,6 +26,8 @@ export class TeacherAttendancePageComponent implements OnInit {
   expansionAux = -1
   alunosDaAula
 
+  qrCodeTest = 'aulaId10_presenca-A';
+
 
   constructor(private service: AuthService, 
               private _route: ActivatedRoute,
@@ -35,7 +38,7 @@ export class TeacherAttendancePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getTurmas(this.fixedParameter);
+    this.getTurmas(this.fixedParameterId);
   }
 
 

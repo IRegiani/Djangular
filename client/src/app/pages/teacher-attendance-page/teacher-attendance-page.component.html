@@ -1,27 +1,24 @@
-<!-- <header>
-  <h2> Chamada </h2>
-  <h4> <a routerLink="/home/true"><button>Voltar</button></a> </h4> -->
-<!-- {{presencaCurso.nomeCurso}} </h4> -->
-<!-- <span class="data">{{myDate | date}}</span>
-  <span class="hora">{{presencaCurso.inicio}} - {{presencaCurso.fim}}</span> -->
-<!-- </header> -->
+
+<!-- COLOCAR OUTRA COISA... SOH FAZ SENTIDO BUSCAR ALUNO POR AULA... -->
 
 <nav class="nav">
   <button class="btn btn-primary" routerLink="/home/true">Voltar</button>
   <h2 class="tit">Chamada</h2>
 </nav>
 
-<div class="subt" id="subt">
+<!-- <div class="subt" id="subt">
   <h3> Procurar Aluno </h3>
-</div>
+</div> -->
 
 <body>
-  <form class="form-inline md-form form-sm active-cyan-2">
+  <!-- <form class="form-inline md-form form-sm active-cyan-2">
     <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Nome do Aluno" aria-label="Search"
       mdbInput>
     <i class="fas fa-search" aria-hidden="true"></i>
     <button class="buttonSearch">Buscar</button>
-  </form>
+  </form> -->
+
+<ngx-qrcode [qrc-value]="qrCodeTest"></ngx-qrcode>
 
   <div>
     <div *ngFor="let aula of aulasToday; let i = index">

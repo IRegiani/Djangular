@@ -53,14 +53,6 @@ export class StudentAttendancePageComponent implements OnInit {
   presenca: Array<AttendanceControl> = [];
 
   ngOnInit(){
-    // let testando = ['a', 'b', 'c', 'd', 'e'];
-    // console.log(testando);
-    // testando.splice(0, 0, '0')
-    // console.log(testando);
-    // testando.splice(1, 1);
-    // console.log(testando);
-    // testando.splice(2, 1, 'C')
-    // console.log(testando);
     this.getAulasDoAlunoToday();
   }
 
