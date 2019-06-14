@@ -26,7 +26,7 @@
         </span>
       </div>
     </div>
-    <div class="content">
+    <!-- <div class="content">
       <div class="card">
         <span class="data-hora-curso">
           <b>Horário: </b>
@@ -41,14 +41,120 @@
           <span class="varCurso">{{curso.nomeCurso}}</span>
         </span>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div class="aviso">
     <p class="info">Esteja presente para atender a Chamada</p>
-    <p class="info2">Usa o QR Code para Atender a Chamada</p>
+    <!-- <p class="info2">Usa o QR Code para Atender a Chamada</p> -->
+
+    <div *ngFor="let pa of pessoaAulasToday; let i = index">
+
+        <mat-accordion (click)="setSingleExpansion(i)">
+            <mat-expansion-panel [expanded]="expandCollapse(i)">
+              <!-- <mat-expansion-panel> -->
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Aula {{i + 1}}
+                </mat-panel-title>
+                <!-- <mat-panel-description>
+                  Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                </mat-panel-description> -->
+              </mat-expansion-panel-header>
+              <!-- <p>{{aula/Assunto}}</p> -->
+              <span secondary>Assunto: {{pa.Aulas.Assunto}}</span>
+              <div>
+                  <span secondary>Presença: {{pa.Contador}}/2</span>    
+              </div>
+              <div class="qr">
+                <button class="btn btn-primary" (click)="showScanner()" > {{scanBtnText}} </button>
+              </div>
+              <div>
+                <!-- <div *ngIf="scannerShown">
+                  <p> TESTANDO AQUI!!!</p>
+                </div> -->
+                <div *ngIf="scannerShown"  class="scanner-shell" [hidden]="!hasDevices">
+                
+                  <zxing-scanner #scanner [(device)]="currentDevice" (scanSuccess)="onCodeResult($event)" [formats]="['EAN_13', 'CODE_128', 'QR_CODE']" [tryHarder]="true" (hasDevices)="hasDevices = $event" (permissionResponse)="hasPermission = $event"></zxing-scanner>
+                
+                  <section class="results" *ngIf="qrResultString">
+                    <strong>Leitura realizada com sucesso!</strong>
+                    <button (click)="clearResult()">&times;</button>
+                  </section>
+                
+                </div>
+                
+                <ng-container *ngIf="hasPermission === undefined">
+                
+                  <h2>Esperando permissão...</h2>
+                
+                  <blockquote>
+                    Caso o seu device não tenha câmeras, permissões não serão exigidas.
+                  </blockquote>
+                
+                </ng-container>
+                
+                <ng-container *ngIf="hasPermission === false">
+                
+                  <h2>Você negou a permissão de acesso à câmera. Sem ela, não podemos ler o QR Code. 😪</h2>
+                
+                </ng-container>
+                
+                <ng-container *ngIf="hasDevices === undefined">
+                
+                  <h2>Não foi possível verificar o seu device.</h2>
+                
+                  <blockquote>
+                    Isso pode estar sendo causado por algum erro de segurança.
+                  </blockquote>
+                
+                </ng-container>
+                
+                <ng-container *ngIf="hasDevices === false">
+                
+                  <h2>Nenhum device foi encontrado.</h2>
+                
+                  <blockquote>
+                    O seu device, provavelmente, não possui mídias associadas.
+                  </blockquote>
+                
+                </ng-container>
+                
+                <footer>
+                    <div class="qr" *ngIf="qrResultString">
+                        <!-- <button class="btn btn-primary" (click)="identifyQRString('aulaId10_presenca-A', i)" > Marcar Presença </button> -->
+                        <button class="btn btn-primary" (click)="sendQRCode(i, pa)" > Marcar Presença </button>
+                      </div>
+
+                  <!-- <table class="table-scanner-state">
+                    <thead>
+                      <tr>
+                        <th>Status</th>
+                        <th>Property</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Devices</td>
+                      </tr>
+                      <tr>
+                        <td>Permissões</td>
+                      </tr>
+                    </tbody>
+                  </table> -->
+                  <!-- <p class="ng-version">Angular version: {{ ngVersion }}</p> -->
+                </footer>
+                </div>
+                <!-- <div class="qr">
+                    <button class="btn btn-primary" (click)="showScanner()" > {{scanBtnText}} </button>
+                </div> -->
+  
+            </mat-expansion-panel>
+          </mat-accordion>
+
+    </div>
+
   </div>
-  <div class="qr">
-    <button class="btn btn-primary">Ler o QR Code</button>
-  </div>
+
+  <!-- </div> -->
 </body>

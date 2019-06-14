@@ -79,6 +79,10 @@ export class AuthService {
     return this.http.get(`${this.url}/alunosDaAula/` + idAula);
   }
 
+  getAulasDoAluno(idAluno): Observable<any>{
+    return this.http.get(`${this.url}/aulasDoAluno/` + idAluno);
+  }
+
   getAllPessoas(): Observable<any>{
     return this.http.get(`${this.url}/pessoa`);
   }
