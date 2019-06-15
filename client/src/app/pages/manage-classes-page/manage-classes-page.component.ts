@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AuthService} from '../../services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MatDialog } from '@angular/material/dialog';
+import { Dialog } from '../../components/dialog/dialog';
 
 @Component({
   selector: 'app-manage-classes',
@@ -13,14 +15,14 @@ export class ManageClassesComponent implements OnInit {
   studentList: Array<any> = [];
   TEACHER_ID = 6; // should get user ID from service singleton
   expansionAux = -1;
-  constructor(private service: AuthService, private spinner: NgxSpinnerService) { }
+  constructor(private service: AuthService, private spinner: NgxSpinnerService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.spinner.show(undefined,
       {
         type: 'line-scale-party',
         size: 'medium',
-        bdColor: 'rgba(100,149,237, .1)',
+        bdColor: 'transparent',
         color: 'yellow',
         fullScreen: false
       }
@@ -33,7 +35,6 @@ export class ManageClassesComponent implements OnInit {
     this.service.getTurmasDoColaborador(this.TEACHER_ID).subscribe((courses) => {
       this.courseList = courses;
       this.spinner.hide();
-      console.log('Cursos: ', this.courseList);
     });
   }
 
@@ -44,11 +45,9 @@ export class ManageClassesComponent implements OnInit {
   populateStudents(turma) {
     this.expansionAux = turma.id;
     Object.assign(this.studentList, turma.Alunos, {});
-    // console.log('this.student: ', this.studentList)
   }
 
   removeStudent(student, turma) {
-    // should remove from studentList
     this.service.removeAlunoFromTurma(turma.id, student.id).subscribe((res) => {
       if (res.status === 200 ) {
         this.studentList = this.studentList.filter((value) => value.id !== student.id);
@@ -56,8 +55,22 @@ export class ManageClassesComponent implements OnInit {
     });
   }
 
-  goToAddStudent(turmaId: number) {
-    // this.shared.setData(aulaId);
-    // this._router.navigate(['addStudentSingleClass']);
+  showAddStudent(classId: number) {
+    this.spinner.show();
+    this.service.getAllAlunos().subscribe((alunos) => {
+      const allStudents = alunos;
+      this.studentList.map((student, index) => allStudents.splice(index, 1));
+      this.spinner.hide();
+
+      const dialogRef = this.dialog.open(Dialog, {
+        maxWidth: '290px',
+        height: '500px',
+        data: allStudents,
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        // update student list
+      });
+    });
   }
 }

@@ -20,8 +20,10 @@ import { ExpandableListModule } from 'angular2-expandable-list';
 import { AttendanceListComponent } from './pages/attendance-list/attendance-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { NgxSpinnerModule } from 'ngx-spinner';
 
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { Dialog } from './components/dialog/dialog';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     TeacherAttendancePageComponent,
     ManageClassesComponent,
     AttendanceListComponent,
-    AddStudentSingleClassComponent
+    AddStudentSingleClassComponent,
+    Dialog,
   ],
   imports: [
     BrowserModule,
@@ -47,8 +50,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     BrowserAnimationsModule,
     MaterialModule,
     NgxSpinnerModule,
+    MatDialogModule,
   ],
-  providers: [],
+  entryComponents: [
+    Dialog
+  ],
+  providers: [
+    // {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

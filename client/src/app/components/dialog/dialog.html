@@ -1,0 +1,11 @@
+<h1 mat-dialog-title> Escolha os alunos para adicionar</h1>
+<div>
+  <mat-selection-list #students>
+      <mat-list-option *ngFor="let student of data">
+        {{student.Name}}
+      </mat-list-option>
+   </mat-selection-list>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancelClicked()">Cancelar</button>
+  <button mat-button (click)="addClicked(students.selectedOptions.selected)">Adicionar {{students.selectedOptions.selected.length}} alunos</button>
+</div>

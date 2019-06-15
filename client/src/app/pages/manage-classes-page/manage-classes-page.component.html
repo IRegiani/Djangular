@@ -16,16 +16,22 @@
             <mat-panel-title>
               Turma {{turma.Turma.Name}}
             </mat-panel-title>
+            <button class="add-button" (click)="showAddStudent(turma.Turma.id)">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">add_circle_outline</mat-icon>
+            </button>
           </mat-expansion-panel-header>
-            <div *ngFor="let student of studentList">
-                  <div>
-                    <b>
-                      {{student.Name}}
-                    </b>
-                    <button class="btn btn-primary" (click)="removeStudent(student, turma.Turma)">Remover</button>
-                  </div>
-                </div>
-            <button class="btn btn-primary" (click)="goToAddStudent(turma.Turma.id)">Adicionar Aluno</button>
+          <mat-list>
+            <mat-list-item *ngFor="let student of studentList">
+              <div>
+                <b>
+                  {{student.Name}}
+                </b>
+              </div>
+              <button class="delete-button" (click)="removeStudent(student, turma.Turma)">
+                  <mat-icon aria-hidden="false" aria-label="Example home icon">delete_outline</mat-icon>
+              </button>
+            </mat-list-item>
+          </mat-list>
         </mat-expansion-panel>
       </mat-accordion>
     </div>
