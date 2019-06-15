@@ -22,6 +22,7 @@ import { MaterialModule } from './material.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+// import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -49,7 +50,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     MaterialModule,
     NgxSpinnerModule,
     ZXingScannerModule,
-    NgxQRCodeModule
+    NgxQRCodeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

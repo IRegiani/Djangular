@@ -18,8 +18,6 @@
     <button class="buttonSearch">Buscar</button>
   </form> -->
 
-<ngx-qrcode [qrc-value]="qrCodeTest"></ngx-qrcode>
-
   <div>
     <div *ngFor="let aula of aulasToday; let i = index">
 
@@ -45,9 +43,10 @@
                     </mat-expansion-panel-header>
                    
                     <mat-form-field>
-                        <input id="presenca1" type="password" placeholder="Senha" matInput showHideInput>
+                        <input id="presenca1" type="password" placeholder="Senha" matInput showHideInput (keyup)="onKey($event)">
                       </mat-form-field>
-                      <button class="buttonSearch">Revelar QR Code</button>
+                      <button type="submit" (click)="passwordCheck(aula.id, true)">Revelar QR Code</button>
+                      <ngx-qrcode *ngIf="showQRA" [qrc-value]="qrCodeA"></ngx-qrcode>
       
                   </mat-expansion-panel>
 
@@ -58,10 +57,10 @@
                       </mat-expansion-panel-header>
                      
                       <mat-form-field>
-                          <input id="presenca2" type="password" placeholder="Senha" matInput showHideInput>
+                          <input id="presenca2" type="password" placeholder="Senha" matInput showHideInput (keyup)="onKey($event)">
                         </mat-form-field>
-                        <button class="buttonSearch">Revelar QR Code</button>
-        
+                        <button type="submit" (click)="passwordCheck(aula.id, false)">Revelar QR Code</button>
+                        <ngx-qrcode *ngIf="showQRB" [qrc-value]="qrCodeB"></ngx-qrcode>
                     </mat-expansion-panel>
                 
               <li *ngFor="let aluno of alunosDaAula; let j = index">
