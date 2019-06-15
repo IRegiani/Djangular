@@ -99,7 +99,6 @@ export class AuthService {
   }
 
   removeAlunoFromTurma(turmaId, alunoId) {
-    const obj = { turmaId, alunoId};
-    return this.http.delete(`${this.url}/pessoaTurma/`, obj, this.httpOptions);
+    return this.http.delete(`${this.url}/pessoaTurma/${alunoId}/${turmaId}`, {...this.httpOptions, observe: 'response' });
   }
-} 
+}

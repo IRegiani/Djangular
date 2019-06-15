@@ -152,8 +152,12 @@ class TurmaProfessorAPI(generics.ListAPIView):
 
 class UpdatePessoaTurmaAPI(generics.RetrieveDestroyAPIView):
     serializer_class = TurmaSerializer
-    def get_queryset(self):
-        alunoId = self.kwargs['alunoId']
-        turmaId = self.kwargs['turmaId']
-        Turma.objects.filter(id = turmaId).remove(Alunos=alunoId)
-        
+    def delete(self, request, alunoId, turmaId):         
+        table = Turma.Alunos.through.objects.filter(turma_id=turmaId, pessoa_id=alunoId)
+        if not table:
+            return Response(data={
+               "message": "Verique as informações passadas"
+           }, status=status.HTTP_400_BAD_REQUEST)
+        table.delete()
+        return Response('Aluno deletado com sucesso!')
+                

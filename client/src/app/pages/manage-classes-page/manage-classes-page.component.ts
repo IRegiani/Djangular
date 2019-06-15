@@ -49,7 +49,11 @@ export class ManageClassesComponent implements OnInit {
 
   removeStudent(student, turma) {
     // should remove from studentList
-    this.service.removeAlunoFromTurma(student.id, turma.id);
+    this.service.removeAlunoFromTurma(turma.id, student.id).subscribe((res) => {
+      if (res.status === 200 ) {
+        this.studentList = this.studentList.filter((value) => value.id !== student.id);
+      }
+    });
   }
 
   goToAddStudent(turmaId: number) {
