@@ -13,7 +13,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class TeacherAttendancePageComponent implements OnInit {
 
 
-  fixedParameter = 6 // Rodrigo's num
+  fixedParameterId = 6 // Rodrigo's num
+  fixedParameterPassword = 'abc123' // Example of Rodrigo's password
   listaTurmas: Array<any> = [];
   listaAulas: Array<any> = [];
   aulasToday: Array<any> = [];
@@ -25,6 +26,13 @@ export class TeacherAttendancePageComponent implements OnInit {
   expansionAux = -1
   alunosDaAula
 
+  passAttempt: string = '';
+  showQRA = false;
+  showQRB = false;
+  qrCodeA = '';
+  qrCodeB = '';
+
+
 
   constructor(private service: AuthService, 
               private _route: ActivatedRoute,
@@ -35,7 +43,7 @@ export class TeacherAttendancePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getTurmas(this.fixedParameter);
+    this.getTurmas(this.fixedParameterId);
   }
 
 
@@ -188,6 +196,18 @@ export class TeacherAttendancePageComponent implements OnInit {
        );
   }
 
+  // setSingleExpansion(pos){
+  //   if (this.expansionAux != pos) {
+  //       this.scannerShown = false;
+  //       this.scanBtnText = "Ler o QR Code";
+  //       this.torchEnabled = false;
+  //       this.tryHarder = false;
+  //       this.qrResultString = null;
+  //   }
+  //   this.expansionAux = pos;
+  // }
+
+
     populateStudents(idAula): void {
       // Begins loading the students info
       this.spinner.show(undefined,
@@ -201,7 +221,9 @@ export class TeacherAttendancePageComponent implements OnInit {
       );
 
       this.alunosDaAula = []; // <= CHECK THIS
-      this.expansionAux = idAula
+
+      this.closeQRCodes(idAula);// Checks whether or not I should close the QR Codes
+      this.expansionAux = idAula;
 
       this.service.getPessoaAulaDaAula(idAula).subscribe(
         (relacoes) => {
@@ -225,6 +247,38 @@ export class TeacherAttendancePageComponent implements OnInit {
   expandCollapse(idAula){
     return idAula == this.expansionAux
     }
+
+  closeQRCodes(idAula){
+          if (idAula != this.expansionAux) {
+            this.showQRA = false;
+            this.showQRB = false;
+            this.qrCodeA = '';
+            this.qrCodeB = '';
+          }
+  }
+
+  passwordCheck(aulaId, a_b){
+    if (this.passAttempt === this.fixedParameterPassword) {
+      //Show QR Code
+      if (a_b == true) {
+        this.qrCodeA = 'aulaId' + aulaId + '_presenca-A' 
+        this.showQRA = true;
+      } else {
+        this.qrCodeB = 'aulaId' + aulaId + '_presenca-B' 
+        this.showQRB = true;
+      }
+
+    } else {
+      window.alert("Senha digitada incorreta! \n Tente novamente!");
+    }
+  }
+
+  onKey(event) {
+    // Updates the password written
+    this.passAttempt = event.target.value;
+    console.log(this.passAttempt);
+  }
+
   }
 
 

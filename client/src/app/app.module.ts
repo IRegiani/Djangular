@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -22,6 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+// import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     BrowserAnimationsModule,
     MaterialModule,
     NgxSpinnerModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    NgxQRCodeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
