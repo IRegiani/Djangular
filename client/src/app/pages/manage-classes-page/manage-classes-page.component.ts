@@ -34,6 +34,7 @@ export class ManageClassesComponent implements OnInit {
   getCursos(): void {
     this.service.getTurmasDoColaborador(this.TEACHER_ID).subscribe((courses) => {
       this.courseList = courses;
+      console.log('Cursos: ', this.courseList)
       this.spinner.hide();
     });
   }
@@ -59,6 +60,7 @@ export class ManageClassesComponent implements OnInit {
     this.spinner.show();
     this.service.getAllAlunos().subscribe((alunos) => {
       const allStudents = alunos;
+      console.log('All Students: ', allStudents);
       this.studentList.map((student, index) => allStudents.splice(index, 1));
       this.spinner.hide();
 
@@ -69,7 +71,9 @@ export class ManageClassesComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
-        // update student list
+        console.log('This All Students: ', allStudents);
+        // should get again
+        // this.getCursos();
       });
     });
   }

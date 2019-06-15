@@ -6,6 +6,9 @@ import { Component, Inject } from '@angular/core';
   templateUrl: './dialog.html',
 })
 export class Dialog {
+
+  toAddList = {};
+
   constructor(
     public dialogRef: MatDialogRef<Dialog>,
     @Inject(MAT_DIALOG_DATA) public data: {}) { }
@@ -14,12 +17,13 @@ export class Dialog {
     this.dialogRef.close();
   }
 
-  studentClicked() {
-    //should call service
+  addClicked() {
+    // show spinner
+    console.log('Added: ')
   }
 
-  addClicked(info) {
-    // show spinner
-    console.log('Added: ', info)
+  onSelection(selected) {
+    this.toAddList[selected.option.value.id] = { selected: selected.option.selected, id: selected.option.value.id };
+    console.log('list: ', this.toAddList);
   }
 }

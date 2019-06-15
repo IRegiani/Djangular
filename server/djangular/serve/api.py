@@ -160,4 +160,21 @@ class UpdatePessoaTurmaAPI(generics.RetrieveDestroyAPIView):
            }, status=status.HTTP_400_BAD_REQUEST)
         table.delete()
         return Response('Aluno deletado com sucesso!')
+    def post (self, request, alunoId, turmaId):
+        turma = Turma.objects.filter(id = turmaId)
+        aluno = Pessoa.objects.filter(id = alunoId)    
+        if not aluno:
+            return Response(data={
+               "message": "Aluno não encontrado"
+           }, status=status.HTTP_400_BAD_REQUEST)
+        if not turma:        
+            return Response(data={
+               "message": "Aluno não encontrado"
+           }, status=status.HTTP_400_BAD_REQUEST)
+        # table = Turma.Alunos.through.objects.filter(turma_id=turmaId, pessoa_id=alunoId)
+        turma.Alunos.add(aluno)
+        return Response(data={
+               "message": "Relação pessoa/turma criada com sucesso!"
+           }, status=status.HTTP_201_CREATED)
+
                 
