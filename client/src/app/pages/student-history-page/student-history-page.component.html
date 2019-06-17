@@ -25,8 +25,7 @@
         <div class="card">
           <span class=s1> <b> {{c.nomeCurso}} </b> </span>
           <div>
-              <b>Faltas: </b>
-              <span [ngStyle]="{'color': 'red'}">{{c.falta}}/{{c.totalFalta}}</span>
+              <b>Já faltou: <span [ngStyle]="{'color': 'red'}"> {{c.falta}} </span> de no máximo {{c.totalFalta}}</b>
           </div>
           </div>
       </a>

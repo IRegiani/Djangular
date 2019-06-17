@@ -7,6 +7,42 @@
   text-align: center;
 }
 
+.preAu{
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.btnsearch{
+  text-align: center;
+}
+
+#spanNomes{
+  position: absolute;
+
+}
+
+#presente{
+  margin-left: 100px!important;
+  margin-right: 10px!important;
+  background-color: green!important;
+  color: black!important;
+  text-align: center;
+}
+
+#ausente{
+  margin-left: 10px!important;
+  margin-right: 10px!important;
+  background-color: red!important;
+  color: black;
+  text-align: center;
+}
+
+.QRCode-class > img {
+  width: 200%;
+  height: 200%;
+}
+
 .nav{
   font-size: 30px;
   display: block;
@@ -74,7 +110,7 @@ h3{
   border-radius: .25rem;
   padding: .375rem .75rem;
   user-select: none;
-  text-align: center;
+  text-align: center!important;
 }
 
 .mr-3{

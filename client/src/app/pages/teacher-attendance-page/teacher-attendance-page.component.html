@@ -1,4 +1,3 @@
-
 <!-- COLOCAR OUTRA COISA... SOH FAZ SENTIDO BUSCAR ALUNO POR AULA... -->
 
 <nav class="nav">
@@ -21,62 +20,59 @@
   <div>
     <div *ngFor="let aula of aulasToday; let i = index">
 
-        <mat-accordion (click)="populateStudents(aula.id)">
-            <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+      <mat-accordion (click)="populateStudents(aula.id)">
+        <!-- <mat-expansion-panel (opened)="panelOpenState = true"
                                  (closed)="panelOpenState = false"> -->
-            <mat-expansion-panel [expanded]="expandCollapse(aula.id)">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Aula {{i + 1}}
-                </mat-panel-title>
-                <!-- <mat-panel-description>
+        <mat-expansion-panel [expanded]="expandCollapse(aula.id)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Aula {{i + 1}}
+            </mat-panel-title>
+            <!-- <mat-panel-description>
                   Currently I am {{panelOpenState ? 'open' : 'closed'}}
                 </mat-panel-description> -->
-              </mat-expansion-panel-header>
-              <!-- <p>{{aula/Assunto}}</p> -->
-              <span secondary>{{aula.Assunto}}</span>
+          </mat-expansion-panel-header>
+          <!-- <p>{{aula/Assunto}}</p> -->
+          <span secondary>{{aula.Assunto}}</span>
 
-                  <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                      <mat-panel-title> QR Code </mat-panel-title>
-                      <mat-panel-description> Primeira Presença </mat-panel-description>
-                    </mat-expansion-panel-header>
-                   
-                    <mat-form-field>
-                        <input id="presenca1" type="password" placeholder="Senha" matInput showHideInput (keyup)="onKey($event)">
-                      </mat-form-field>
-                      <button type="submit" (click)="passwordCheck(aula.id, true)">Revelar QR Code</button>
-                      <ngx-qrcode *ngIf="showQRA" [qrc-value]="qrCodeA"></ngx-qrcode>
-      
-                  </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> QR Code </mat-panel-title>
+              <mat-panel-description> Primeira Presença </mat-panel-description>
+            </mat-expansion-panel-header>
 
-                  <mat-expansion-panel>
-                      <mat-expansion-panel-header>
-                        <mat-panel-title> QR Code </mat-panel-title>
-                        <mat-panel-description> Segunda Presença </mat-panel-description>
-                      </mat-expansion-panel-header>
-                     
-                      <mat-form-field>
-                          <input id="presenca2" type="password" placeholder="Senha" matInput showHideInput (keyup)="onKey($event)">
-                        </mat-form-field>
-                        <button type="submit" (click)="passwordCheck(aula.id, false)">Revelar QR Code</button>
-                        <ngx-qrcode *ngIf="showQRB" [qrc-value]="qrCodeB"></ngx-qrcode>
-                    </mat-expansion-panel>
-                
-              <li *ngFor="let aluno of alunosDaAula; let j = index">
-                  <span><b>{{aluno.Pessoas.Name}}</b></span>
-                  <button class="presente" [ngStyle]="{'color': 'green'}" (click)="studentAttendendance(j, true)">Presente</button>
-                  <button class="ausente" [ngStyle]="{'color': 'red'}" (click)="studentAttendendance(j, false)">Ausente</button>
-                  <span><b>
-                    {{aluno.Contador}}/2
-                  </b></span>
-              </li>
+            <mat-form-field>
+              <input id="presenca1" type="password" placeholder="Senha" matInput showHideInput (keyup)="onKey($event)">
+            </mat-form-field>
+            <button type="submit" class="buttonSearch" (click)="passwordCheck(aula.id, true)">Revelar QR Code</button>
+            <ngx-qrcode *ngIf="showQRA" [qrc-value]="qrCodeA"></ngx-qrcode>
 
-              <button class="buttonSearch" (click)="goToAddStudent(aula.id)">Adicionar Aluno</button>
-            </mat-expansion-panel>
-          </mat-accordion>
+          </mat-expansion-panel>
 
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title> QR Code </mat-panel-title>
+              <mat-panel-description> Segunda Presença </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-form-field>
+              <input id="presenca2" type="password" placeholder="Senha" matInput showHideInput (keyup)="onKey($event)">
+            </mat-form-field>
+            <button type="submit" class="buttonSearch" (click)="passwordCheck(aula.id, false)">Revelar QR Code</button>
+            <ngx-qrcode qrc-class="QRCode-class" [qrc-element-type]="'img'" *ngIf="showQRB" [qrc-value]="qrCodeB"></ngx-qrcode>
+          </mat-expansion-panel>
+          <div *ngFor="let aluno of alunosDaAula; let j = index">
+            <div class="preAu">
+              <h3 id="spanNomes"><b>{{aluno.Pessoas.Name}}</b></h3>
+            <button class="buttonSearch" id="presente" (click)="studentAttendendance(j, true)">Presente</button>
+            <button class="buttonSearch" id="ausente" (click)="studentAttendendance(j, false)">Ausente</button>
+              <b> {{aluno.Contador}}/2 </b>
+            </div>
+            
+          </div>
+          <div class="btnsearch"><button class="buttonSearch" (click)="goToAddStudent(aula.id)">Adicionar Aluno</button></div>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
-
   </div>
 </body>

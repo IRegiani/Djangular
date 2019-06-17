@@ -17,7 +17,7 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {
 
-    //this.getAdmin();
+    this.getAdmin();
     // this.updateContadorUp();
   }
 
