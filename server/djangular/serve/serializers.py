@@ -31,11 +31,16 @@ class TurmaSerializer(serializers.ModelSerializer):
         model = Turma
         fields = '__all__'
 
+class TurmaAulaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Turma.Alunos.through
+        fields = '__all__'
+
 class GetTurmaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Turma
         fields = '__all__'
-        depth = 1
+        #depth = 1
 
 ## AULA SERIALIZER #################
 class AulaSerializer(serializers.ModelSerializer):

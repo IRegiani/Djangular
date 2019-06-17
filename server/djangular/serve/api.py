@@ -177,4 +177,13 @@ class UpdatePessoaTurmaAPI(generics.RetrieveDestroyAPIView):
                "message": "Relação pessoa/turma criada com sucesso!"
            }, status=status.HTTP_201_CREATED)
 
-                
+class newPessoaTurma(viewsets.ModelViewSet):
+    queryset = PessoaAula.objects.all()
+    serializer_class = TurmaAulaSerializer
+
+    def get_serializer_class(self):
+        method = self.request.method
+        if method == 'PUT' or method == 'POST':
+            return TurmaAulaSerializer
+        else:
+            return TurmaAulaSerializer

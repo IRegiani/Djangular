@@ -50,7 +50,8 @@ export class ManageClassesComponent implements OnInit {
 
   removeStudent(student, turma) {
     this.service.removeAlunoFromTurma(turma.id, student.id).subscribe((res) => {
-      if (res.status === 200 ) {
+      const {status } = res;
+      if (status === 200 ) {
         this.studentList = this.studentList.filter((value) => value.id !== student.id);
       }
     });

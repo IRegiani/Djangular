@@ -21,4 +21,5 @@ urlpatterns = [
  path('colaboradorTurma/', ColaboradorTurmaAPIALL.as_view()),
  url(r'^colaboradorTurma/(?P<idPessoa>.+)$', ColaboradorTurmaAPI.as_view()),
  url(r'^pessoaTurma/(?P<alunoId>.+)/(?P<turmaId>.+)$', UpdatePessoaTurmaAPI.as_view()),
+ url(r'^pessoaTurma2/$', newPessoaTurma.as_view({'post':'create', 'get':'list'})),
 ]

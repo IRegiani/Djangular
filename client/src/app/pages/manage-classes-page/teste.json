@@ -1,0 +1,42 @@
+{
+    "turma": {
+        "id": 1,
+        "Name": "Turma Teste 1",
+        "Place": "Campinas",
+        "Description": "Primeira turma pra teste",
+        "WeekDay": 4,
+        "StartTime": "20:56:43",
+        "EndTime": "00:00:00",
+        "Cursos": 1,
+        "Alunos": [
+            2,
+            3,
+            4
+        ],
+        "Aulas": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            11,
+            12,
+            13
+        ]
+    },
+    "aluno": {
+        "Ativo": true,
+        "Email": "rotiv@gmail.com",
+        "EndDate": "2019-06-13",
+        "Name": "Rotiv",
+        "Password": "abc123",
+        "Phone": "1932622407",
+        "StartDate": "2019-06-10",
+        "UserType": 0,
+        "id": 9
+    }
+}
