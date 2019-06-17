@@ -1,7 +1,7 @@
 <h1 mat-dialog-title> Escolha os alunos para adicionar</h1>
 <div>
   <mat-selection-list #students (selectionChange)="onSelection($event, students.selectedOptions.selected)">
-      <mat-list-option *ngFor="let student of data" [value] ="student">
+      <mat-list-option *ngFor="let student of data.students" [value] ="student">
         {{student.Name}}
       </mat-list-option>
    </mat-selection-list>

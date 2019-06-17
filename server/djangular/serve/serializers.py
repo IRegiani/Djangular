@@ -40,7 +40,7 @@ class GetTurmaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Turma
         fields = '__all__'
-        #depth = 1
+        depth = 1
 
 ## AULA SERIALIZER #################
 class AulaSerializer(serializers.ModelSerializer):

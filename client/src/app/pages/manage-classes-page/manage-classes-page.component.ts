@@ -68,13 +68,16 @@ export class ManageClassesComponent implements OnInit {
       const dialogRef = this.dialog.open(Dialog, {
         maxWidth: '290px',
         height: '500px',
-        data: allStudents,
+        data: {
+          students: allStudents,
+          turmaId: classId,
+        },
       });
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
         console.log('This All Students: ', allStudents);
-        // should get again
-        // this.getCursos();
+        this.getCursos();
+        this.expansionAux = -1;
       });
     });
   }

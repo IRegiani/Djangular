@@ -101,4 +101,9 @@ export class AuthService {
   removeAlunoFromTurma(turmaId, alunoId) {
     return this.http.delete(`${this.url}/pessoaTurma/${alunoId}/${turmaId}`, {...this.httpOptions, observe: 'response' });
   }
+
+  postNewAlunoInTurma(bodyObj) {
+    return this.http.post(`${this.url}/pessoaTurma2/`, bodyObj, this.httpOptions);
+  }
+
 }
